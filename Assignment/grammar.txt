@@ -1,0 +1,371 @@
+%{
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+%}
+
+%token  VAR
+%token  IDENT
+%token  ASSIGN
+%token  BOOL
+%token  NUM
+%token  ARRAY LSQBR RSQBR COMMA
+%token  STRING
+%token  MUL DIV MOD ADD SUB
+%token  LT LTEQ GT GTEQ EQ NEQ 
+%token  BITNOT SAL SAR BITAND BITXOR BITOR
+%token  NOT AND OR
+%token  FUNCTION LPAREN RPAREN
+%token  BEGIN END
+%token  IF THEN ELSE
+%token  WHILE DO
+%token  FOR TO
+%token  COMMENT
+%token  EOL
+
+// lagn specifig
+%token  BLOCK
+
+%%
+
+
+program                 :     statements EOL
+
+statements              :     statement (EOL statement)*
+
+statement               :     assignmentStatement     
+                        |     functionStatement
+                        |     compoundStatement
+                        |     conditionalStatement
+                        |     loopStatement
+                        |     emptyStatement
+
+assignmentStatement     :     IDENT ASSIGN expression 
+
+functionStatement       :     FUNCTION IDENT LPAREN actparams? RPAREN
+
+actparams               :     expression (COMMA expression)*
+
+compoundStatement       :     BEGIN statements END
+
+conditionalStatement    :     IF expression THEN statement (ELSE statement)*
+
+loopStatement           :     WHILE expression DO statement
+                        |     DO statement WHILE expression
+                        |     FOR VAR IDENT ASSIGN number TO number DO statement
+
+emptyStatement          :     /*empty*/
+
+variableDeclaration     :     VAR IDENT ASSIGN expression 
+
+functionDeclaration     :     FUNCTION IDENT LPAREN fargs? RPAREN compoundStatement 
+
+fargs                   :     IDENT (COMMA IDENT)*
+                        |
+                        |
+
+expression              :     IDENT
+                        |     arithExpression
+                        |     boolExpression
+                        |     relationalExpression
+                        |     bitExpression
+
+comment                 :     COMMENT .*?
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+grammar pascal;
+
+
+block
+   : (labelDeclarationPart | constantDefinitionPart | typeDefinitionPart | variableDeclarationPart | procedureAndFunctionDeclarationPart | usesUnitsPart | IMPLEMENTATION)* compoundStatement
+   ;
+
+unsignedNumber
+   : unsignedInteger
+   | unsignedReal
+   ;
+
+unsignedInteger
+   : NUM_INT
+   ;
+
+unsignedReal
+   : NUM_REAL
+   ;
+
+sign
+   : PLUS
+   | MINUS
+   ;
+
+bool_
+   : TRUE
+   | FALSE
+   ;
+
+string
+   : STRING_LITERAL
+   ;
+
+
+variableDeclarationPart
+   : VAR variableDeclaration (SEMI variableDeclaration)* SEMI
+   ;
+
+variableDeclaration
+   : identifierList COLON type_
+   ;
+
+procedureAndFunctionDeclarationPart
+   : procedureOrFunctionDeclaration SEMI
+   ;
+
+procedureOrFunctionDeclaration
+   : procedureDeclaration
+   | functionDeclaration
+   ;
+
+procedureDeclaration
+   : PROCEDURE identifier (formalParameterList)? SEMI block
+   ;
+
+formalParameterList
+   : LPAREN formalParameterSection (SEMI formalParameterSection)* RPAREN
+   ;
+
+formalParameterSection
+   : parameterGroup
+   | VAR parameterGroup
+   | FUNCTION parameterGroup
+   | PROCEDURE parameterGroup
+   ;
+
+parameterGroup
+   : identifierList COLON typeIdentifier
+   ;
+
+identifierList
+   : identifier (COMMA identifier)*
+   ;
+
+
+functionDeclaration
+   : FUNCTION identifier (formalParameterList)? COLON resultType SEMI block
+   ;
+
+
+statement
+   : label COLON unlabelledStatement
+   | unlabelledStatement
+   ;
+
+unlabelledStatement
+   : simpleStatement
+   | structuredStatement
+   ;
+
+simpleStatement
+   : assignmentStatement
+   | procedureStatement
+   | gotoStatement
+   | emptyStatement_
+   ;
+
+assignmentStatement
+   : variable ASSIGN expression
+   ;
+
+variable
+   : (AT identifier | identifier) (LBRACK expression (COMMA expression)* RBRACK | LBRACK2 expression (COMMA expression)* RBRACK2 | DOT identifier | POINTER)*
+   ;
+
+expression
+   : simpleExpression (relationaloperator expression)?
+   ;
+
+relationaloperator
+   : EQUAL
+   | NOT_EQUAL
+   | LT
+   | LE
+   | GE
+   | GT
+   | IN
+   ;
+
+simpleExpression
+   : term (additiveoperator simpleExpression)?
+   ;
+
+additiveoperator
+   : PLUS
+   | MINUS
+   | OR
+   ;
+
+term
+   : signedFactor (multiplicativeoperator term)?
+   ;
+
+multiplicativeoperator
+   : STAR
+   | SLASH
+   | DIV
+   | MOD
+   | AND
+   ;
+
+signedFactor
+   : (PLUS | MINUS)? factor
+   ;
+
+factor
+   : variable
+   | LPAREN expression RPAREN
+   | functionDesignator
+   | unsignedConstant
+   | set_
+   | NOT factor
+   | bool_
+   ;
+
+unsignedConstant
+   : unsignedNumber
+   | constantChr
+   | string
+   | NIL
+   ;
+
+functionDesignator
+   : identifier LPAREN parameterList RPAREN
+   ;
+
+parameterList
+   : actualParameter (COMMA actualParameter)*
+   ;
+
+set_
+   : LBRACK elementList RBRACK
+   | LBRACK2 elementList RBRACK2
+   ;
+
+elementList
+   : element (COMMA element)*
+   |
+   ;
+
+element
+   : expression (DOTDOT expression)?
+   ;
+
+procedureStatement
+   : identifier (LPAREN parameterList RPAREN)?
+   ;
+
+actualParameter
+   : expression parameterwidth*
+   ;
+
+parameterwidth
+   : ':' expression
+   ;
+
+emptyStatement_
+   :
+   ;
+
+empty_
+   :
+   /* empty */
+   ;
+
+structuredStatement
+   : compoundStatement
+   | conditionalStatement
+   | repetetiveStatement
+   | withStatement
+   ;
+
+compoundStatement
+   : BEGIN statements END
+   ;
+
+statements
+   : statement (SEMI statement)*
+   ;
+
+conditionalStatement
+   : ifStatement
+   ;
+
+ifStatement
+   : IF expression THEN statement (: ELSE statement)?
+   ;
+
+repetetiveStatement
+   : whileStatement
+   | forStatement
+   ;
+
+whileStatement
+   : WHILE expression DO statement
+   ;
+
+forStatement
+   : FOR identifier ASSIGN forList DO statement
+   ;
+
+forList
+   : initialValue (TO | DOWNTO) finalValue
+   ;
+
+initialValue
+   : expression
+   ;
+
+finalValue
+   : expression
+   ;
+
+
+WS
+   : [ \t\r\n] -> skip
+   ;
+
+
+COMMENT_1
+   : '(*' .*? '*)' -> skip
+   ;
+
+
+COMMENT_2
+   : '{' .*? '}' -> skip
+   ;
+
+
+IDENT
+   : ('a' .. 'z' | 'A' .. 'Z') ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_')*
+   ;
+
+
+STRING_LITERAL
+   : '\'' ('\'\'' | ~ ('\''))* '\''
+   ;
+
+
+NUM_INT
+   : ('0' .. '9') +
+   ;
+
+
+NUM_REAL
+   : ('0' .. '9') + (('.' ('0' .. '9') + (EXPONENT)?)? | EXPONENT)
+   ;
+
+
+fragment EXPONENT
+   : ('e') ('+' | '-')? ('0' .. '9') +
+   ;
