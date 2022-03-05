@@ -1,0 +1,71 @@
+// single line comment
+/*
+  multi line comments
+*/
+
+
+// var declaration
+
+var name := True;
+var name := 42;
+var name := "string";
+var name := [];
+
+// var assignment
+
+name := value;
+
+// operators
+
+// arithmetic
+val1 * val2;
+val1 / val2;
+val1 % val2;
+val1 + val2;
+val1 - val2;
+
+// relational
+val1 < val2;
+val1 >= val2;
+val1 <= val2;
+val1 > val2;
+val1 == val2;
+val1 != val2;
+
+// bitwise
+~val1;
+val1 << val2;
+val1 >> val2;
+val1 & val2;
+val1 ^ val2;
+val1 | val2;
+
+// boolean
+not
+and
+or
+
+// function declaration
+
+function fname(arg1, arg2) begin
+  
+end
+
+// function call
+
+fname(val1, val2);
+
+// conditionals
+
+if <expr> then <stmt>;
+if <expr> then <stmt> else <stmt>;
+if <expr> then <stmt> else if <expr> then <stmt>;
+
+// loops
+
+while <expr> do <stmt>;
+
+do <stmt> while <expr>;
+
+for i := 0 to 10 do <stmt>;
+
