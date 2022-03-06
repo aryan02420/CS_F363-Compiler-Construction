@@ -23,7 +23,7 @@
 %token  COMMENT
 %token  EOL
 
-// lagn specifig
+// lang specific
 %token  BLOCK
 
 %%

@@ -1,0 +1,53 @@
+** MIDSEM Specific Doubts **
+----------------------------
+1. Here is a photo of <B>my house</B>:
+   <P><IMG SRC = "house.gif"><BR>
+   See <A HREF = "morePix.html">More Pictures</A> if you liked that one.<P>
+
+into appropriate lexemes. Which lexemes should get associated lexical values,
+and what should those values be?
+2. 
+
+
+** Doubts **
+------------
+1. Do the functions in our language not have any type defined because our backend is python?
+2. 
+
+
+** Clarifications **
+--------------------
+1. '?' represents 0 or 1 occurences. This is used after "actparams" and "fargs" in the grammar.
+2. '?' represent un-greedy nature, i.e. fit the smallest possible lexeme. This is used in the grammar 
+   definition of comment as you don't want it to read the whole code as a comment after the "//" pattern
+   is detected.
+3. '+' represents 1 or more occurences.
+4. '*' represents 0 or more occurences.
+
+
+** Ideas **
+-----------
+1. arg list on the grammar side for better parsing (if we are implementing parsing on our own).
+
+
+** Imp points from dragon book **
+---------------------------------
+1. We are using parser generator and scanner generator.
+2. Should we use data-flow analysis engines?
+3. Scanning - Handling of comments, whitespaces, etc.
+   Lexical Analysis - producing tokens from outputs of a scanner.
+   Both put together make a lexer.
+4. Input device level specific peculiarities can be restricted to the lexical layer.
+5. token - pair of token name and optional attribute value.
+6. The simplest recovery strategy is "panic mode" recovery. We delete successive characters from 
+   the remaining input, until the lexical analyzer can find a well-formed token at the beginning 
+   of what input is left. This recovery technique may confuse the parser, but in an interactive 
+   computing environment it may be quite adequate.
+   Other possible error-recovery actions are:
+
+     1. Delete one character from the remaining input.
+     2. Insert a missing character into the remaining input.
+     3. Replace a character by another character.
+     4. Transpose two adjacent characters.
+
+7. 
