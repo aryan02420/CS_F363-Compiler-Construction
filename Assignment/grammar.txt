@@ -1,3 +1,5 @@
+// generate diagrams https://bottlecaps.de/rr/ui
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,90 +31,90 @@
 %%
 
 
-program                 :     statements EOL
+program                 ::=     statements EOL
 
-statements              :     statement (EOL statement)*
+statements              ::=     statement (EOL statement)*
 
-statement               :     assignmentStatement     
+statement               ::=     assignmentStatement     
                         |     functionStatement
                         |     compoundStatement
                         |     conditionalStatement
                         |     loopStatement
                         |     emptyStatement
 
-assignmentStatement     :     IDENT ASSIGN expression 
+assignmentStatement     ::=     IDENT ASSIGN expression 
 
-functionStatement       :     FUNCTION IDENT LPAREN actparams? RPAREN
+functionStatement       ::=     FUNCTION IDENT LPAREN actparams? RPAREN
 
-actparams               :     expression (COMMA expression)*
+actparams               ::=     expression (COMMA expression)*
 
-compoundStatement       :     BEGIN statements END
+compoundStatement       ::=     BEGIN statements END
 
-conditionalStatement    :     IF expression THEN statement (ELSE statement)*
+conditionalStatement    ::=     IF expression THEN statement (ELSE statement)*
 
-loopStatement           :     WHILE expression DO statement
+loopStatement           ::=     WHILE expression DO statement
                         |     DO statement WHILE expression
                         |     FOR IDENT ASSIGN number TO number DO statement
 
-emptyStatement          :     /*empty*/
+emptyStatement          ::=     /*empty*/
 
-variableDeclaration     :     VAR IDENT ASSIGN expression 
+variableDeclaration     ::=     VAR IDENT ASSIGN expression 
 
-functionDeclaration     :     FUNCTION IDENT LPAREN fargs? RPAREN compoundStatement 
+functionDeclaration     ::=     FUNCTION IDENT LPAREN fargs? RPAREN compoundStatement 
 
-fargs                   :     IDENT (COMMA IDENT)*
+fargs                   ::=     IDENT (COMMA IDENT)*
 
-expression              :     IDENT
+expression              ::=     IDENT
                         |     arithExpression
                         |     boolExpression
                         |     relationalExpression
                         |     bitExpression
 
-comment                 :     COMMENT .*?
+comment                 ::=     COMMENT .*?
 
-boolExpression          :     andop 
+boolExpression          ::=     andop 
                         |     expression OR andop
 
-andop                   :     bitExpression
+andop                   ::=     bitExpression
                         |     andop AND bitExpression
 
-bitExpression           :     bitxorop
+bitExpression           ::=     bitxorop
                         |     bitExpression BITOR bitxorop
 
-bitxorop                :     bitandop
+bitxorop                ::=     bitandop
                         |     bitxorop BITXOR bitandop
 
-bitandop                :     relationalExpression
+bitandop                ::=     relationalExpression
                         |     bitandop BITAND relationalExpression
 
-relationalExpression    :     cmpop
+relationalExpression    ::=     cmpop
                         |     relationalExpression EQ cmpop
                         |     relationalExpression NEQ cmpop
 
-cmpop                   :     shiftop
+cmpop                   ::=     shiftop
                         |     cmpop LT shiftop  
                         |     cmpop LTEQ shiftop  
                         |     cmpop GT shiftop  
                         |     cmpop GTEQ shiftop
 
-shiftop                 :     addop
+shiftop                 ::=     addop
                         |     shiftop SAR addop
                         |     shiftop SAL addop
                   
-addop                   :     mulop
+addop                   ::=     mulop
                         |     addop ADD mulop
                         |     addop SUB mulop    
                   
-mulop                   :     term
+mulop                   ::=     term
                         |     mulop MUL unary
                         |     mulop DIV unary
                         |     mulop MOD unary
 
-unary                   :     term
+unary                   ::=     term
                         |     NOT term
                         |     BITNOT term
                   
-term                    :     NUM
+term                    ::=     NUM
                         |     BOOL
                         |     LPAREN expression RPAREN
 
@@ -124,49 +126,49 @@ grammar pascal;
 
 
 block
-   : (labelDeclarationPart | constantDefinitionPart | typeDefinitionPart | variableDeclarationPart | procedureAndFunctionDeclarationPart | usesUnitsPart | IMPLEMENTATION)* compoundStatement
+   ::= (labelDeclarationPart | constantDefinitionPart | typeDefinitionPart | variableDeclarationPart | procedureAndFunctionDeclarationPart | usesUnitsPart | IMPLEMENTATION)* compoundStatement
    ;
 
 unsignedNumber
-   : unsignedInteger
+   ::= unsignedInteger
    | unsignedReal
    ;
 
 unsignedInteger
-   : NUM_INT
+   ::= NUM_INT
    ;
 
 unsignedReal
-   : NUM_REAL
+   ::= NUM_REAL
    ;
 
 
 formalParameterSection
-   : parameterGroup
+   ::= parameterGroup
    | VAR parameterGroup
    | FUNCTION parameterGroup
    | PROCEDURE parameterGroup
    ;
 
 parameterGroup
-   : identifierList COLON typeIdentifier
+   ::= identifierList COLON typeIdentifier
    ;
 
 identifierList
-   : identifier (COMMA identifier)*
+   ::= identifier (COMMA identifier)*
    ;
 
 
 variable
-   : (AT identifier | identifier) (LBRACK expression (COMMA expression)* RBRACK | LBRACK2 expression (COMMA expression)* RBRACK2 | DOT identifier | POINTER)*
+   ::= (AT identifier | identifier) (LBRACK expression (COMMA expression)* RBRACK | LBRACK2 expression (COMMA expression)* RBRACK2 | DOT identifier | POINTER)*
    ;
 
 expression
-   : simpleExpression (relationaloperator expression)?
+   ::= simpleExpression (relationaloperator expression)?
    ;
 
 relationaloperator
-   : EQUAL
+   ::= EQUAL
    | NOT_EQUAL
    | LT
    | LE
@@ -176,28 +178,28 @@ relationaloperator
    ;
 
 simpleExpression
-   : term (additiveoperator simpleExpression)?
+   ::= term (additiveoperator simpleExpression)?
    ;
 
 additiveoperator
-   : PLUS
+   ::= PLUS
    | MINUS
    | OR
    ;
 
 term
-   : factor (multiplicativeoperator term)?
+   ::= factor (multiplicativeoperator term)?
    ;
 
 multiplicativeoperator
-   : MUL
+   ::= MUL
    | DIV
    | MOD
    | AND
    ;
 
 factor
-   : variable
+   ::= variable
    | LPAREN expression RPAREN
    | functionDesignator
    | unsignedConstant
@@ -207,7 +209,7 @@ factor
    ;
 
 unsignedConstant
-   : unsignedNumber
+   ::= unsignedNumber
    | constantChr
    | string
    | NIL
@@ -215,40 +217,40 @@ unsignedConstant
 
 
 WS
-   : [ \t\r\n] -> skip
+   ::= [ \t\r\n] -> skip
    ;
 
 
 COMMENT_1
-   : '(*' .*? '*)' -> skip
+   ::= '(*' .*? '*)' -> skip
    ;
 
 
 COMMENT_2
-   : '{' .*? '}' -> skip
+   ::= '{' .*? '}' -> skip
    ;
 
 
 IDENT
-   : ('a' .. 'z' | 'A' .. 'Z') ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_')*
+   ::= ('a' .. 'z' | 'A' .. 'Z') ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_')*
    ;
 
 
 STRING_LITERAL
-   : '\'' ('\'\'' | ~ ('\''))* '\''
+   ::= '\'' ('\'\'' | ~ ('\''))* '\''
    ;
 
 
 NUM_INT
-   : ('0' .. '9') +
+   ::= ('0' .. '9') +
    ;
 
 
 NUM_REAL
-   : ('0' .. '9') + (('.' ('0' .. '9') + (EXPONENT)?)? | EXPONENT)
+   ::= ('0' .. '9') + (('.' ('0' .. '9') + (EXPONENT)?)? | EXPONENT)
    ;
 
 
 fragment EXPONENT
-   : ('e') ('+' | '-')? ('0' .. '9') +
+   ::= ('e') ('+' | '-')? ('0' .. '9') +
    ;
