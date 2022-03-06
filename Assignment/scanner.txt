@@ -42,16 +42,11 @@
 "else"                  { return ELSE;     }
 "while"                 { return WHILE;    }
 "do"                    { return DO;       }
+"for"                   { return FOR;      }
+"to"                    { return TO;       }
+\n                      { return EOL;      }
 
-
-\n                      { return EOL; }
 "//".*                  { /* ignore comments */ }
 [\s]                    { /* ignore white space */ }
-.	                      { yyerror("Mystery character %c\n", *yytext); }
+.	                    { yyerror("Mystery character %c\n", *yytext); }
 %%
-
-
-%token  WHILE DO
-%token  FOR TO
-%token  COMMENT
-%token  EOL
