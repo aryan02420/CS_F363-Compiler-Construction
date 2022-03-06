@@ -1,0 +1,402 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+      
+      <meta name="generator" content="Railroad Diagram Generator 1.63">
+      
+      <style type="text/css">
+    ::-moz-selection
+    {
+      color: #F8FAFD;
+      background: #050A15;
+    }
+    ::selection
+    {
+      color: #F8FAFD;
+      background: #050A15;
+    }
+    .ebnf a, .grammar a
+    {
+      text-decoration: none;
+    }
+    .ebnf a:hover, .grammar a:hover
+    {
+      color: #03060D;
+      text-decoration: underline;
+    }
+    .signature
+    {
+      color: #1B376F;
+      font-size: 11px;
+      text-align: right;
+    }
+    body
+    {
+      font: normal 12px Verdana, sans-serif;
+      color: #050A15;
+      background: #F8FAFD;
+    }
+    a:link, a:visited
+    {
+      color: #050A15;
+    }
+    a:link.signature, a:visited.signature
+    {
+      color: #1B376F;
+    }
+    a.button, #tabs li a
+    {
+      padding: 0.25em 0.5em;
+      border: 1px solid #1B376F;
+      background: #D3DBEA;
+      color: #1B376F;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a.button:hover, #tabs li a:hover
+    {
+      color: #03060D;
+      background: #DFE7F7;
+      border-color: #03060D;
+    }
+    #tabs
+    {
+      padding: 3px 10px;
+      margin-left: 0;
+      margin-top: 58px;
+      border-bottom: 1px solid #050A15;
+    }
+    #tabs li
+    {
+      list-style: none;
+      margin-left: 5px;
+      display: inline;
+    }
+    #tabs li a
+    {
+      border-bottom: 1px solid #050A15;
+    }
+    #tabs li a.active
+    {
+      color: #050A15;
+      background: #F8FAFD;
+      border-color: #050A15;
+      border-bottom: 1px solid #F8FAFD;
+      outline: none;
+    }
+    #divs div
+    {
+      display: none;
+      overflow:auto;
+    }
+    #divs div.active
+    {
+      display: block;
+    }
+    #text
+    {
+      border-color: #1B376F;
+      background: #FFFFFF;
+      color: #03060D;
+    }
+    .small
+    {
+      vertical-align: top;
+      text-align: right;
+      font-size: 9px;
+      font-weight: normal;
+      line-height: 120%;
+    }
+    td.small
+    {
+      padding-top: 0px;
+    }
+    .hidden
+    {
+      visibility: hidden;
+    }
+    td:hover .hidden
+    {
+      visibility: visible;
+    }
+    div.download
+    {
+      display: none;
+      background: #F8FAFD;
+      position: absolute;
+      right: 34px;
+      top: 94px;
+      padding: 10px;
+      border: 1px dotted #050A15;
+    }
+    #divs div.ebnf, .ebnf code
+    {
+      display: block;
+      padding: 10px;
+      background: #DFE7F7;
+      width: 992px;
+    }
+    #divs div.grammar
+    {
+      display: block;
+      padding-left: 16px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      background: #DFE7F7;
+    }
+    pre
+    {
+      margin: 0px;
+    }
+    .ebnf div
+    {
+      padding-left: 13ch;
+      text-indent: -13ch;
+    }
+    .ebnf code, .grammar code, textarea, pre
+    {
+      font:12px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+    }
+    tr.option-line td:first-child
+    {
+      text-align: right
+    }
+    tr.option-text td
+    {
+      padding-bottom: 10px
+    }
+    table.palette
+    {
+      border-top: 1px solid #03060D;
+      border-right: 1px solid #03060D;
+      margin-bottom: 4px
+    }
+    td.palette
+    {
+      border-bottom: 1px solid #03060D;
+      border-left: 1px solid #03060D;
+    }
+    a.palette
+    {
+      padding: 2px 3px 2px 10px;
+      text-decoration: none;
+    }
+    .palette
+    {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      -ms-user-select: none;
+    }
+  </style>
+   </head>
+   
+   <body class="vsc-initialized">
+      
+      <p style="font-size: 14px; font-weight:bold"><a name="VAR">VAR:</a></p><img border="0" src="diagram/VAR.png" height="37" width="181"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#VAR" title="VAR">VAR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'v' 'a' 'r'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="IDENT">IDENT:</a></p><img border="0" src="diagram/IDENT.png" height="247" width="283"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#IDENT" title="IDENT">IDENT</a>&nbsp;&nbsp;&nbsp;&nbsp;::= [a-zA-Z] [a-zA-Z0-9_]*</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="ASSIGN">ASSIGN:</a></p><img border="0" src="diagram/ASSIGN.png" height="37" width="133"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#ASSIGN" title="ASSIGN">ASSIGN</a>&nbsp;&nbsp;&nbsp;::= ':' '='</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="BOOL">BOOL:</a></p><img border="0" src="diagram/BOOL.png" height="169" width="349"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#BOOL" title="BOOL">BOOL</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '0'</div>
+               
+               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| '1'</div>
+               
+               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ( 't' 'r' 'u' | 'f' 'a' 'l' 's' ) 'e'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="NUM">NUM:</a></p><img border="0" src="diagram/NUM.png" height="53" width="161"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#NUM" title="NUM">NUM</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= [0-9]+</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="STRING">STRING:</a></p><img border="0" src="diagram/STRING.png" height="151" width="327"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#STRING" title="STRING">STRING</a>&nbsp;&nbsp;&nbsp;::= '"' [^"]* '"'</div>
+               
+               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| "'" [^']* "'"</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="LTEQ">LTEQ:</a></p><img border="0" src="diagram/LTEQ.png" height="37" width="139"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#LTEQ" title="LTEQ">LTEQ</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '&lt;' '='</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="GTEQ">GTEQ:</a></p><img border="0" src="diagram/GTEQ.png" height="37" width="139"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#GTEQ" title="GTEQ">GTEQ</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '&gt;' '='</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="EQ">EQ:</a></p><img border="0" src="diagram/EQ.png" height="37" width="139"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#EQ" title="EQ">EQ</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '=' '='</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="NEQ">NEQ:</a></p><img border="0" src="diagram/NEQ.png" height="37" width="133"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#NEQ" title="NEQ">NEQ</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '!' '='</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="SAL">SAL:</a></p><img border="0" src="diagram/SAL.png" height="37" width="139"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#SAL" title="SAL">SAL</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '&lt;' '&lt;'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="SAR">SAR:</a></p><img border="0" src="diagram/SAR.png" height="37" width="139"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#SAR" title="SAR">SAR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '&gt;' '&gt;'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="NOT">NOT:</a></p><img border="0" src="diagram/NOT.png" height="37" width="179"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#NOT" title="NOT">NOT</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'n' 'o' 't'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="AND">AND:</a></p><img border="0" src="diagram/AND.png" height="37" width="183"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#AND" title="AND">AND</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'a' 'n' 'd'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="OR">OR:</a></p><img border="0" src="diagram/OR.png" height="37" width="133"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#OR" title="OR">OR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'o' 'r'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="FUNCTION">FUNCTION:</a></p><img border="0" src="diagram/FUNCTION.png" height="37" width="409"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#FUNCTION" title="FUNCTION">FUNCTION</a>&nbsp;::= 'f' 'u' 'n' 'c' 't' 'i' 'o' 'n'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="BEGIN">BEGIN:</a></p><img border="0" src="diagram/BEGIN.png" height="37" width="275"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#BEGIN" title="BEGIN">BEGIN</a>&nbsp;&nbsp;&nbsp;&nbsp;::= 'b' 'e' 'g' 'i' 'n'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="END">END:</a></p><img border="0" src="diagram/END.png" height="37" width="183"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#END" title="END">END</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'e' 'n' 'd'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="IF">IF:</a></p><img border="0" src="diagram/IF.png" height="37" width="127"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#IF" title="IF">IF</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'i' 'f'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="THEN">THEN:</a></p><img border="0" src="diagram/THEN.png" height="37" width="227"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#THEN" title="THEN">THEN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 't' 'h' 'e' 'n'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="ELSE">ELSE:</a></p><img border="0" src="diagram/ELSE.png" height="37" width="225"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#ELSE" title="ELSE">ELSE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'e' 'l' 's' 'e'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="WHILE">WHILE:</a></p><img border="0" src="diagram/WHILE.png" height="37" width="275"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#WHILE" title="WHILE">WHILE</a>&nbsp;&nbsp;&nbsp;&nbsp;::= 'w' 'h' 'i' 'l' 'e'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="DO">DO:</a></p><img border="0" src="diagram/DO.png" height="37" width="135"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#DO" title="DO">DO</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'd' 'o'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="FOR">FOR:</a></p><img border="0" src="diagram/FOR.png" height="37" width="177"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#FOR" title="FOR">FOR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 'f' 'o' 'r'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="TO">TO:</a></p><img border="0" src="diagram/TO.png" height="37" width="131"><p>
+         
+         <div class="ebnf"><code>
+               
+               <div><a href="#TO" title="TO">TO</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= 't' 'o'</div></code></div>
+         </p>
+      
+      <p>no references</p><br><hr>
+      
+      <p>
+         
+         <table border="0" class="signature">
+            
+            <tr>
+               
+               <td style="width: 100%">&nbsp;</td>
+               
+               <td valign="top">
+                  
+                  <nobr class="signature">... generated by <a name="Railroad-Diagram-Generator" class="signature" title="https://bottlecaps.de/rr/ui" href="https://bottlecaps.de/rr/ui" target="_blank">RR - Railroad Diagram Generator</a></nobr>
+                  </td>
+               
+               <td><a name="Railroad-Diagram-Generator" title="https://bottlecaps.de/rr/ui" href="https://bottlecaps.de/rr/ui" target="_blank"><img border="0" src="diagram/Railroad-Diagram-Generator.png" height="16" width="16"></a></td>
+               </tr>
+            </table>
+         </p>
+      </body>
+   </html>

@@ -50,3 +50,51 @@
 [\s]                    { /* ignore white space */ }
 .	                    { yyerror("Mystery character %c\n", *yytext); }
 %%
+
+
+
+// same as above but syntax is changed to work with https://bottlecaps.de/rr/ui
+
+
+VAR                 ::=                "v" "a" "r"
+IDENT               ::=                [a-zA-Z][a-zA-Z0-9_]*
+ASSIGN              ::=                ":" "="
+BOOL                ::=                "0"|"1"|"t" "r" "u" "e"|"f" "a" "l" "s" "e"
+NUM                 ::=                [0-9]+
+LSQBR               ::=                "["
+RSQBR               ::=                "]"
+COMMA               ::=                ","
+STRING              ::=                '"' [^"]* '"' | "'" [^']* "'"
+MUL                 ::=                "*"
+DIV                 ::=                "/"
+MOD                 ::=                "%"
+ADD                 ::=                "+"
+SUB                 ::=                "-"
+LT                  ::=                "<"
+LTEQ                ::=                "<" "="
+GT                  ::=                ">" 
+GTEQ                ::=                ">" "="
+EQ                  ::=                "=" "="
+NEQ                 ::=                "!" "="
+BITNOT              ::=                "~"
+SAL                 ::=                "<" "<"
+SAR                 ::=                ">" ">"
+BITAND              ::=                "&"
+BITXOR              ::=                "^"
+BITOR               ::=                "|"
+NOT                 ::=                "n" "o" "t"
+AND                 ::=                "a" "n" "d"
+OR                  ::=                "o" "r"
+FUNCTION            ::=                "f" "u" "n" "c" "t" "i" "o" "n"
+LPAREN              ::=                "("
+RPAREN              ::=                ")"
+BEGIN               ::=                "b" "e" "g" "i" "n"
+END                 ::=                "e" "n" "d"
+IF                  ::=                "i" "f"
+THEN                ::=                "t" "h" "e" "n"
+ELSE                ::=                "e" "l" "s" "e"
+WHILE               ::=                "w" "h" "i" "l" "e"
+DO                  ::=                "d" "o"
+FOR                 ::=                "f" "o" "r"
+TO                  ::=                "t" "o"
+EOL                 ::=                ";"
