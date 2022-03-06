@@ -52,7 +52,7 @@ conditionalStatement    :     IF expression THEN statement (ELSE statement)*
 
 loopStatement           :     WHILE expression DO statement
                         |     DO statement WHILE expression
-                        |     FOR VAR IDENT ASSIGN number TO number DO statement
+                        |     FOR IDENT ASSIGN number TO number DO statement
 
 emptyStatement          :     /*empty*/
 
@@ -61,8 +61,6 @@ variableDeclaration     :     VAR IDENT ASSIGN expression
 functionDeclaration     :     FUNCTION IDENT LPAREN fargs? RPAREN compoundStatement 
 
 fargs                   :     IDENT (COMMA IDENT)*
-                        |
-                        |
 
 expression              :     IDENT
                         |     arithExpression
@@ -71,6 +69,52 @@ expression              :     IDENT
                         |     bitExpression
 
 comment                 :     COMMENT .*?
+
+boolExpression          :     andop 
+                        |     expression OR andop
+
+andop                   :     bitExpression
+                        |     andop AND bitExpression
+
+bitExpression           :     bitxorop
+                        |     bitExpression BITOR bitxorop
+
+bitxorop                :     bitandop
+                        |     bitxorop BITXOR bitandop
+
+bitandop                :     relationalExpression
+                        |     bitandop BITAND relationalExpression
+
+relationalExpression    :     cmpop
+                        |     relationalExpression EQ cmpop
+                        |     relationalExpression NEQ cmpop
+
+cmpop                   :     shiftop
+                        |     cmpop LT shiftop  
+                        |     cmpop LTEQ shiftop  
+                        |     cmpop GT shiftop  
+                        |     cmpop GTEQ shiftop
+
+shiftop                 :     addop
+                        |     shiftop SAR addop
+                        |     shiftop SAL addop
+                  
+addop                   :     mulop
+                        |     addop ADD mulop
+                        |     addop SUB mulop    
+                  
+mulop                   :     term
+                        |     mulop MUL unary
+                        |     mulop DIV unary
+                        |     mulop MOD unary
+
+unary                   :     term
+                        |     NOT term
+                        |     BITNOT term
+                  
+term                    :     NUM
+                        |     BOOL
+                        |     LPAREN expression RPAREN
 
 
 
@@ -96,45 +140,6 @@ unsignedReal
    : NUM_REAL
    ;
 
-sign
-   : PLUS
-   | MINUS
-   ;
-
-bool_
-   : TRUE
-   | FALSE
-   ;
-
-string
-   : STRING_LITERAL
-   ;
-
-
-variableDeclarationPart
-   : VAR variableDeclaration (SEMI variableDeclaration)* SEMI
-   ;
-
-variableDeclaration
-   : identifierList COLON type_
-   ;
-
-procedureAndFunctionDeclarationPart
-   : procedureOrFunctionDeclaration SEMI
-   ;
-
-procedureOrFunctionDeclaration
-   : procedureDeclaration
-   | functionDeclaration
-   ;
-
-procedureDeclaration
-   : PROCEDURE identifier (formalParameterList)? SEMI block
-   ;
-
-formalParameterList
-   : LPAREN formalParameterSection (SEMI formalParameterSection)* RPAREN
-   ;
 
 formalParameterSection
    : parameterGroup
@@ -151,32 +156,6 @@ identifierList
    : identifier (COMMA identifier)*
    ;
 
-
-functionDeclaration
-   : FUNCTION identifier (formalParameterList)? COLON resultType SEMI block
-   ;
-
-
-statement
-   : label COLON unlabelledStatement
-   | unlabelledStatement
-   ;
-
-unlabelledStatement
-   : simpleStatement
-   | structuredStatement
-   ;
-
-simpleStatement
-   : assignmentStatement
-   | procedureStatement
-   | gotoStatement
-   | emptyStatement_
-   ;
-
-assignmentStatement
-   : variable ASSIGN expression
-   ;
 
 variable
    : (AT identifier | identifier) (LBRACK expression (COMMA expression)* RBRACK | LBRACK2 expression (COMMA expression)* RBRACK2 | DOT identifier | POINTER)*
@@ -207,19 +186,14 @@ additiveoperator
    ;
 
 term
-   : signedFactor (multiplicativeoperator term)?
+   : factor (multiplicativeoperator term)?
    ;
 
 multiplicativeoperator
-   : STAR
-   | SLASH
+   : MUL
    | DIV
    | MOD
    | AND
-   ;
-
-signedFactor
-   : (PLUS | MINUS)? factor
    ;
 
 factor
@@ -237,97 +211,6 @@ unsignedConstant
    | constantChr
    | string
    | NIL
-   ;
-
-functionDesignator
-   : identifier LPAREN parameterList RPAREN
-   ;
-
-parameterList
-   : actualParameter (COMMA actualParameter)*
-   ;
-
-set_
-   : LBRACK elementList RBRACK
-   | LBRACK2 elementList RBRACK2
-   ;
-
-elementList
-   : element (COMMA element)*
-   |
-   ;
-
-element
-   : expression (DOTDOT expression)?
-   ;
-
-procedureStatement
-   : identifier (LPAREN parameterList RPAREN)?
-   ;
-
-actualParameter
-   : expression parameterwidth*
-   ;
-
-parameterwidth
-   : ':' expression
-   ;
-
-emptyStatement_
-   :
-   ;
-
-empty_
-   :
-   /* empty */
-   ;
-
-structuredStatement
-   : compoundStatement
-   | conditionalStatement
-   | repetetiveStatement
-   | withStatement
-   ;
-
-compoundStatement
-   : BEGIN statements END
-   ;
-
-statements
-   : statement (SEMI statement)*
-   ;
-
-conditionalStatement
-   : ifStatement
-   ;
-
-ifStatement
-   : IF expression THEN statement (: ELSE statement)?
-   ;
-
-repetetiveStatement
-   : whileStatement
-   | forStatement
-   ;
-
-whileStatement
-   : WHILE expression DO statement
-   ;
-
-forStatement
-   : FOR identifier ASSIGN forList DO statement
-   ;
-
-forList
-   : initialValue (TO | DOWNTO) finalValue
-   ;
-
-initialValue
-   : expression
-   ;
-
-finalValue
-   : expression
    ;
 
 

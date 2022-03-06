@@ -23,6 +23,9 @@ and what should those values be?
    is detected.
 3. '+' represents 1 or more occurences.
 4. '*' represents 0 or more occurences.
+5. We do not require explicit type declaration for var in for loop as we have python in backend.
+6. We do not require explicit type declaration for args in function declaration for same reason in 5.
+7. 
 
 
 ** Ideas **
