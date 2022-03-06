@@ -1,0 +1,57 @@
+%{
+#include "arith.tab.h"
+%}
+
+%%
+"var"                   { return VAR;      }
+[a-zA-Z][a-zA-Z0-9_]*   { return IDENT;    }
+":="                    { return ASSIGN;   }
+"0"|"1"|"true"|"false"  { return BOOL;     }
+[0-9]+	                { return NUM;      }
+"["                     { return LSQBR;    }
+"]"                     { return RSQBR;    }
+","                     { return COMMA;    }
+\".*\" | \'.*\'         { return STRING;   }
+"*"	                    { return MUL;      }
+"/"	                    { return DIV;      }
+"%"	                    { return MOD;      }
+"+"	                    { return ADD;      }
+"-"	                    { return SUB;      }
+"<"	                    { return LT;       }
+"<="                    { return LTEQ;     }
+">"	                    { return GT;       }
+">="                    { return GTEQ;     }
+"=="                    { return EQ;       }
+"!="                    { return NEQ;      }
+"~"                     { return BITNOT;   }
+"<<"                    { return SAL;      }
+">>"                    { return SAR;      }
+"&"                     { return BITAND;   }
+"^"                     { return BITXOR;   }
+"|"                     { return BITOR;    }
+"not"                   { return NOT;      }
+"and"                   { return AND;      }
+"or"                    { return OR;       }
+"function"              { return FUNCTION; }
+"("                     { return LPAREN;   }
+")"                     { return RPAREN;   }
+"begin"                 { return BEGIN;    }
+"end"                   { return END;      }
+"if"                    { return IF;       }
+"then"                  { return THEN;     }
+"else"                  { return ELSE;     }
+"while"                 { return WHILE;    }
+"do"                    { return DO;       }
+
+
+\n                      { return EOL; }
+"//".*                  { /* ignore comments */ }
+[\s]                    { /* ignore white space */ }
+.	                      { yyerror("Mystery character %c\n", *yytext); }
+%%
+
+
+%token  WHILE DO
+%token  FOR TO
+%token  COMMENT
+%token  EOL
