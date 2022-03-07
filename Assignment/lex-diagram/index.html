@@ -219,15 +219,11 @@
                <div><a href="#ASSIGN" title="ASSIGN">ASSIGN</a>&nbsp;&nbsp;&nbsp;::= ':' '='</div></code></div>
          </p>
       
-      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="BOOL">BOOL:</a></p><img border="0" src="diagram/BOOL.png" height="169" width="349"><p>
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="BOOL">BOOL:</a></p><img border="0" src="diagram/BOOL.png" height="81" width="309"><p>
          
          <div class="ebnf"><code>
                
-               <div><a href="#BOOL" title="BOOL">BOOL</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= '0'</div>
-               
-               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| '1'</div>
-               
-               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ( 't' 'r' 'u' | 'f' 'a' 'l' 's' ) 'e'</div></code></div>
+               <div><a href="#BOOL" title="BOOL">BOOL</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= ( 't' 'r' 'u' | 'f' 'a' 'l' 's' ) 'e'</div></code></div>
          </p>
       
       <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="NUM">NUM:</a></p><img border="0" src="diagram/NUM.png" height="53" width="161"><p>
@@ -237,13 +233,13 @@
                <div><a href="#NUM" title="NUM">NUM</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::= [0-9]+</div></code></div>
          </p>
       
-      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="STRING">STRING:</a></p><img border="0" src="diagram/STRING.png" height="151" width="327"><p>
+      <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="STRING">STRING:</a></p><img border="0" src="diagram/STRING.png" height="151" width="333"><p>
          
          <div class="ebnf"><code>
                
-               <div><a href="#STRING" title="STRING">STRING</a>&nbsp;&nbsp;&nbsp;::= '"' [^"]* '"'</div>
+               <div><a href="#STRING" title="STRING">STRING</a>&nbsp;&nbsp;&nbsp;::= '"' [^\"]* '"'</div>
                
-               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| "'" [^']* "'"</div></code></div>
+               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| "'" [^\']* "'"</div></code></div>
          </p>
       
       <p>no references</p><br><p style="font-size: 14px; font-weight:bold"><a name="LTEQ">LTEQ:</a></p><img border="0" src="diagram/LTEQ.png" height="37" width="139"><p>

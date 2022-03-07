@@ -11,7 +11,7 @@
 "["                     { return LSQBR;    }
 "]"                     { return RSQBR;    }
 ","                     { return COMMA;    }
-\".*\" | \'.*\'         { return STRING;   }
+\"[^\"]*\" | \'[^\']*\' { return STRING;   }
 "*"	                    { return MUL;      }
 "/"	                    { return DIV;      }
 "%"	                    { return MOD;      }
@@ -44,11 +44,11 @@
 "do"                    { return DO;       }
 "for"                   { return FOR;      }
 "to"                    { return TO;       }
-\n                      { return EOL;      }
+";"                     { return EOL;      }
 
-"//".*                  { /* ignore comments */ }
+\/\/.*                  { /* ignore comments */ }
 [\s]                    { /* ignore white space */ }
-.	                    { yyerror("Mystery character %c\n", *yytext); }
+.	                      { yyerror("Mystery character %c\n", *yytext); }
 %%
 
 
@@ -64,7 +64,7 @@ NUM                 ::=                [0-9]+
 LSQBR               ::=                "["
 RSQBR               ::=                "]"
 COMMA               ::=                ","
-STRING              ::=                '"' [^"]* '"' | "'" [^']* "'"
+STRING              ::=                '"' [^\"]* '"' | "'" [^\']* "'"
 MUL                 ::=                "*"
 DIV                 ::=                "/"
 MOD                 ::=                "%"
