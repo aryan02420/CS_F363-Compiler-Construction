@@ -57,6 +57,14 @@ class CalcLexer(Lexer):
     IDENT['do'] = DO
     IDENT['for'] = FOR
     IDENT['to'] = TO
+    
+    @_(r'\n+')
+    def ignore_newline(self, t):
+        self.lineno += len(t.value)
+    
+    def error(self, t):
+        print('Line %d: Bad character %r' % (self.lineno, t.value[0]))
+        self.index += 1
 
 
 if __name__ == '__main__':
