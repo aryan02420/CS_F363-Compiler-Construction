@@ -13,10 +13,8 @@ class CalcLexer(Lexer):
     ignore_comment = r'\/\/.*'
 
     # Regular expression rules for tokens
-    VAR = r'var'
     IDENT = r'[a-zA-Z][a-zA-Z0-9_]*'
     ASSIGN = r'\:\='
-    BOOL = r'true|false'
     NUM = r'[0-9]+'
     LSQBR = r'\['
     RSQBR = r'\]'
@@ -39,29 +37,31 @@ class CalcLexer(Lexer):
     BITAND = r'\&'
     BITXOR = r'\^'
     BITOR = r'\|'
-    NOT = r'not'
-    AND = r'and'
-    OR = r'or'
-    FUNCTION = r'function'
     LPAREN = r'\('
     RPAREN = r'\)'
-    BEGIN = r'begin'
-    END = r'end'
-    IF = r'if'
-    THEN = r'then'
-    ELSE = r'else'
-    WHILE = r'while'
-    DO = r'do'
-    FOR = r'for'
-    TO = r'to'
     EOL = r'\;'
 
 
+    IDENT['var'] = VAR
+    IDENT['true'] = BOOL
+    IDENT['false'] = BOOL
+    IDENT['if'] = IF
+    IDENT['not'] = NOT
+    IDENT['and'] = AND
+    IDENT['or'] = OR
+    IDENT['function'] = FUNCTION
+    IDENT['begin'] = BEGIN
+    IDENT['then'] = THEN
+    IDENT['else'] = ELSE
+    IDENT['while'] = WHILE
+    IDENT['do'] = DO
+    IDENT['for'] = FOR
+    IDENT['to'] = TO
+
+
 if __name__ == '__main__':
-    data = '''
-      var x := 3 + 42 * (s - t);
-      true = false;
-    '''
+    data = input()
     lexer = CalcLexer()
     for tok in lexer.tokenize(data):
         print('type=%r, value=%r' % (tok.type, tok.value))
+
