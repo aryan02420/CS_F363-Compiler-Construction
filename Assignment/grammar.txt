@@ -45,7 +45,7 @@ statement               ::=   assignmentStatement
 
 assignmentStatement     ::=   IDENT ASSIGN expression 
 
-functionStatement       ::=   FUNCTION IDENT LPAREN actparams? RPAREN
+functionStatement       ::=   IDENT LPAREN actparams? RPAREN
 
 actparams               ::=   expression (COMMA expression)*
 
