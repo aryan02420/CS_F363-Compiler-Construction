@@ -6,7 +6,7 @@
 "var"                   { return VAR;      }
 [a-zA-Z][a-zA-Z0-9_]*   { return IDENT;    }
 ":="                    { return ASSIGN;   }
-"0"|"1"|"true"|"false"  { return BOOL;     }
+"true"|"false"          { return BOOL;     }
 [0-9]+	                { return NUM;      }
 "["                     { return LSQBR;    }
 "]"                     { return RSQBR;    }
@@ -59,7 +59,7 @@
 VAR                 ::=                "v" "a" "r"
 IDENT               ::=                [a-zA-Z][a-zA-Z0-9_]*
 ASSIGN              ::=                ":" "="
-BOOL                ::=                "0"|"1"|"t" "r" "u" "e"|"f" "a" "l" "s" "e"
+BOOL                ::=                "t" "r" "u" "e"|"f" "a" "l" "s" "e"
 NUM                 ::=                [0-9]+
 LSQBR               ::=                "["
 RSQBR               ::=                "]"
