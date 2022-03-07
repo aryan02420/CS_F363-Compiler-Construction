@@ -12,6 +12,26 @@ class CalcLexer(Lexer):
     # Other ignored patterns
     ignore_comment = r'\/\/.*'
 
+    # Define a rule so we can track line numbers
+    @_(r'\n+')
+    def ignore_newline(self, t):
+        self.lineno += len(t.value)
+
+    # Compute column.
+    #     input is the input text string
+    #     token is a token instance
+    def find_column(text, token):
+        last_cr = text.rfind('\n', 0, token.index)
+        if last_cr < 0:
+            last_cr = 0
+        column = (token.index - last_cr) + 1
+        return column
+
+    # Error handling rule
+    def error(self, t):
+        print('Line %d: Bad character %r' % (self.lineno, t.value[0]))
+        self.index += 1
+
     # Regular expression rules for tokens
     IDENT = r'[a-zA-Z][a-zA-Z0-9_]*'
     ASSIGN = r'\:\='
