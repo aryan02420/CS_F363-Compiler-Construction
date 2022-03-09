@@ -1,0 +1,5 @@
+1. BLOCK and END tokens not in the lexer.
+2. /r not ignored by the lexer.
+3. we cannot include checks for hello := hi + 5 in the lexer, where hi is not defined earlier
+   as the lexer does not understand scoping, think about function declarations. Only the parser will
+   be able to do this using the AST.   
