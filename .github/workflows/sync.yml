@@ -1,0 +1,21 @@
+name: sync
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git remote add gitlab https://automation:${gitlab_token}@gitlab.com/g4826/csf363-groups/group17-blockbusters/tetris.git
+          git checkout -b ci
+          git pull --rebase gitlab ci
+          git merge main
+          git push gitlab ci
+        env:
+          gitlab_token: ${{ secrets.glpat }}
+
