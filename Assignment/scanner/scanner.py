@@ -1,14 +1,13 @@
 from sly import Lexer
 
-
 class CalcLexer(Lexer):
-    # Set of token names.   This is always required
+    # Set of token names. This is always required
     tokens = {VAR, IDENT, ASSIGN, BOOL, NUM, LSQBR, RSQBR, COMMA, STRING, MUL, DIV, MOD, ADD, SUB,
               LT, LTEQ, GT, GTEQ, EQ, NEQ, BITNOT, SAL, SAR, BITAND, BITXOR, BITOR, NOT, AND, OR,
               FUNCTION, LPAREN, RPAREN, BEGIN, END, IF, THEN, ELSE, WHILE, DO, FOR, TO, EOL}
 
     # String containing ignored characters between tokens
-    ignore = ' \t'
+    ignore = ' \t\r'
     # Other ignored patterns
     ignore_comment = r'\/\/.*'
 
@@ -77,11 +76,21 @@ class CalcLexer(Lexer):
     IDENT['do'] = DO
     IDENT['for'] = FOR
     IDENT['to'] = TO
+    IDENT['end'] = END
 
 
 if __name__ == '__main__':
     data = input()
-    lexer = CalcLexer()
-    for tok in lexer.tokenize(data):
-        print('type=%r, value=%r' % (tok.type, tok.value))
+
+    try:
+        while(data[-3:] != 'EOF'):
+            lexer = CalcLexer()
+            for tok in lexer.tokenize(data):
+                print('type=%r, value=%r' % (tok.type, tok.value))
+
+            data = input()
+
+    except:
+        print("Scanning Done!")
+        
 

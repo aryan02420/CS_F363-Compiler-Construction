@@ -18,7 +18,6 @@
 %token  BITNOT SAL SAR BITAND BITXOR BITOR
 %token  NOT AND OR
 %token  FUNCTION LPAREN RPAREN
-%token  RETURN
 %token  BEGIN END
 %token  IF THEN ELSE
 %token  WHILE DO
@@ -27,7 +26,7 @@
 %token  EOL
 
 // lang specific
-%token  BLOCK
+
 
 %%
 
