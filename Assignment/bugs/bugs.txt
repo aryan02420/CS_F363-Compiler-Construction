@@ -4,4 +4,4 @@
    as the lexer does not understand scoping, think about function declarations. Only the parser will
    be able to do this using the AST.   
    
-4. To add token for return keyword and block token in scanner.py and scanner.txt
+4. To add block token in scanner.py and scanner.txt
