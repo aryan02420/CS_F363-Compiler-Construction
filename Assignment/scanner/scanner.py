@@ -2,9 +2,7 @@ from sly import Lexer
 
 class CalcLexer(Lexer):
     # Set of token names. This is always required
-    tokens = {VAR, IDENT, ASSIGN, BOOL, NUM, LSQBR, RSQBR, COMMA, STRING, MUL, DIV, MOD, ADD, SUB,
-              LT, LTEQ, GT, GTEQ, EQ, NEQ, BITNOT, SAL, SAR, BITAND, BITXOR, BITOR, NOT, AND, OR,
-              FUNCTION, LPAREN, RPAREN, BEGIN, END, IF, THEN, ELSE, WHILE, DO, FOR, TO, EOL}
+    tokens = {VAR, IDENT, ASSIGN, BOOL, NUM, LSQBR, RSQBR, COMMA, STRING, MUL, DIV, MOD, ADD, SUB, LT, LTEQ, GT, GTEQ, EQ, NEQ, BITNOT, SAL, SAR, BITAND, BITXOR, BITOR, NOT, AND, OR, FUNCTION, LPAREN, RPAREN, BEGIN, END, IF, THEN, ELSE, WHILE, DO, FOR, TO, EOL}
 
     # String containing ignored characters between tokens
     ignore = ' \t\r'
