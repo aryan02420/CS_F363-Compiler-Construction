@@ -64,26 +64,26 @@ blocks := [
 ]
 
 onLeftButton(block) begin
-	block.moveLeft(1);
+	moveLeft(1);
 end
 
 onRightButton(block) begin
-	block.moveRight(1)
+	moveRight(1)
 end
 
 onUpButton(block) begin
 end
 
 onDownButton(block) begin
-	block.moveDown(1);
+	moveDown(1);
 end
 
 onAButton(block) begin
-	block.rotateLeft();
+	rotateLeft();
 end
 
 onBButton(block) begin
-	block.rotateRight();
+	rotateRight();
 end
 
 onXButton(block) begin
