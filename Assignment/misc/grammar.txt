@@ -33,10 +33,16 @@
 
 program                 ::=   statements EOL
 
-statements              ::=   statement (EOL statement)*
+statements              ::=   statement
+                        |     statement moreStatements
 
-statement               ::=   assignmentStatement     
+moreStatements          ::=   EOL statement
+                        |     EOL moreStatements
+
+statement               ::=   assignmentStatement
+                        |     variableDeclaration
                         |     functionStatement
+                        |     functionDeclaration
                         |     compoundStatement
                         |     conditionalStatement
                         |     loopStatement
@@ -44,13 +50,19 @@ statement               ::=   assignmentStatement
 
 assignmentStatement     ::=   IDENT ASSIGN expression 
 
-functionStatement       ::=   IDENT LPAREN actparams? RPAREN
+functionStatement       ::=   IDENT LPAREN RPAREN
+                        |     IDENT LPAREN actparams RPAREN
 
-actparams               ::=   expression (COMMA expression)*
+actparams               ::=   expression
+                        |     expression moreparams
+
+moreparams              ::=   COMMA expression
+                        |     COMMA moreparams
 
 compoundStatement       ::=   BEGIN statements END
 
-conditionalStatement    ::=   IF expression THEN statement (ELSE statement)*
+conditionalStatement    ::=   IF expression THEN statements
+                        |     IF expression THEN statements ELSE statements
 
 loopStatement           ::=   WHILE expression DO statement
                         |     DO statement WHILE expression
@@ -60,359 +72,43 @@ emptyStatement          ::=   /*empty*/
 
 variableDeclaration     ::=   VAR IDENT ASSIGN expression 
 
-functionDeclaration     ::=   FUNCTION IDENT LPAREN fargs? RPAREN compoundStatement 
+functionDeclaration     ::=   FUNCTION IDENT LPAREN RPAREN compoundStatement 
+                        |     FUNCTION IDENT LPAREN fargs RPAREN compoundStatement 
 
-fargs                   ::=   IDENT (COMMA IDENT)*
+fargs                   ::=   IDENT
+                        |     IDENT morefargs
+
+morefargs               ::=   COMMA IDENT
+                        |     COMMA morefargs
 
 expression              ::=   IDENT
-                        |     arithExpression
-                        |     boolExpression
-                        |     relationalExpression
-                        |     bitExpression
+                        |     binop
+                        |     unop
 
-comment                 ::=   COMMENT .*?
+binop                   ::=   unop                                                          { return f'{p.unop}'}
+                        |     binop ADD unop                                                { return f'{p.binop} + {p.unop}'}
+                        |     binop SUB unop                                                { return f'{p.binop} - {p.unop}'}    
+                        |     binop MUL unop                                                { return f'{p.binop} * {p.unop}'}
+                        |     binop DIV unop                                                { return f'{p.binop} / {p.unop}'}
+                        |     binop MOD unop                                                { return f'{p.binop} % {p.unop}'}
+                        |     binop LT unop                                                 { return f'{p.binop} < {p.unop}'}
+                        |     binop LTEQ unop                                               { return f'{p.binop} <= {p.unop}'}
+                        |     binop GT unop                                                 { return f'{p.binop} > {p.unop}'} 
+                        |     binop GTEQ unop                                               { return f'{p.binop} >= {p.unop}'}
+                        |     binop EQ unop                                                 { return f'{p.binop} == {p.unop}'}
+                        |     binop NEQ unop                                                { return f'{p.binop} != {p.unop}'}
+                        |     binop SAL unop                                                { return f'{p.binop} << {p.unop}'}
+                        |     binop SAR unop                                                { return f'{p.binop} >> {p.unop}'}
+                        |     binop BITAND unop                                             { return f'{p.binop} & {p.unop}'}
+                        |     binop BITOR unop                                              { return f'{p.binop} | {p.unop}'}
+                        |     binop BITXOR unop                                             { return f'{p.binop} ^ {p.unop}'}
+                        |     binop AND unop                                                { return f'{p.binop} and {p.unop}'}
+                        |     binop OR unop                                                 { return f'{p.binop} or {p.unop}'}
 
-boolExpression          ::=   andop 
-                        |     expression OR andop
-
-andop                   ::=   bitExpression
-                        |     andop AND bitExpression
-
-bitExpression           ::=   bitxorop
-                        |     bitExpression BITOR bitxorop
-
-bitxorop                ::=   bitandop
-                        |     bitxorop BITXOR bitandop
-
-bitandop                ::=   relationalExpression
-                        |     bitandop BITAND relationalExpression
-
-relationalExpression    ::=   cmpop
-                        |     relationalExpression EQ cmpop
-                        |     relationalExpression NEQ cmpop
-
-cmpop                   ::=   shiftop
-                        |     cmpop LT shiftop  
-                        |     cmpop LTEQ shiftop  
-                        |     cmpop GT shiftop  
-                        |     cmpop GTEQ shiftop
-
-shiftop                 ::=   addop
-                        |     shiftop SAR addop
-                        |     shiftop SAL addop
-                  
-addop                   ::=   mulop
-                        |     addop ADD mulop
-                        |     addop SUB mulop    
-                  
-mulop                   ::=   term
-                        |     mulop MUL unary
-                        |     mulop DIV unary
-                        |     mulop MOD unary
-
-unary                   ::=   term
-                        |     NOT term
+unop                    ::=   term
                         |     BITNOT term
+                        |     NOT term
                   
 term                    ::=   NUM
                         |     BOOL
                         |     LPAREN expression RPAREN
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-
-grammar pascal;
-
-
-block
-   : (labelDeclarationPart | constantDefinitionPart | typeDefinitionPart | variableDeclarationPart | procedureAndFunctionDeclarationPart | usesUnitsPart | IMPLEMENTATION)* compoundStatement
-   ;
-
-unsignedNumber
-   : unsignedInteger
-   | unsignedReal
-   ;
-
-unsignedInteger
-   : NUM_INT
-   ;
-
-unsignedReal
-   : NUM_REAL
-   ;
-
-sign
-   : PLUS
-   | MINUS
-   ;
-
-bool_
-   : TRUE
-   | FALSE
-   ;
-
-string
-   : STRING_LITERAL
-   ;
-
-
-variableDeclarationPart
-   : VAR variableDeclaration (SEMI variableDeclaration)* SEMI
-   ;
-
-variableDeclaration
-   : identifierList COLON type_
-   ;
-
-procedureAndFunctionDeclarationPart
-   : procedureOrFunctionDeclaration SEMI
-   ;
-
-procedureOrFunctionDeclaration
-   : procedureDeclaration
-   | functionDeclaration
-   ;
-
-procedureDeclaration
-   : PROCEDURE identifier (formalParameterList)? SEMI block
-   ;
-
-formalParameterList
-   : LPAREN formalParameterSection (SEMI formalParameterSection)* RPAREN
-   ;
-
-formalParameterSection
-   : parameterGroup
-   | VAR parameterGroup
-   | FUNCTION parameterGroup
-   | PROCEDURE parameterGroup
-   ;
-
-parameterGroup
-   : identifierList COLON typeIdentifier
-   ;
-
-identifierList
-   : identifier (COMMA identifier)*
-   ;
-
-
-functionDeclaration
-   : FUNCTION identifier (formalParameterList)? COLON resultType SEMI block
-   ;
-
-
-statement
-   : label COLON unlabelledStatement
-   | unlabelledStatement
-   ;
-
-unlabelledStatement
-   : simpleStatement
-   | structuredStatement
-   ;
-
-simpleStatement
-   : assignmentStatement
-   | procedureStatement
-   | gotoStatement
-   | emptyStatement_
-   ;
-
-assignmentStatement
-   : variable ASSIGN expression
-   ;
-
-variable
-   : (AT identifier | identifier) (LBRACK expression (COMMA expression)* RBRACK | LBRACK2 expression (COMMA expression)* RBRACK2 | DOT identifier | POINTER)*
-   ;
-
-expression
-   : simpleExpression (relationaloperator expression)?
-   ;
-
-relationaloperator
-   : EQUAL
-   | NOT_EQUAL
-   | LT
-   | LE
-   | GE
-   | GT
-   | IN
-   ;
-
-simpleExpression
-   : term (additiveoperator simpleExpression)?
-   ;
-
-additiveoperator
-   : PLUS
-   | MINUS
-   | OR
-   ;
-
-term
-   : signedFactor (multiplicativeoperator term)?
-   ;
-
-multiplicativeoperator
-   : STAR
-   | SLASH
-   | DIV
-   | MOD
-   | AND
-   ;
-
-signedFactor
-   : (PLUS | MINUS)? factor
-   ;
-
-factor
-   : variable
-   | LPAREN expression RPAREN
-   | functionDesignator
-   | unsignedConstant
-   | set_
-   | NOT factor
-   | bool_
-   ;
-
-unsignedConstant
-   : unsignedNumber
-   | constantChr
-   | string
-   | NIL
-   ;
-
-functionDesignator
-   : identifier LPAREN parameterList RPAREN
-   ;
-
-parameterList
-   : actualParameter (COMMA actualParameter)*
-   ;
-
-set_
-   : LBRACK elementList RBRACK
-   | LBRACK2 elementList RBRACK2
-   ;
-
-elementList
-   : element (COMMA element)*
-   |
-   ;
-
-element
-   : expression (DOTDOT expression)?
-   ;
-
-procedureStatement
-   : identifier (LPAREN parameterList RPAREN)?
-   ;
-
-actualParameter
-   : expression parameterwidth*
-   ;
-
-parameterwidth
-   : ':' expression
-   ;
-
-emptyStatement_
-   :
-   ;
-
-empty_
-   :
-   /* empty */
-   ;
-
-structuredStatement
-   : compoundStatement
-   | conditionalStatement
-   | repetetiveStatement
-   | withStatement
-   ;
-
-compoundStatement
-   : BEGIN statements END
-   ;
-
-statements
-   : statement (SEMI statement)*
-   ;
-
-conditionalStatement
-   : ifStatement
-   ;
-
-ifStatement
-   : IF expression THEN statement (: ELSE statement)?
-   ;
-
-repetetiveStatement
-   : whileStatement
-   | forStatement
-   ;
-
-whileStatement
-   : WHILE expression DO statement
-   ;
-
-forStatement
-   : FOR identifier ASSIGN forList DO statement
-   ;
-
-forList
-   : initialValue (TO | DOWNTO) finalValue
-   ;
-
-initialValue
-   : expression
-   ;
-
-finalValue
-   : expression
-   ;
-
-
-WS
-   : [ \t\r\n] -> skip
-   ;
-
-
-COMMENT_1
-   : '(*' .*? '*)' -> skip
-   ;
-
-
-COMMENT_2
-   : '{' .*? '}' -> skip
-   ;
-
-
-IDENT
-   : ('a' .. 'z' | 'A' .. 'Z') ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_')*
-   ;
-
-
-STRING_LITERAL
-   : '\'' ('\'\'' | ~ ('\''))* '\''
-   ;
-
-
-NUM_INT
-   : ('0' .. '9') +
-   ;
-
-
-NUM_REAL
-   : ('0' .. '9') + (('.' ('0' .. '9') + (EXPONENT)?)? | EXPONENT)
-   ;
-
-
-fragment EXPONENT
-   : ('e') ('+' | '-')? ('0' .. '9') +
-   ;
-   ;
