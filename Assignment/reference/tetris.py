@@ -1,97 +1,35 @@
 import TLGameEngine
 
-TLGameEngine.set_cols(8)
-TLGameEngine.set_rows(16)
-TLGameEngine.set_maxsize_x(4)
-TLGameEngine.set_maxsize_y(4)
-TLGameEngine.set_gravity(1)
+TLGameEngine.initialize_tetris_window(20, 10);
 
-TLGameEngine.set_color(
-	[
-		[0,   0,   0  ],
-		[255, 0,   0  ],
-		[0,   150, 0  ],
-		[0,   0,   255],
-		[255, 120, 0  ],
-		[255, 255, 0  ],
-		[180, 0,   255],
-		[0,   220, 220]
-	]
-)
+var1 = '/home/hardik/tetris.png'
+TLGameEngine.set_logo(var1)
 
+var2 = '/home/hardik/tetris.mp3'
+TLGameEngine.set_logo(var1)
 
-blockI = [
-	[4,5,6,7],
-	[1,5,9,13]
-]
+var3 = TLGameEngine.createBlock([[5,6,9],
+[5,6,10],
+[6,9,10],
+[5,9,10]],
+[255,0,0])
 
-blockL = [
-	[5,9,13,14],
-	[9,10,11,13]
-	[5,6,10,14],
-	[6,8,9,10]
-]
+TLGameEngine.add_block(var3)
 
-blockJ = [
-	[6,10,13,14],
-    [5,9,10,11],
-    [6,7,10,14],
-    [5,6,7,9]
-]
+var4 = 3
 
-blockT = [
-	[0,1,2,5],
-	[1,4,5,9],
-    [1,4,5,6],
-    [1,5,6,9]
-]
+TLGameEngine.set_levels(var4)
 
-blockS = [
-	[1,2,4,5],
-	[0,4,5,9]
-]
+var4 = True
+var5 = True
 
-blockZ = [
-	[0,1,5,6],
-	[2,5,6,9]
-]
+while var4 :
+    TLGameEngine.show_main_menu()
+    while var5 :
+        TLGameEngine.update_clock()
+        TLGameEngine.get_new_shape()
 
-TLGameEngine.set_blocks(
-	[
-		blockI,
-		blockJ,
-		blockL,
-		blockT,
-		blockS,
-		blockZ
-	]
-)
-
-def onLeftButton():
-	TLGameEngine.block.moveLeft(1)
-
-def onRightButton() :
-	TLGameEngine.block.moveRight(1)
-
-def onUpButton() :
-	pass
-
-def onDownButton() :
-	TLGameEngine.block.moveDown(1)
-
-def onAButton() :
-	TLGameEngine.block.rotateLeft()
-
-def onBButton() :
-	TLGameEngine.block.rotateRight()
-
-def onXButton() :
-	pass
-
-def onYButton() :
-	pass
-
-TLGameEngine.fall():
-	TLGameEngine.block.moveDown(get_gravity()) + 1
-
-
+        if TLGameEngine.check_lost():
+            var5 = False
+    
+    var4 = TLGameEngine.show_game_over()
