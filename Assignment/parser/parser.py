@@ -5,220 +5,281 @@ from scanner.scanner import CalcLexer
 
 
 class CalcParser(Parser):
+    debugfile = 'parser.out'
     # Get the token list from the lexer (required)
     tokens = CalcLexer.tokens
 
-    @_('statements EOL')
-    def program(self, p):
-        pass
+    start = 'program'
 
-    @_('statement ( EOL statement ) *')
-    def statements(self, p):
-        pass
+    @_('statements EOL')                                                          
+    def program(self, p):                 
+        return f'{p.statements}\n'
 
-    @_('assignmentStatement')
-    def statement(self, p):
-        pass
+    @_('statement')                                                               
+    def statements(self, p):              
+        return f'{p.statement}'
 
-    @_('variableDeclaration')
-    def statement(self, p):
-        pass
+    @_('statement moreStatements')                                                
+    def statements(self, p):              
+        return f'{p.statement}{p.moreStatements}'
 
-    @_('functionStatement')
-    def statement(self, p):
-        pass
+    @_('EOL statement')                                                           
+    def moreStatements(self, p):          
+        return f'\n{p.statement}'
 
-    @_('functionDeclaration')
-    def statement(self, p):
-        pass
+    @_('EOL moreStatements')                                                      
+    def moreStatements(self, p):          
+        return f'\n{p.moreStatements}'
 
-    @_('compoundStatement')
-    def statement(self, p):
-        pass
+    @_('emptyStatement')                                                          
+    def statement(self, p):               
+        return f'{p.emptyStatement}'
 
-    @_('conditionalStatement')
-    def statement(self, p):
-        pass
+    @_('assignmentStatement')                                                     
+    def statement(self, p):               
+        return f'{p.assignmentStatement}'
 
-    @_('loopStatement')
-    def statement(self, p):
-        pass
+    @_('variableDeclaration')                                                     
+    def statement(self, p):               
+        return f'{p.variableDeclaration}'
 
-    @_('emptyStatement')
-    def statement(self, p):
-        pass
+    @_('functionStatement')                                                       
+    def statement(self, p):               
+        return f'{p.functionStatement}'
 
-    @_('IDENT ASSIGN expression')
-    def assignmentStatement(self, p):
-        pass
+    @_('functionDeclaration')                                                     
+    def statement(self, p):               
+        return f'{p.functionDeclaration}'
 
-    @_('IDENT LPAREN RPAREN')
-    def functionStatement(self, p):
-        pass
-    
-    @_('IDENT LPAREN actparams RPAREN')
-    def functionStatement(self, p):
-        pass
+    @_('compoundStatement')                                                       
+    def statement(self, p):               
+        return f'{p.compoundStatement}'
 
-    @_('expression (COMMA expression)*')
-    def actparams(self, p):
-        pass
+    @_('conditionalStatement')                                                    
+    def statement(self, p):               
+        return f'{p.conditionalStatement}'
 
-    @_('BEGIN statements END')
-    def compoundStatement(self, p):
-        pass
+    @_('loopStatement')                                                           
+    def statement(self, p):               
+        return f'{p.loopStatement}'
 
-    @_('IF expression THEN statement (ELSE statement)*')
-    def conditionalStatement(self, p):
-        pass
 
-    @_('WHILE expression DO statement')
-    def loopStatement(self, p):
-        pass
+    @_('IDENT ASSIGN expression')                                                 
+    def assignmentStatement(self, p):     
+        return f'{p.IDENT} = {p.expression}'
 
-    @_('DO statement WHILE expression')
-    def loopStatement(self, p):
-        pass
+    @_('IDENT LPAREN RPAREN')                                                     
+    def functionStatement(self, p):       
+        return f'{p.IDENT}()'
 
-    @_('FOR IDENT ASSIGN number TO number DO statement')
-    def loopStatement(self, p):
-        pass
+    @_('IDENT LPAREN actparams RPAREN')                                           
+    def functionStatement(self, p):       
+        return f'{p.IDENT}({p.actparams})'
 
-    @_('/*empty*/')
-    def emptyStatement(self, p):
-        pass
+    @_('expression')                                                              
+    def actparams(self, p):               
+        return f'{p.expression}'
 
-    @_('VAR IDENT ASSIGN expression')
-    def variableDeclaration(self, p):
-        pass
+    @_('expression moreparams')                                                   
+    def actparams(self, p):               
+        return f'{p.expression}{p.moreparams}'
 
-    @_('FUNCTION IDENT LPAREN RPAREN compoundStatement')
-    def functionDeclaration(self, p):
-        pass
-    
-    @_('FUNCTION IDENT LPAREN fargs RPAREN compoundStatement')
-    def functionDeclaration(self, p):
-        pass
+    @_('COMMA actparams')                                                         
+    def moreparams(self, p):              
+        return f', {p.actparams}'
 
-    @_('IDENT')
-    def fargs(self, p):
-        pass
-    
-    @_('IDENT (COMMA IDENT)+')
-    def fargs(self, p):
-        pass
+    @_('BEGIN statements END')                                                    
+    def compoundStatement(self, p):       
+        return f'\n{p.statements}\n'
 
-    @_('IDENT')
-    def expression(self, p):
-        pass
+    @_('IF expression THEN statements')                                           
+    def conditionalStatement(self, p):    
+        return f'if {p.expression}:\n{p.statements}'
 
-    @_('binop')
-    def expression(self, p):
-        pass
+    @_('IF expression THEN statements ELSE statements')                           
+    def conditionalStatement(self, p):    
+        return f'if {p.expression}:\n{p.statements0}\nelse:\n{p.statements1}'
 
-    @_('unop')
-    def expression(self, p):
-        pass
+    @_('WHILE expression DO statement')                                           
+    def loopStatement(self, p):           
+        return f'while {p.expression}:\n\t{p.statement}'
 
-    @_('unop')
-    def binop(self, p):
-        pass
+    @_('DO statement WHILE expression')                                           
+    def loopStatement(self, p):           
+        return f'{p.statement}\nwhile {p.expression}:\n\t{p.statement}'
 
-    @_('binop ADD unop')
-    def binop(self, p):
-        pass
+    @_('FOR IDENT ASSIGN NUM TO NUM DO statement')                          
+    def loopStatement(self, p):           
+        return f'for {p.IDENT} in range(p.NUM, p.NUM):\n\t{p.statement}'
 
-    @_('binop SUB unop')
-    def binop(self, p):
-        pass
+    @_('')                                                               
+    def emptyStatement(self, p):          
+        return f''
 
-    @_('binop MUL unop')
-    def binop(self, p):
-        pass
+    @_('VAR IDENT ASSIGN expression')                                             
+    def variableDeclaration(self, p):     
+        return f'{p.IDENT} = {p.expression}'
 
-    @_('binop DIV unop')
-    def binop(self, p):
-        pass
+    @_('FUNCTION IDENT LPAREN RPAREN compoundStatement')                          
+    def functionDeclaration(self, p):     
+        return f'{p.IDENT}(){p.compoundStatement}'
 
-    @_('binop MOD unop')
-    def binop(self, p):
-        pass
+    @_('FUNCTION IDENT LPAREN fargs RPAREN compoundStatement')                    
+    def functionDeclaration(self, p):     
+        return f'{p.IDENT}({p.fargs}){p.compoundStatement}'
 
-    @_('binop LT unop')
-    def binop(self, p):
-        pass
+    @_('IDENT')                                                                   
+    def fargs(self, p):                   
+        return f'{p.IDENT}'
 
-    @_('binop LTEQ unop')
-    def binop(self, p):
-        pass
+    @_('IDENT morefargs')                                                         
+    def fargs(self, p):                   
+        return f'{p.IDENT}, {p.morefargs}'
 
-    @_('binop GT unop')
-    def binop(self, p):
-        pass
+    @_('COMMA fargs')                                                             
+    def morefargs(self, p):               
+        return f', {p.fargs}'
 
-    @_('binop GTEQ unop')
-    def binop(self, p):
-        pass
+    @_('expression')                                                              
+    def largs(self, p):                   
+        return f'{p.expression}'
 
-    @_('binop EQ unop')
-    def binop(self, p):
-        pass
+    @_('expression morelargs')                                                    
+    def largs(self, p):                   
+        return f'{p.expression}, {p.morelargs}'
 
-    @_('binop NEQ unop')
-    def binop(self, p):
-        pass
+    @_('COMMA largs')                                                             
+    def morelargs(self, p):               
+        return f', {p.largs}'
 
-    @_('binop SAL unop')
-    def binop(self, p):
-        pass
+    @_('IDENT')                                                                   
+    def expression(self, p):              
+        return f'{p.IDENT}'
 
-    @_('binop SAR unop')
-    def binop(self, p):
-        pass
+    @_('binop')                                                                   
+    def expression(self, p):              
+        return f'{p.binop}'
 
-    @_('binop BITAND unop')
-    def binop(self, p):
-        pass
+    @_('unop')                                                                    
+    def expression(self, p):              
+        return f'{p.unop}'
 
-    @_('binop BITOR unop')
-    def binop(self, p):
-        pass
+    @_('unop')                                                                    
+    def binop(self, p):                   
+        return f'{p.unop}'
 
-    @_('binop BITXOR unop')
-    def binop(self, p):
-        pass
+    @_('binop ADD unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} + {p.unop}'
 
-    @_('binop AND unop')
-    def binop(self, p):
-        pass
+    @_('binop SUB unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} - {p.unop}'
 
-    @_('binop OR unop')
-    def binop(self, p):
-        pass
+    @_('binop MUL unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} * {p.unop}'
 
-    @_('term')
-    def unop(self, p):
-        pass
+    @_('binop DIV unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} / {p.unop}'
 
-    @_('BITNOT term')
-    def unop(self, p):
-        pass
+    @_('binop MOD unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} % {p.unop}'
 
-    @_('NOT term')
-    def unop(self, p):
-        pass
+    @_('binop LT unop')                                                           
+    def binop(self, p):                   
+        return f'{p.binop} < {p.unop}'
 
-    @_('NUM')
-    def term(self, p):
-        pass
+    @_('binop LTEQ unop')                                                         
+    def binop(self, p):                   
+        return f'{p.binop} <= {p.unop}'
 
-    @_('BOOL')
-    def term(self, p):
-        pass
+    @_('binop GT unop')                                                           
+    def binop(self, p):                   
+        return f'{p.binop} > {p.unop}'
 
-    @_('LPAREN expression RPAREN')
-    def term(self, p):
-        pass
+    @_('binop GTEQ unop')                                                         
+    def binop(self, p):                   
+        return f'{p.binop} >= {p.unop}'
+
+    @_('binop EQ unop')                                                           
+    def binop(self, p):                   
+        return f'{p.binop} == {p.unop}'
+
+    @_('binop NEQ unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} != {p.unop}'
+
+    @_('binop SAL unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} << {p.unop}'
+
+    @_('binop SAR unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} >> {p.unop}'
+
+    @_('binop BITAND unop')                                                       
+    def binop(self, p):                   
+        return f'{p.binop} & {p.unop}'
+
+    @_('binop BITOR unop')                                                        
+    def binop(self, p):                   
+        return f'{p.binop} | {p.unop}'
+
+    @_('binop BITXOR unop')                                                       
+    def binop(self, p):                   
+        return f'{p.binop} ^ {p.unop}'
+
+    @_('binop AND unop')                                                          
+    def binop(self, p):                   
+        return f'{p.binop} and {p.unop}'
+
+    @_('binop OR unop')                                                           
+    def binop(self, p):                   
+        return f'{p.binop} or {p.unop}'
+
+    @_('term')                                                                    
+    def unop(self, p):                    
+        return f'{p.term}'
+
+    @_('ADD term')                                                                
+    def unop(self, p):                    
+        return f'+{p.term}'
+
+    @_('SUB term')                                                                
+    def unop(self, p):                    
+        return f'-{p.term}'
+
+    @_('BITNOT term')                                                             
+    def unop(self, p):                    
+        return f'~{p.term}'
+
+    @_('NOT term')                                                                
+    def unop(self, p):                    
+        return f'not {p.term}'
+
+    @_('NUM')                                                                     
+    def term(self, p):                    
+        return f'{p.NUM}'
+
+    @_('BOOL')                                                                    
+    def term(self, p):                    
+        return f'{p.BOOL}'
+
+    @_('STRING')                                                                    
+    def term(self, p):                    
+        return f'{p.STRING}'
+
+    @_('LSQBR largs RSQBR')                                                       
+    def term(self, p):                    
+        return f'[{p.largs}]'
+
+    @_('LPAREN expression RPAREN')                                                
+    def term(self, p):                    
+        return f'({p.expression})'
+
 
 
 if __name__ == '__main__':
