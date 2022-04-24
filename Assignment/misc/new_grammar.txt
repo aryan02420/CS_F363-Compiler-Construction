@@ -1,0 +1,117 @@
+// generate diagrams https://bottlecaps.de/rr/ui
+
+%{
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+%}
+
+%token  VAR
+%token  IDENT
+%token  ASSIGN
+%token  BOOL
+%token  NUM
+%token  LSQBR RSQBR COMMA
+%token  STRING
+%token  MUL DIV MOD ADD SUB
+%token  LT LTEQ GT GTEQ EQ NEQ
+%token  BITNOT SAL SAR BITAND BITXOR BITOR
+%token  NOT AND OR
+%token  FUNCTION LPAREN RPAREN
+%token  BEGIN END
+%token  IF THEN ELSE
+%token  WHILE DO
+%token  FOR TO
+%token  COMMENT
+%token  EOL
+
+// lang specific
+
+
+%%
+
+
+program                 ::=     statements                                                         
+
+statements              ::=     statement EOL statements                                                              
+                        |       statement EOL
+                        |       compoundStatement
+                        |       conditionalStatement
+                        |       loopStatement
+                        |       functionDeclaration                                                                                                  
+
+statement               ::=     emptyStatement                                                     
+                        |       assignmentStatement  
+                        |       variableDeclaration                                                     
+                        |       functionStatement                                                       
+
+compoundStatement       ::=     BEGIN statements END
+
+conditionalStatement    ::=     IF LPAREN expression RPAREN compoundStatement
+                        |       IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement
+                        |       WHILE LPAREN expression RPAREN compoundStatement
+                        |       FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
+                        |       FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
+                        |       FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
+                        |       FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement
+
+assignmentStatement     ::=     IDENT ASSIGN expression
+                        |       IDENT LSQBR expression RSQBR ASSIGN expression                                                 
+                        |       IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression                                                 
+
+functionStatement       ::=     IDENT LPAREN RPAREN                                                     
+                        |       IDENT LPAREN fargs RPAREN                                           
+
+emptyStatement          ::=     /*empty*/                                                               
+
+variableDeclaration     ::=     VAR IDENT ASSIGN expression
+
+functionDeclaration     ::=     FUNCTION IDENT LPAREN RPAREN compoundStatement
+                        |       FUNCTION IDENT LPAREN args RPAREN compoundStatement
+
+args                    ::=     IDENT COMMA args                                                               
+                        |       IDENT
+
+fargs                   ::=     LPAREN expression RPAREN COMMA fargs                                                               
+                        |       expression COMMA fargs                                                         
+                        |       LPAREN expression RPAREN
+                        |       expression
+
+expression              ::=     binop                                                                   
+
+binop                   ::=     unop                                                                   
+                        |       binop ADD unop                                                         
+                        |       binop SUB unop                                                         
+                        |       binop MUL unop                                                         
+                        |       binop DIV unop                                                         
+                        |       binop MOD unop                                                         
+                        |       binop LT unop                                                          
+                        |       binop LTEQ unop                                                        
+                        |       binop GT unop                                                          
+                        |       binop GTEQ unop                                                        
+                        |       binop EQ unop                                                          
+                        |       binop NEQ unop                                                         
+                        |       binop SAL unop                                                         
+                        |       binop SAR unop                                                         
+                        |       binop BITAND unop                                                       
+                        |       binop BITOR unop                                                       
+                        |       binop BITXOR unop                                                       
+                        |       binop AND unop                                                         
+                        |       binop OR unop      
+
+unop                    ::=     term
+                        |       ADD term
+                        |       SUB term
+                        |       BITNOT term
+                        |       NOT term
+
+term                    ::=     NUM
+                        |       BOOL
+                        |       STRING
+                        |       IDENT
+                        |       LSQBR RSQBR
+                        |       IDENT LSQBR expression RSQBR
+                        |       IDENT LSQBR expression SLICE expression RSQBR
+                        |       LPAREN expression RPAREN
+
+                    

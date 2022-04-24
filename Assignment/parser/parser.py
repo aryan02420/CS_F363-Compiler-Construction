@@ -6,163 +6,152 @@ from scanner.scanner import CalcLexer
 
 class CalcParser(Parser):
     debugfile = 'parser.out'
-    # Get the token list from the lexer (required)
     tokens = CalcLexer.tokens
 
     start = 'program'
 
-    @_('statements EOL')                                                          
-    def program(self, p):                 
-        return f'{p.statements}\n'
+    def __init__(self):
+        self.depth = 0
 
-    @_('statement')                                                               
-    def statements(self, p):              
+    @_('statements')                                                          
+    def program(self, p):
+        return f'{p.statements}'
+
+    @_('statement EOL statements')                                                
+    def statements(self, p):
+        return f'{p.statement}\n{p.statements}'
+
+    @_('statement EOL')                                                               
+    def statements(self, p):
         return f'{p.statement}'
 
-    @_('statement moreStatements')                                                
-    def statements(self, p):              
-        return f'{p.statement}{p.moreStatements}'
-
-    @_('EOL statement')                                                           
-    def moreStatements(self, p):          
-        return f'\n{p.statement}'
-
-    @_('EOL moreStatements')                                                      
-    def moreStatements(self, p):          
-        return f'\n{p.moreStatements}'
-
-    @_('emptyStatement')                                                          
-    def statement(self, p):               
-        return f'{p.emptyStatement}'
-
-    @_('assignmentStatement')                                                     
-    def statement(self, p):               
-        return f'{p.assignmentStatement}'
-
-    @_('variableDeclaration')                                                     
-    def statement(self, p):               
-        return f'{p.variableDeclaration}'
-
-    @_('functionStatement')                                                       
-    def statement(self, p):               
-        return f'{p.functionStatement}'
-
-    @_('functionDeclaration')                                                     
-    def statement(self, p):               
-        return f'{p.functionDeclaration}'
-
     @_('compoundStatement')                                                       
-    def statement(self, p):               
+    def statements(self, p):
         return f'{p.compoundStatement}'
 
     @_('conditionalStatement')                                                    
-    def statement(self, p):               
+    def statements(self, p):
         return f'{p.conditionalStatement}'
 
     @_('loopStatement')                                                           
-    def statement(self, p):               
+    def statements(self, p):               
         return f'{p.loopStatement}'
 
+    @_('functionDeclaration')                                                     
+    def statements(self, p):               
+        return f'{p.functionDeclaration}'
+
+    @_('emptyStatement')                                                          
+    def statement(self, p):
+        return f'{p.emptyStatement}'
+
+    @_('assignmentStatement')                                                     
+    def statement(self, p):
+        return f'{p.assignmentStatement}'
+
+    @_('variableDeclaration')                                                     
+    def statement(self, p):
+        return f'{p.variableDeclaration}'
+
+    @_('functionStatement')                                                       
+    def statement(self, p):
+        return f'{p.functionStatement}'
 
     @_('IDENT ASSIGN expression')                                                 
-    def assignmentStatement(self, p):     
-        return f'{p.IDENT} = {p.expression}'
+    def assignmentStatement(self, p):
+        return f'\t'*int(p.IDENT[-1]) + f'{p.IDENT[:-1]} = {p.expression}'
+
+    @_('IDENT LSQBR expression RSQBR ASSIGN expression')                                                 
+    def assignmentStatement(self, p):
+        return f'\t'*int(p.IDENT[-1]) + f'{p.IDENT[:-1]}[{p.expression0}] = {p.expression1}'
+
+    @_('IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression')                                                 
+    def assignmentStatement(self, p):
+        return f'\t'*int(p.IDENT[-1]) + f'{p.IDENT[:-1]}[{p.expression0} : {p.expression1}] = {p.expression2}'
 
     @_('IDENT LPAREN RPAREN')                                                     
-    def functionStatement(self, p):       
-        return f'{p.IDENT}()'
+    def functionStatement(self, p):
+        return f'\t'*int(p.IDENT[-1]) + f'{p.IDENT[:-1]}()'
 
-    @_('IDENT LPAREN actparams RPAREN')                                           
-    def functionStatement(self, p):       
-        return f'{p.IDENT}({p.actparams})'
-
-    @_('expression')                                                              
-    def actparams(self, p):               
-        return f'{p.expression}'
-
-    @_('expression moreparams')                                                   
-    def actparams(self, p):               
-        return f'{p.expression}{p.moreparams}'
-
-    @_('COMMA actparams')                                                         
-    def moreparams(self, p):              
-        return f', {p.actparams}'
+    @_('IDENT LPAREN fargs RPAREN')                                           
+    def functionStatement(self, p):
+        return f'\t'*int(p.IDENT[-1]) + f'{p.IDENT[:-1]}({p.fargs})'
 
     @_('BEGIN statements END')                                                    
-    def compoundStatement(self, p):       
-        return f'\n{p.statements}\n'
+    def compoundStatement(self, p):
+        return f'{p.statements}\n'
 
-    @_('IF expression THEN statements')                                           
-    def conditionalStatement(self, p):    
-        return f'if {p.expression}:\n{p.statements}'
+    @_('IF LPAREN expression RPAREN compoundStatement')                                           
+    def conditionalStatement(self, p):
+        return f'\t'*p.IF + f'if {p.expression}:\n{p.compoundStatement}'
 
-    @_('IF expression THEN statements ELSE statements')                           
-    def conditionalStatement(self, p):    
-        return f'if {p.expression}:\n{p.statements0}\nelse:\n{p.statements1}'
-
-    @_('WHILE expression DO statement')                                           
+    @_('IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement')                           
+    def conditionalStatement(self, p):
+        return f'\t'*p.IF + f'if {p.expression}:\n{p.compoundStatement0}else:{p.compoundStatement1}'
+    
+    @_('WHILE LPAREN expression RPAREN compoundStatement')                                           
     def loopStatement(self, p):           
-        return f'while {p.expression}:\n\t{p.statement}'
+        return f'\t'*p.WHILE + f'while {p.expression}:\n{p.compoundStatement}'
 
-    @_('DO statement WHILE expression')                                           
+    @_('FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement')                          
     def loopStatement(self, p):           
-        return f'{p.statement}\nwhile {p.expression}:\n\t{p.statement}'
+        return f'\t'*p.FOR + f'for {p.IDENT[:-1]} in range({p.NUM0}, {p.NUM1}):\n{p.compoundStatement}'
 
-    @_('FOR IDENT ASSIGN NUM TO NUM DO statement')                          
+    @_('FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement')                          
     def loopStatement(self, p):           
-        return f'for {p.IDENT} in range(p.NUM, p.NUM):\n\t{p.statement}'
+        return f'\t'*p.FOR + f'for {p.IDENT0[:-1]} in range({p.IDENT1[:-1]}, {p.NUM}):\n{p.compoundStatement}'
+
+    @_('FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement')                          
+    def loopStatement(self, p):           
+        return f'\t'*p.FOR + f'for {p.IDENT0[:-1]} in range({p.NUM}, {p.IDENT1[:-1]}):\n{p.compoundStatement}'
+
+    @_('FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement')                          
+    def loopStatement(self, p):           
+        return f'\t'*p.FOR + f'for {p.IDENT0[:-1]} in range({p.IDENT1[:-1]}, {p.IDENT2[:-1]}):\n{p.compoundStatement}'
 
     @_('')                                                               
-    def emptyStatement(self, p):          
+    def emptyStatement(self, p):
         return f''
 
     @_('VAR IDENT ASSIGN expression')                                             
-    def variableDeclaration(self, p):     
-        return f'{p.IDENT} = {p.expression}'
+    def variableDeclaration(self, p):
+        return f'\t'*p.VAR + f'{p.IDENT[:-1]} = {p.expression}'
 
     @_('FUNCTION IDENT LPAREN RPAREN compoundStatement')                          
     def functionDeclaration(self, p):     
-        return f'{p.IDENT}(){p.compoundStatement}'
+        return f'\t'*p.FUNCTION + f'{p.IDENT[:-1]}():\n{p.compoundStatement}'
 
-    @_('FUNCTION IDENT LPAREN fargs RPAREN compoundStatement')                    
+    @_('FUNCTION IDENT LPAREN args RPAREN compoundStatement')                    
     def functionDeclaration(self, p):     
-        return f'{p.IDENT}({p.fargs}){p.compoundStatement}'
+        return f'\t'*p.FUNCTION + f'{p.IDENT[:-1]}({p.args}):\n{p.compoundStatement}'
 
-    @_('IDENT')                                                                   
+    @_('IDENT COMMA args')
+    def args(self, p):
+        return f'{p.IDENT[:-1]}, {p.args}'
+
+    @_('IDENT')
+    def args(self, p):
+        return f'{p.IDENT[:-1]}'
+
+    @_('LPAREN expression RPAREN COMMA fargs')                                                         
     def fargs(self, p):                   
-        return f'{p.IDENT}'
-
-    @_('IDENT morefargs')                                                         
+        return f'({p.expression}), {p.fargs}'
+    
+    @_('expression COMMA fargs')                                                         
     def fargs(self, p):                   
-        return f'{p.IDENT}, {p.morefargs}'
-
-    @_('COMMA fargs')                                                             
-    def morefargs(self, p):               
-        return f', {p.fargs}'
-
-    @_('expression')                                                              
-    def largs(self, p):                   
+        return f'{p.expression}, {p.fargs}'
+    
+    @_('LPAREN expression RPAREN')                                                                   
+    def fargs(self, p):                   
+        return f'({p.expression})'
+    
+    @_('expression')                                                                   
+    def fargs(self, p):                   
         return f'{p.expression}'
-
-    @_('expression morelargs')                                                    
-    def largs(self, p):                   
-        return f'{p.expression}, {p.morelargs}'
-
-    @_('COMMA largs')                                                             
-    def morelargs(self, p):               
-        return f', {p.largs}'
-
-    @_('IDENT')                                                                   
-    def expression(self, p):              
-        return f'{p.IDENT}'
-
+    
     @_('binop')                                                                   
     def expression(self, p):              
         return f'{p.binop}'
-
-    @_('unop')                                                                    
-    def expression(self, p):              
-        return f'{p.unop}'
 
     @_('unop')                                                                    
     def binop(self, p):                   
@@ -261,25 +250,44 @@ class CalcParser(Parser):
         return f'not {p.term}'
 
     @_('NUM')                                                                     
-    def term(self, p):                    
+    def term(self, p):
         return f'{p.NUM}'
 
     @_('BOOL')                                                                    
-    def term(self, p):                    
-        return f'{p.BOOL}'
+    def term(self, p):
+        if p.BOOL == 'true':                    
+            return 'True'
+
+        else:
+            return 'False'
 
     @_('STRING')                                                                    
-    def term(self, p):                    
+    def term(self, p):
         return f'{p.STRING}'
 
-    @_('LSQBR largs RSQBR')                                                       
-    def term(self, p):                    
-        return f'[{p.largs}]'
+    @_('IDENT')                                                                    
+    def term(self, p):
+        return f'{p.IDENT[:-1]}'
+
+    @_('LSQBR RSQBR')                                                       
+    def term(self, p):
+        return f'[]'
+
+    @_('IDENT LSQBR expression RSQBR')                                                       
+    def term(self, p):
+        return f'{p.IDENT[:-1]}[{p.expression}]'
+
+    @_('IDENT LSQBR expression SLICE expression RSQBR')                                                       
+    def term(self, p):
+        return f'{p.IDENT[:-1]}[{p.expression0} : {p.expression1}]'
+    
+    @_('LSQBR fargs RSQBR')                                                       
+    def term(self, p):
+        return f'[{p.fargs}]'
 
     @_('LPAREN expression RPAREN')                                                
-    def term(self, p):                    
+    def term(self, p):
         return f'({p.expression})'
-
 
 
 if __name__ == '__main__':
