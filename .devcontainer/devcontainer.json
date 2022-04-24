@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.224.2/containers/python-3
 {
-	"name": "Python 3",
+	"name": "Tetris Lang",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
@@ -14,6 +14,17 @@
 			"NODE_VERSION": "none"
 		}
 	},
+
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}",
+		"PYTHONDONTWRITEBYTECODE": "1",
+	},
+
+	"mounts": [
+		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+		"source=/dev/snd,target=/dev/snd,type=bind",
+	],
+
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
@@ -28,13 +39,15 @@
 		"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
 		"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
 		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
+		"terminal.integrated.defaultProfile.linux": "zsh"
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python",
-		"ms-python.vscode-pylance"
+		"ms-python.vscode-pylance",
+		"eamodio.gitlens",
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
