@@ -1,6 +1,4 @@
 from sly import Parser
-import sys
-sys.path.append("..")
 from scanner.scanner import CalcLexer
 
 
@@ -132,18 +130,10 @@ class CalcParser(Parser):
     @_('IDENT')
     def args(self, p):
         return f'{p.IDENT[:-1]}'
-
-    @_('LPAREN expression RPAREN COMMA fargs')                                                         
-    def fargs(self, p):                   
-        return f'({p.expression}), {p.fargs}'
     
     @_('expression COMMA fargs')                                                         
     def fargs(self, p):                   
         return f'{p.expression}, {p.fargs}'
-    
-    @_('LPAREN expression RPAREN')                                                                   
-    def fargs(self, p):                   
-        return f'({p.expression})'
     
     @_('expression')                                                                   
     def fargs(self, p):                   
@@ -288,6 +278,10 @@ class CalcParser(Parser):
     @_('LPAREN expression RPAREN')                                                
     def term(self, p):
         return f'({p.expression})'
+
+    @_('functionStatement')                                                
+    def term(self, p):
+        return f'({p.functionStatement})'
 
 
 if __name__ == '__main__':

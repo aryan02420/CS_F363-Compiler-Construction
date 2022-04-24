@@ -72,9 +72,7 @@ functionDeclaration     ::=     FUNCTION IDENT LPAREN RPAREN compoundStatement
 args                    ::=     IDENT COMMA args                                                               
                         |       IDENT
 
-fargs                   ::=     LPAREN expression RPAREN COMMA fargs                                                               
-                        |       expression COMMA fargs                                                         
-                        |       LPAREN expression RPAREN
+fargs                   ::=     expression COMMA fargs
                         |       expression
 
 expression              ::=     binop                                                                   
@@ -113,5 +111,6 @@ term                    ::=     NUM
                         |       IDENT LSQBR expression RSQBR
                         |       IDENT LSQBR expression SLICE expression RSQBR
                         |       LPAREN expression RPAREN
+                        |       functionStatement
 
                     

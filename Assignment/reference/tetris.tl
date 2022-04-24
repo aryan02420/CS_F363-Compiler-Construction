@@ -1,5 +1,3 @@
-#! tetris-lang
-
 // start screen
 initialize_tetris_window(20, 10);
 
@@ -12,11 +10,12 @@ var sound_path:='/home/hardik/tetris.mp3';
 set_sound(sound_path);
 
 // add block
-var newBlock := createBlock([[5,6,9],
-[5,6,10],
-[6,9,10],
-[5,9,10]],
-[255,0,0]);
+var newBlock := createBlock([
+    [5,6,9],
+    [5,6,10],
+    [6,9,10],
+    [5,9,10]
+], [255,0,0]);
 
 add_block(newBlock);
 
@@ -29,21 +28,19 @@ set_levels(levels);
 // main game logo
 var play_again := True;
 var run := True;
-while play_again do
-begin
+while (play_again) begin
     //main menu
     show_main_menu();
 
-    while run do
-    begin
+    while (run) begin
         update_clock();
         get_new_shape();
 
-        if lost then
-        begin
+        if (lost) begin
             run:=False;
         end
     end
     
-    play_again:=show_game_over();
+    //play_again := show_game_over();
+
 end
