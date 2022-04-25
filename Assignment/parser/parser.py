@@ -37,7 +37,7 @@ class CalcParser(Parser):
 
     @_('functionDeclaration')                                                     
     def statements(self, p):               
-        return f'{p.functionDeclaration}'
+        return f'\n{p.functionDeclaration}'
 
     @_('emptyStatement')                                                          
     def statement(self, p):
@@ -53,7 +53,7 @@ class CalcParser(Parser):
 
     @_('functionStatement')                                                       
     def statement(self, p):
-        return f'{p.functionStatement}'
+        return f'{p.functionStatement}\n'
 
     @_('IDENT ASSIGN expression')                                                 
     def assignmentStatement(self, p):
