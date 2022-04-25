@@ -46,9 +46,9 @@ class TetrisEngine(object):
     top_left_x = (s_width - play_width) // 2
     top_left_y = s_height - play_height
 
-    filepath = './highscore.txt'
-    fontpath = './arcade.TTF'
-    fontpath_mario = './mario.ttf'
+    filepath = 'assets/highscore.txt'
+    fontpath = 'assets/arcade.TTF'
+    fontpath_mario = 'assets/mario.ttf'
 
     viz_next_piece = True
     viz_high_score = True
