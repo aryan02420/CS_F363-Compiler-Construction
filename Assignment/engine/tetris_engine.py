@@ -47,6 +47,18 @@ class TetrisEngine(object):
     filepath = './highscore.txt'
     fontpath = './arcade.TTF'
     fontpath_mario = './mario.ttf'
+
+    viz_next_piece = True
+    viz_high_score = True
+
+    clock = pygame.time.Clock()
+    fall_time = 0
+    fall_speed = 0.35
+    level_time = 0
+
+    level = 0
+    level_speeds = [0.35, 0.25, 0.15]
+    increase_difficulty = True
     #########################################################################
 
     """
@@ -161,24 +173,24 @@ class TetrisEngine(object):
 
     
     def __init__(self):
-        pass
-    
+        self.window = pygame.display.set_mode((self.s_width, self.s_height))    
+        pygame.display.set_caption("Tetris")
+        self.max_score = self.get_max_score()
         
     """
     initialise the grid
     """
-    def create_grid(self, locked_pos={}):
+    def create_grid(self):
         grid = [[(0, 0, 0) for x in range(self.col)] for y in range(self.row)]  # grid represented rgb tuples
 
         # locked_positions dictionary
         # (x,y):(r,g,b)
         for y in range(self.row):
             for x in range(self.col):
-                if (x, y) in locked_pos:
-                    color = locked_pos[
+                if (x, y) in self.locked_positions:
+                    color = self.locked_positions[
                         (x, y)]  # get the value color (r,g,b) from the locked_positions dictionary using key (x,y)
                     grid[y][x] = color  # set grid position to color
-
         return grid
 
     def convert_shape_format(self, piece):
@@ -208,9 +220,9 @@ class TetrisEngine(object):
     """
     checks if current position of piece in grid is valid
     """
-    def valid_space(self, piece, grid):
+    def valid_space(self, piece):
         # makes a 2D list of all the possible (x,y)
-        accepted_pos = [[(x, y) for x in range(self.col) if grid[y][x] == (0, 0, 0)] for y in range(self.row)]
+        accepted_pos = [[(x, y) for x in range(self.col) if self.grid[y][x] == (0, 0, 0)] for y in range(self.row)]
         # removes sub lists and puts (x,y) in one list; easier to search
         accepted_pos = [x for item in accepted_pos for x in item]
 
@@ -225,8 +237,8 @@ class TetrisEngine(object):
     """
     check if piece is out of board
     """
-    def check_lost(self, positions):
-        for pos in positions:
+    def check_lost(self):
+        for pos in self.locked_positions:
             x, y = pos
             if y < 1:
                 return True
@@ -270,18 +282,18 @@ class TetrisEngine(object):
     """
     clear a row when it is filled
     """
-    def clear_rows(self, grid, locked):
+    def clear_rows(self):
         # need to check if row is clear then shift every other row above down one
         increment = 0
-        for i in range(len(grid) - 1, -1, -1):      # start checking the grid backwards
-            grid_row = grid[i]                      # get the last row
+        for i in range(len(self.grid) - 1, -1, -1):      # start checking the grid backwards
+            grid_row = self.grid[i]                      # get the last row
             if (0, 0, 0) not in grid_row:           # if there are no empty spaces (i.e. black blocks)
                 increment += 1
                 # add positions to remove from locked
                 index = i                           # row index will be constant
                 for j in range(len(grid_row)):
                     try:
-                        del locked[(j, i)]          # delete every locked element in the bottom row
+                        del self.locked_positions[(j, i)]          # delete every locked element in the bottom row
                     except ValueError:
                         continue
 
@@ -292,11 +304,11 @@ class TetrisEngine(object):
         if increment > 0:
             # sort the locked list according to y value in (x,y) and then reverse
             # reversed because otherwise the ones on the top will overwrite the lower ones
-            for key in sorted(list(locked), key=lambda a: a[1])[::-1]:
+            for key in sorted(list(self.locked_positions), key=lambda a: a[1])[::-1]:
                 x, y = key
                 if y < index:                       # if the y value is above the removed index
                     new_key = (x, y + increment)    # shift position to down
-                    locked[new_key] = locked.pop(key)
+                    self.locked_positions[new_key] = self.locked_positions.pop(key)
 
         return increment
 
@@ -327,7 +339,7 @@ class TetrisEngine(object):
     """
     draws the content of the window
     """
-    def draw_window(self, surface, grid, score=0, last_score=0):
+    def draw_window(self, surface, grid, score=0):
         surface.fill((0, 0, 0))  # fill the surface with black
 
         pygame.font.init()  # initialise font
@@ -345,13 +357,14 @@ class TetrisEngine(object):
 
         surface.blit(label, (start_x, start_y + 200))
 
-        # last score
-        label_hi = font.render('HIGHSCORE   ' + str(last_score), 1, (255, 255, 255))
+        if self.viz_high_score:
+            # last score
+            label_hi = font.render('HIGHSCORE   ' + str(self.max_score), 1, (255, 255, 255))
 
-        start_x_hi = self.top_left_x - 240
-        start_y_hi = self.top_left_y + 200
+            start_x_hi = self.top_left_x - 240
+            start_y_hi = self.top_left_y + 200
 
-        surface.blit(label_hi, (start_x_hi + 20, start_y_hi + 200))
+            surface.blit(label_hi, (start_x_hi + 20, start_y_hi + 200))
 
         # draw content of the grid
         for i in range(self.row):
@@ -384,140 +397,219 @@ class TetrisEngine(object):
     """
     update the score txt file with high score
     """
-    def update_score(self, new_score):
+    def update_highscore(self, new_score):
         score = self.get_max_score()
 
         with open(self.filepath, 'w') as file:
             if new_score > score:
                 file.write(str(new_score))
+                self.max_score = new_score
             else:
                 file.write(str(score))
 
+    def init_grid(self):
+        self.locked_positions = {}
+        self.grid = self.create_grid()
 
-    def main(self, window):
-        locked_positions = {}
-        self.create_grid(locked_positions)
+    def init_blocks(self):
+        self.current_piece = self.get_shape()
+        self.change_piece = False
+        self.next_piece = self.get_shape()
 
-        change_piece = False
-        run = True
-        current_piece = self.get_shape()
-        next_piece = self.get_shape()
-        clock = pygame.time.Clock()
-        fall_time = 0
-        fall_speed = 0.35
-        level_time = 0
-        score = 0
-        last_score = self.get_max_score()
+    def init_clock(self):
+        self.clock = pygame.time.Clock()
+        self.fall_time = 0
+        self.fall_speed = self.level_speeds[self.level]
+        self.level_time = 0
 
-        while run:
-            # need to constantly make new grid as locked positions always change
-            grid = self.create_grid(locked_positions)
+    def update_locked_grid(self):
+        self.grid = self.create_grid()
 
-            # helps run the same on every computer
-            # add time since last tick() to fall_time
-            fall_time += clock.get_rawtime()  # returns in milliseconds
-            level_time += clock.get_rawtime()
+    def draw_current_grid(self):
+        self.piece_pos = self.convert_shape_format(self.current_piece)
 
-            clock.tick()  # updates clock
+        # draw the piece on the grid by giving color in the piece locations
+        for i in range(len(self.piece_pos)):
+            x, y = self.piece_pos[i]
+            if y >= 0:
+                self.grid[y][x] = self.current_piece.color
 
-            if level_time/1000 > 5:    # make the difficulty harder every 10 seconds
-                level_time = 0
-                if fall_speed > 0.15:   # until fall speed is 0.15
-                    fall_speed -= 0.005
+    def update_clock(self):
+        # helps run the same on every computer
+        # add time since last tick() to fall_time
+        self.fall_time += self.clock.get_rawtime()  # returns in milliseconds
+        self.level_time += self.clock.get_rawtime()
 
-            if fall_time / 1000 > fall_speed:
-                fall_time = 0
-                current_piece.y += 1
-                if not self.valid_space(current_piece, grid) and current_piece.y > 0:
-                    current_piece.y -= 1
-                    # since only checking for down - either reached bottom or hit another piece
-                    # need to lock the piece position
-                    # need to generate new piece
-                    change_piece = True
+        self.clock.tick()  # updates clock
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                    pygame.display.quit()
-                    quit()
+        if self.increase_difficulty:
+            if self.level_time/1000 > 5:    # make the difficulty harder every 10 seconds
+                self.level_time = 0
+                if self.fall_speed > 0.15:   # until fall speed is 0.15
+                    self.fall_speed -= 0.005
 
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
-                        current_piece.x -= 1  # move x position left
-                        if not self.valid_space(current_piece, grid):
-                            current_piece.x += 1
-
-                    elif event.key == pygame.K_RIGHT:
-                        current_piece.x += 1  # move x position right
-                        if not self.valid_space(current_piece, grid):
-                            current_piece.x -= 1
-
-                    elif event.key == pygame.K_DOWN:
-                        # move shape down
-                        current_piece.y += 1
-                        if not self.valid_space(current_piece, grid):
-                            current_piece.y -= 1
-
-                    elif event.key == pygame.K_UP:
-                        # rotate shape
-                        current_piece.rotation = current_piece.rotation + 1 % len(current_piece.shape)
-                        if not self.valid_space(current_piece, grid):
-                            current_piece.rotation = current_piece.rotation - 1 % len(current_piece.shape)
-
-            piece_pos = self.convert_shape_format(current_piece)
-
-            # draw the piece on the grid by giving color in the piece locations
-            for i in range(len(piece_pos)):
-                x, y = piece_pos[i]
-                if y >= 0:
-                    grid[y][x] = current_piece.color
-
-            if change_piece:  # if the piece is locked
-                for pos in piece_pos:
-                    p = (pos[0], pos[1])
-                    locked_positions[p] = current_piece.color       # add the key and value in the dictionary
-                current_piece = next_piece
-                next_piece = self.get_shape()
-                change_piece = False
-                score += self.clear_rows(grid, locked_positions) * 10    # increment score by 10 for every row cleared
-                self.update_score(score)
-
-                if last_score < score:
-                    last_score = score
-
-            self.draw_window(window, grid, score, last_score)
-            self.draw_next_shape(next_piece, window)
-            pygame.display.update()
-
-            if self.check_lost(locked_positions):
+    def shift_piece(self):
+        if self.fall_time / 1000 > self.fall_speed:
+            self.fall_time = 0
+            self.current_piece.y += 1
+            if not self.valid_space(self.current_piece) and self.current_piece.y > 0:
+                self.current_piece.y -= 1
+                # since only checking for down - either reached bottom or hit another piece
+                # need to lock the piece position
+                # need to generate new piece
+                self.change_piece = True
+                
+    def take_user_input(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 run = False
+                pygame.display.quit()
+                quit()
 
-        self.draw_text_middle('You  Lost', 40, (255, 255, 255), window)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.current_piece.x -= 1  # move x position left
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.x += 1
+
+                elif event.key == pygame.K_RIGHT:
+                    self.current_piece.x += 1  # move x position right
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.x -= 1
+
+                elif event.key == pygame.K_DOWN:
+                    # move shape down
+                    self.current_piece.y += 1
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.y -= 1
+
+                elif event.key == pygame.K_UP:
+                    # rotate shape
+                    self.current_piece.rotation = self.current_piece.rotation + 1 % len(self.current_piece.shape)
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.rotation = self.current_piece.rotation - 1 % len(self.current_piece.shape)
+    
+    def current_piece_locked(self):
+        return self.change_piece
+
+    def spawn(self):
+        for pos in self.piece_pos:
+            p = (pos[0], pos[1])
+            self.locked_positions[p] = self.current_piece.color       # add the key and value in the dictionary
+        self.current_piece = self.next_piece
+        self.next_piece = self.get_shape()
+        self.change_piece = False
+
+    def update_window(self, score):
+        self.draw_window(self.window, self.grid, score)
+
+        if self.viz_next_piece:
+            self.draw_next_shape(self.next_piece, self.window)
+        pygame.display.update()
+
+    def game_over(self):
+        self.draw_text_middle('You  Lost', 40, (255, 255, 255), self.window)
         pygame.display.update()
         pygame.time.delay(2000)  # wait for 2 seconds
         pygame.quit()
         quit()
 
-
-    def main_menu(self, window):
+    def main_menu(self):
         run = True
         while run:
-            self.draw_text_middle('Press   any   key   to   begin', 50, (255, 255, 255), window)
+            self.draw_text_middle('Press   any   key   to   begin', 50, (255, 255, 255), self.window)
             pygame.display.update()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                 elif event.type == pygame.KEYDOWN:
-                    self.main(window)
-
+                    # self.main(self.window)
+                    return
         pygame.quit()
+        quit()
 
+    def initialize_window(self, row, col):
+        self.row = row
+        self.col = col
+        self.play_width = self.col * self.block_size
+        self.play_height = self.row * self.block_size
+        self.top_left_x = (self.s_width - self.play_width) // 2
+        self.top_left_y = self.s_height - self.play_height - 50
+
+    def create_block(self, temp_block):
+        self.shapes.append(temp_block[0])
+        self.shape_colors.append(temp_block[1])
+    
+    def show_next_piece(self, val):
+        self.viz_next_piece = val
+
+    def show_highscore(self, val):
+        self.viz_high_score = val
+    
+    def increase_fall_speed(self, val):
+        self.increase_difficulty = val
+    
+    def set_window_caption(self, val):
+        pygame.display.set_caption(val)
+
+    def set_level(self, val):
+        self.level = val
 
 if __name__ == '__main__':
 
     root = TetrisEngine()
-    win = pygame.display.set_mode((root.s_width, root.s_height))
-    pygame.display.set_caption('Tetris')
+    # win = pygame.display.set_mode((root.s_width, root.s_height))
+    # pygame.display.set_caption('Tetris')
 
-    root.main_menu(win)  # start game
+    # root.main_menu(win)  # start game
+    
+    root.initialize_window(18, 10)
+    temp_block = [
+        [['.....',
+        '.....',
+        '..0..',
+        '..0..',
+        '.....'],
+        ['.....',
+        '..00.',
+        '.....',
+        '.....',
+        '.....']],(128,165,0)]
+
+    root.create_block(temp_block)
+    root.show_next_piece(True)
+    root.show_highscore(True)
+    root.set_level(1)
+    root.increase_fall_speed(True)
+    root.set_window_caption("Hardik :)")
+
+    play_again = True
+
+    while play_again:
+        root.main_menu()
+
+        run = True
+        score = 0
+
+        root.init_grid()
+        root.init_blocks()
+        root.init_clock()
+        while run:
+            root.update_locked_grid()
+            root.update_clock()
+            root.shift_piece()
+            root.take_user_input()
+            root.draw_current_grid()
+
+            if root.current_piece_locked():
+                root.spawn()
+                score+=root.clear_rows()
+                root.update_highscore(score)
+
+            root.update_window(score)
+
+            if root.check_lost():
+                run = False
+        
+        root.game_over()
