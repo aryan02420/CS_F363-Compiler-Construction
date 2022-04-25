@@ -1,0 +1,3396 @@
+Grammar:
+
+Rule 0     S' -> program
+Rule 1     program -> functionDeclaration
+Rule 2     program -> statements
+Rule 3     statements -> statement EOL
+Rule 4     statements -> statement EOL statements
+Rule 5     statement -> loopStatement
+Rule 6     statement -> conditionalStatement
+Rule 7     statement -> compoundStatement
+Rule 8     statement -> functionStatement
+Rule 9     statement -> variableDeclaration
+Rule 10    statement -> assignmentStatement
+Rule 11    statement -> emptyStatement
+Rule 12    assignmentStatement -> IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression
+Rule 13    assignmentStatement -> IDENT LSQBR expression RSQBR ASSIGN expression
+Rule 14    assignmentStatement -> IDENT ASSIGN expression
+Rule 15    functionStatement -> IDENT LPAREN fargs RPAREN
+Rule 16    functionStatement -> IDENT LPAREN RPAREN
+Rule 17    compoundStatement -> BEGIN statements END
+Rule 18    conditionalStatement -> IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement
+Rule 19    conditionalStatement -> IF LPAREN expression RPAREN compoundStatement
+Rule 20    loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement
+Rule 21    loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
+Rule 22    loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
+Rule 23    loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
+Rule 24    loopStatement -> WHILE LPAREN expression RPAREN compoundStatement
+Rule 25    emptyStatement -> <empty>
+Rule 26    variableDeclaration -> VAR IDENT ASSIGN expression
+Rule 27    functionDeclaration -> FUNCTION IDENT LPAREN args RPAREN compoundStatement
+Rule 28    functionDeclaration -> FUNCTION IDENT LPAREN RPAREN compoundStatement
+Rule 29    args -> IDENT
+Rule 30    args -> IDENT COMMA args
+Rule 31    fargs -> expression
+Rule 32    fargs -> expression COMMA fargs
+Rule 33    expression -> binop
+Rule 34    binop -> binop OR unop
+Rule 35    binop -> binop AND unop
+Rule 36    binop -> binop BITXOR unop
+Rule 37    binop -> binop BITOR unop
+Rule 38    binop -> binop BITAND unop
+Rule 39    binop -> binop SAR unop
+Rule 40    binop -> binop SAL unop
+Rule 41    binop -> binop NEQ unop
+Rule 42    binop -> binop EQ unop
+Rule 43    binop -> binop GTEQ unop
+Rule 44    binop -> binop GT unop
+Rule 45    binop -> binop LTEQ unop
+Rule 46    binop -> binop LT unop
+Rule 47    binop -> binop MOD unop
+Rule 48    binop -> binop DIV unop
+Rule 49    binop -> binop MUL unop
+Rule 50    binop -> binop SUB unop
+Rule 51    binop -> binop ADD unop
+Rule 52    binop -> unop
+Rule 53    unop -> NOT term
+Rule 54    unop -> BITNOT term
+Rule 55    unop -> SUB term
+Rule 56    unop -> ADD term
+Rule 57    unop -> term
+Rule 58    term -> functionStatement
+Rule 59    term -> IDENT LSQBR expression SLICE expression RSQBR
+Rule 60    term -> IDENT LSQBR expression RSQBR
+Rule 61    term -> LPAREN fargs RPAREN
+Rule 62    term -> LSQBR fargs RSQBR
+Rule 63    term -> LSQBR RSQBR
+Rule 64    term -> IDENT
+Rule 65    term -> STRING
+Rule 66    term -> BOOL
+Rule 67    term -> NUM
+
+Terminals, with rules where they appear:
+
+ADD                  : 51 56
+AND                  : 35
+ASSIGN               : 12 13 14 20 21 22 23 26
+BEGIN                : 17
+BITAND               : 38
+BITNOT               : 54
+BITOR                : 37
+BITXOR               : 36
+BOOL                 : 66
+COMMA                : 30 32
+DIV                  : 48
+ELSE                 : 18
+END                  : 17
+EOL                  : 3 4
+EQ                   : 42
+FOR                  : 20 21 22 23
+FUNCTION             : 27 28
+GT                   : 44
+GTEQ                 : 43
+IDENT                : 12 13 14 15 16 20 20 20 21 21 22 22 23 26 27 28 29 30 59 60 64
+IF                   : 18 19
+LPAREN               : 15 16 18 19 20 21 22 23 24 27 28 61
+LSQBR                : 12 13 59 60 62 63
+LT                   : 46
+LTEQ                 : 45
+MOD                  : 47
+MUL                  : 49
+NEQ                  : 41
+NOT                  : 53
+NUM                  : 21 22 23 23 67
+OR                   : 34
+RPAREN               : 15 16 18 19 20 21 22 23 24 27 28 61
+RSQBR                : 12 13 59 60 62 63
+SAL                  : 40
+SAR                  : 39
+SLICE                : 12 59
+STRING               : 65
+SUB                  : 50 55
+TO                   : 20 21 22 23
+VAR                  : 26
+WHILE                : 24
+error                : 
+
+Nonterminals, with rules where they appear:
+
+args                 : 27 30
+assignmentStatement  : 10
+binop                : 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51
+compoundStatement    : 7 18 18 19 20 21 22 23 24 27 28
+conditionalStatement : 6
+emptyStatement       : 11
+expression           : 12 12 12 13 13 14 18 19 24 26 31 32 59 59 60
+fargs                : 15 32 61 62
+functionDeclaration  : 1
+functionStatement    : 8 58
+loopStatement        : 5
+program              : 0
+statement            : 3 4
+statements           : 2 4 17
+term                 : 53 54 55 56 57
+unop                 : 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+variableDeclaration  : 9
+
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . functionDeclaration
+    (2) program -> . statements
+    (27) functionDeclaration -> . FUNCTION IDENT LPAREN args RPAREN compoundStatement
+    (28) functionDeclaration -> . FUNCTION IDENT LPAREN RPAREN compoundStatement
+    (3) statements -> . statement EOL
+    (4) statements -> . statement EOL statements
+    (5) statement -> . loopStatement
+    (6) statement -> . conditionalStatement
+    (7) statement -> . compoundStatement
+    (8) statement -> . functionStatement
+    (9) statement -> . variableDeclaration
+    (10) statement -> . assignmentStatement
+    (11) statement -> . emptyStatement
+    (20) loopStatement -> . FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement
+    (21) loopStatement -> . FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> . FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
+    (23) loopStatement -> . FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
+    (24) loopStatement -> . WHILE LPAREN expression RPAREN compoundStatement
+    (18) conditionalStatement -> . IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement
+    (19) conditionalStatement -> . IF LPAREN expression RPAREN compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    (26) variableDeclaration -> . VAR IDENT ASSIGN expression
+    (12) assignmentStatement -> . IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression
+    (13) assignmentStatement -> . IDENT LSQBR expression RSQBR ASSIGN expression
+    (14) assignmentStatement -> . IDENT ASSIGN expression
+    (25) emptyStatement -> .
+    FUNCTION        shift and go to state 4
+    FOR             shift and go to state 14
+    WHILE           shift and go to state 15
+    IF              shift and go to state 16
+    BEGIN           shift and go to state 17
+    IDENT           shift and go to state 5
+    VAR             shift and go to state 18
+    EOL             reduce using rule 25 (emptyStatement -> .)
+
+    program                        shift and go to state 1
+    functionDeclaration            shift and go to state 2
+    statements                     shift and go to state 3
+    compoundStatement              shift and go to state 6
+    statement                      shift and go to state 7
+    loopStatement                  shift and go to state 8
+    conditionalStatement           shift and go to state 9
+    functionStatement              shift and go to state 10
+    variableDeclaration            shift and go to state 11
+    assignmentStatement            shift and go to state 12
+    emptyStatement                 shift and go to state 13
+
+state 1
+
+    (0) S' -> program .
+
+
+state 2
+
+    (1) program -> functionDeclaration .
+    $end            reduce using rule 1 (program -> functionDeclaration .)
+
+
+state 3
+
+    (2) program -> statements .
+    $end            reduce using rule 2 (program -> statements .)
+
+
+state 4
+
+    (27) functionDeclaration -> FUNCTION . IDENT LPAREN args RPAREN compoundStatement
+    (28) functionDeclaration -> FUNCTION . IDENT LPAREN RPAREN compoundStatement
+    IDENT           shift and go to state 19
+
+
+state 5
+
+    (15) functionStatement -> IDENT . LPAREN fargs RPAREN
+    (16) functionStatement -> IDENT . LPAREN RPAREN
+    (12) assignmentStatement -> IDENT . LSQBR expression SLICE expression RSQBR ASSIGN expression
+    (13) assignmentStatement -> IDENT . LSQBR expression RSQBR ASSIGN expression
+    (14) assignmentStatement -> IDENT . ASSIGN expression
+    LPAREN          shift and go to state 20
+    LSQBR           shift and go to state 21
+    ASSIGN          shift and go to state 22
+
+
+state 6
+
+    (7) statement -> compoundStatement .
+    EOL             reduce using rule 7 (statement -> compoundStatement .)
+
+
+state 7
+
+    (3) statements -> statement . EOL
+    (4) statements -> statement . EOL statements
+    EOL             shift and go to state 23
+
+
+state 8
+
+    (5) statement -> loopStatement .
+    EOL             reduce using rule 5 (statement -> loopStatement .)
+
+
+state 9
+
+    (6) statement -> conditionalStatement .
+    EOL             reduce using rule 6 (statement -> conditionalStatement .)
+
+
+state 10
+
+    (8) statement -> functionStatement .
+    EOL             reduce using rule 8 (statement -> functionStatement .)
+
+
+state 11
+
+    (9) statement -> variableDeclaration .
+    EOL             reduce using rule 9 (statement -> variableDeclaration .)
+
+
+state 12
+
+    (10) statement -> assignmentStatement .
+    EOL             reduce using rule 10 (statement -> assignmentStatement .)
+
+
+state 13
+
+    (11) statement -> emptyStatement .
+    EOL             reduce using rule 11 (statement -> emptyStatement .)
+
+
+state 14
+
+    (20) loopStatement -> FOR . LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement
+    (21) loopStatement -> FOR . LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> FOR . LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
+    (23) loopStatement -> FOR . LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
+    LPAREN          shift and go to state 24
+
+
+state 15
+
+    (24) loopStatement -> WHILE . LPAREN expression RPAREN compoundStatement
+    LPAREN          shift and go to state 25
+
+
+state 16
+
+    (18) conditionalStatement -> IF . LPAREN expression RPAREN compoundStatement ELSE compoundStatement
+    (19) conditionalStatement -> IF . LPAREN expression RPAREN compoundStatement
+    LPAREN          shift and go to state 26
+
+
+state 17
+
+    (17) compoundStatement -> BEGIN . statements END
+    (3) statements -> . statement EOL
+    (4) statements -> . statement EOL statements
+    (5) statement -> . loopStatement
+    (6) statement -> . conditionalStatement
+    (7) statement -> . compoundStatement
+    (8) statement -> . functionStatement
+    (9) statement -> . variableDeclaration
+    (10) statement -> . assignmentStatement
+    (11) statement -> . emptyStatement
+    (20) loopStatement -> . FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement
+    (21) loopStatement -> . FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> . FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
+    (23) loopStatement -> . FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
+    (24) loopStatement -> . WHILE LPAREN expression RPAREN compoundStatement
+    (18) conditionalStatement -> . IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement
+    (19) conditionalStatement -> . IF LPAREN expression RPAREN compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    (26) variableDeclaration -> . VAR IDENT ASSIGN expression
+    (12) assignmentStatement -> . IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression
+    (13) assignmentStatement -> . IDENT LSQBR expression RSQBR ASSIGN expression
+    (14) assignmentStatement -> . IDENT ASSIGN expression
+    (25) emptyStatement -> .
+    FOR             shift and go to state 14
+    WHILE           shift and go to state 15
+    IF              shift and go to state 16
+    BEGIN           shift and go to state 17
+    IDENT           shift and go to state 5
+    VAR             shift and go to state 18
+    EOL             reduce using rule 25 (emptyStatement -> .)
+
+    statements                     shift and go to state 27
+    statement                      shift and go to state 7
+    loopStatement                  shift and go to state 8
+    conditionalStatement           shift and go to state 9
+    compoundStatement              shift and go to state 6
+    functionStatement              shift and go to state 10
+    variableDeclaration            shift and go to state 11
+    assignmentStatement            shift and go to state 12
+    emptyStatement                 shift and go to state 13
+
+state 18
+
+    (26) variableDeclaration -> VAR . IDENT ASSIGN expression
+    IDENT           shift and go to state 28
+
+
+state 19
+
+    (27) functionDeclaration -> FUNCTION IDENT . LPAREN args RPAREN compoundStatement
+    (28) functionDeclaration -> FUNCTION IDENT . LPAREN RPAREN compoundStatement
+    LPAREN          shift and go to state 29
+
+
+state 20
+
+    (15) functionStatement -> IDENT LPAREN . fargs RPAREN
+    (16) functionStatement -> IDENT LPAREN . RPAREN
+    (31) fargs -> . expression
+    (32) fargs -> . expression COMMA fargs
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    RPAREN          shift and go to state 33
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    fargs                          shift and go to state 32
+    expression                     shift and go to state 34
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 21
+
+    (12) assignmentStatement -> IDENT LSQBR . expression SLICE expression RSQBR ASSIGN expression
+    (13) assignmentStatement -> IDENT LSQBR . expression RSQBR ASSIGN expression
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 47
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 22
+
+    (14) assignmentStatement -> IDENT ASSIGN . expression
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 48
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 23
+
+    (3) statements -> statement EOL .
+    (4) statements -> statement EOL . statements
+    (3) statements -> . statement EOL
+    (4) statements -> . statement EOL statements
+    (5) statement -> . loopStatement
+    (6) statement -> . conditionalStatement
+    (7) statement -> . compoundStatement
+    (8) statement -> . functionStatement
+    (9) statement -> . variableDeclaration
+    (10) statement -> . assignmentStatement
+    (11) statement -> . emptyStatement
+    (20) loopStatement -> . FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement
+    (21) loopStatement -> . FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> . FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
+    (23) loopStatement -> . FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
+    (24) loopStatement -> . WHILE LPAREN expression RPAREN compoundStatement
+    (18) conditionalStatement -> . IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement
+    (19) conditionalStatement -> . IF LPAREN expression RPAREN compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    (26) variableDeclaration -> . VAR IDENT ASSIGN expression
+    (12) assignmentStatement -> . IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression
+    (13) assignmentStatement -> . IDENT LSQBR expression RSQBR ASSIGN expression
+    (14) assignmentStatement -> . IDENT ASSIGN expression
+    (25) emptyStatement -> .
+    $end            reduce using rule 3 (statements -> statement EOL .)
+    END             reduce using rule 3 (statements -> statement EOL .)
+    FOR             shift and go to state 14
+    WHILE           shift and go to state 15
+    IF              shift and go to state 16
+    BEGIN           shift and go to state 17
+    IDENT           shift and go to state 5
+    VAR             shift and go to state 18
+    EOL             reduce using rule 25 (emptyStatement -> .)
+
+    statement                      shift and go to state 7
+    statements                     shift and go to state 49
+    loopStatement                  shift and go to state 8
+    conditionalStatement           shift and go to state 9
+    compoundStatement              shift and go to state 6
+    functionStatement              shift and go to state 10
+    variableDeclaration            shift and go to state 11
+    assignmentStatement            shift and go to state 12
+    emptyStatement                 shift and go to state 13
+
+state 24
+
+    (20) loopStatement -> FOR LPAREN . IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement
+    (21) loopStatement -> FOR LPAREN . IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> FOR LPAREN . IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
+    (23) loopStatement -> FOR LPAREN . IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
+    IDENT           shift and go to state 50
+
+
+state 25
+
+    (24) loopStatement -> WHILE LPAREN . expression RPAREN compoundStatement
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 51
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 26
+
+    (18) conditionalStatement -> IF LPAREN . expression RPAREN compoundStatement ELSE compoundStatement
+    (19) conditionalStatement -> IF LPAREN . expression RPAREN compoundStatement
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 52
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 27
+
+    (17) compoundStatement -> BEGIN statements . END
+    END             shift and go to state 53
+
+
+state 28
+
+    (26) variableDeclaration -> VAR IDENT . ASSIGN expression
+    ASSIGN          shift and go to state 54
+
+
+state 29
+
+    (27) functionDeclaration -> FUNCTION IDENT LPAREN . args RPAREN compoundStatement
+    (28) functionDeclaration -> FUNCTION IDENT LPAREN . RPAREN compoundStatement
+    (29) args -> . IDENT
+    (30) args -> . IDENT COMMA args
+    RPAREN          shift and go to state 57
+    IDENT           shift and go to state 55
+
+    args                           shift and go to state 56
+
+state 30
+
+    (59) term -> IDENT . LSQBR expression SLICE expression RSQBR
+    (60) term -> IDENT . LSQBR expression RSQBR
+    (64) term -> IDENT .
+    (15) functionStatement -> IDENT . LPAREN fargs RPAREN
+    (16) functionStatement -> IDENT . LPAREN RPAREN
+    LSQBR           shift and go to state 58
+    OR              reduce using rule 64 (term -> IDENT .)
+    AND             reduce using rule 64 (term -> IDENT .)
+    BITXOR          reduce using rule 64 (term -> IDENT .)
+    BITOR           reduce using rule 64 (term -> IDENT .)
+    BITAND          reduce using rule 64 (term -> IDENT .)
+    SAR             reduce using rule 64 (term -> IDENT .)
+    SAL             reduce using rule 64 (term -> IDENT .)
+    NEQ             reduce using rule 64 (term -> IDENT .)
+    EQ              reduce using rule 64 (term -> IDENT .)
+    GTEQ            reduce using rule 64 (term -> IDENT .)
+    GT              reduce using rule 64 (term -> IDENT .)
+    LTEQ            reduce using rule 64 (term -> IDENT .)
+    LT              reduce using rule 64 (term -> IDENT .)
+    MOD             reduce using rule 64 (term -> IDENT .)
+    DIV             reduce using rule 64 (term -> IDENT .)
+    MUL             reduce using rule 64 (term -> IDENT .)
+    SUB             reduce using rule 64 (term -> IDENT .)
+    ADD             reduce using rule 64 (term -> IDENT .)
+    COMMA           reduce using rule 64 (term -> IDENT .)
+    RPAREN          reduce using rule 64 (term -> IDENT .)
+    SLICE           reduce using rule 64 (term -> IDENT .)
+    RSQBR           reduce using rule 64 (term -> IDENT .)
+    EOL             reduce using rule 64 (term -> IDENT .)
+    LPAREN          shift and go to state 20
+
+
+state 31
+
+    (61) term -> LPAREN . fargs RPAREN
+    (31) fargs -> . expression
+    (32) fargs -> . expression COMMA fargs
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    fargs                          shift and go to state 59
+    expression                     shift and go to state 34
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 32
+
+    (15) functionStatement -> IDENT LPAREN fargs . RPAREN
+    RPAREN          shift and go to state 60
+
+
+state 33
+
+    (16) functionStatement -> IDENT LPAREN RPAREN .
+    EOL             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    OR              reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    AND             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    BITXOR          reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    BITOR           reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    BITAND          reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    SAR             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    SAL             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    NEQ             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    EQ              reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    GTEQ            reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    GT              reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    LTEQ            reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    LT              reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    MOD             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    DIV             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    MUL             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    SUB             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    ADD             reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    COMMA           reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    RPAREN          reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    SLICE           reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+    RSQBR           reduce using rule 16 (functionStatement -> IDENT LPAREN RPAREN .)
+
+
+state 34
+
+    (31) fargs -> expression .
+    (32) fargs -> expression . COMMA fargs
+    RPAREN          reduce using rule 31 (fargs -> expression .)
+    RSQBR           reduce using rule 31 (fargs -> expression .)
+    COMMA           shift and go to state 61
+
+
+state 35
+
+    (33) expression -> binop .
+    (34) binop -> binop . OR unop
+    (35) binop -> binop . AND unop
+    (36) binop -> binop . BITXOR unop
+    (37) binop -> binop . BITOR unop
+    (38) binop -> binop . BITAND unop
+    (39) binop -> binop . SAR unop
+    (40) binop -> binop . SAL unop
+    (41) binop -> binop . NEQ unop
+    (42) binop -> binop . EQ unop
+    (43) binop -> binop . GTEQ unop
+    (44) binop -> binop . GT unop
+    (45) binop -> binop . LTEQ unop
+    (46) binop -> binop . LT unop
+    (47) binop -> binop . MOD unop
+    (48) binop -> binop . DIV unop
+    (49) binop -> binop . MUL unop
+    (50) binop -> binop . SUB unop
+    (51) binop -> binop . ADD unop
+    COMMA           reduce using rule 33 (expression -> binop .)
+    RPAREN          reduce using rule 33 (expression -> binop .)
+    SLICE           reduce using rule 33 (expression -> binop .)
+    RSQBR           reduce using rule 33 (expression -> binop .)
+    EOL             reduce using rule 33 (expression -> binop .)
+    OR              shift and go to state 62
+    AND             shift and go to state 63
+    BITXOR          shift and go to state 64
+    BITOR           shift and go to state 65
+    BITAND          shift and go to state 66
+    SAR             shift and go to state 67
+    SAL             shift and go to state 68
+    NEQ             shift and go to state 69
+    EQ              shift and go to state 70
+    GTEQ            shift and go to state 71
+    GT              shift and go to state 72
+    LTEQ            shift and go to state 73
+    LT              shift and go to state 74
+    MOD             shift and go to state 75
+    DIV             shift and go to state 76
+    MUL             shift and go to state 77
+    SUB             shift and go to state 78
+    ADD             shift and go to state 79
+
+
+state 36
+
+    (52) binop -> unop .
+    OR              reduce using rule 52 (binop -> unop .)
+    AND             reduce using rule 52 (binop -> unop .)
+    BITXOR          reduce using rule 52 (binop -> unop .)
+    BITOR           reduce using rule 52 (binop -> unop .)
+    BITAND          reduce using rule 52 (binop -> unop .)
+    SAR             reduce using rule 52 (binop -> unop .)
+    SAL             reduce using rule 52 (binop -> unop .)
+    NEQ             reduce using rule 52 (binop -> unop .)
+    EQ              reduce using rule 52 (binop -> unop .)
+    GTEQ            reduce using rule 52 (binop -> unop .)
+    GT              reduce using rule 52 (binop -> unop .)
+    LTEQ            reduce using rule 52 (binop -> unop .)
+    LT              reduce using rule 52 (binop -> unop .)
+    MOD             reduce using rule 52 (binop -> unop .)
+    DIV             reduce using rule 52 (binop -> unop .)
+    MUL             reduce using rule 52 (binop -> unop .)
+    SUB             reduce using rule 52 (binop -> unop .)
+    ADD             reduce using rule 52 (binop -> unop .)
+    COMMA           reduce using rule 52 (binop -> unop .)
+    RPAREN          reduce using rule 52 (binop -> unop .)
+    SLICE           reduce using rule 52 (binop -> unop .)
+    RSQBR           reduce using rule 52 (binop -> unop .)
+    EOL             reduce using rule 52 (binop -> unop .)
+
+
+state 37
+
+    (55) unop -> SUB . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    term                           shift and go to state 80
+    functionStatement              shift and go to state 42
+
+state 38
+
+    (56) unop -> ADD . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    term                           shift and go to state 81
+    functionStatement              shift and go to state 42
+
+state 39
+
+    (53) unop -> NOT . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    term                           shift and go to state 82
+    functionStatement              shift and go to state 42
+
+state 40
+
+    (57) unop -> term .
+    OR              reduce using rule 57 (unop -> term .)
+    AND             reduce using rule 57 (unop -> term .)
+    BITXOR          reduce using rule 57 (unop -> term .)
+    BITOR           reduce using rule 57 (unop -> term .)
+    BITAND          reduce using rule 57 (unop -> term .)
+    SAR             reduce using rule 57 (unop -> term .)
+    SAL             reduce using rule 57 (unop -> term .)
+    NEQ             reduce using rule 57 (unop -> term .)
+    EQ              reduce using rule 57 (unop -> term .)
+    GTEQ            reduce using rule 57 (unop -> term .)
+    GT              reduce using rule 57 (unop -> term .)
+    LTEQ            reduce using rule 57 (unop -> term .)
+    LT              reduce using rule 57 (unop -> term .)
+    MOD             reduce using rule 57 (unop -> term .)
+    DIV             reduce using rule 57 (unop -> term .)
+    MUL             reduce using rule 57 (unop -> term .)
+    SUB             reduce using rule 57 (unop -> term .)
+    ADD             reduce using rule 57 (unop -> term .)
+    COMMA           reduce using rule 57 (unop -> term .)
+    RPAREN          reduce using rule 57 (unop -> term .)
+    SLICE           reduce using rule 57 (unop -> term .)
+    RSQBR           reduce using rule 57 (unop -> term .)
+    EOL             reduce using rule 57 (unop -> term .)
+
+
+state 41
+
+    (54) unop -> BITNOT . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    term                           shift and go to state 83
+    functionStatement              shift and go to state 42
+
+state 42
+
+    (58) term -> functionStatement .
+    OR              reduce using rule 58 (term -> functionStatement .)
+    AND             reduce using rule 58 (term -> functionStatement .)
+    BITXOR          reduce using rule 58 (term -> functionStatement .)
+    BITOR           reduce using rule 58 (term -> functionStatement .)
+    BITAND          reduce using rule 58 (term -> functionStatement .)
+    SAR             reduce using rule 58 (term -> functionStatement .)
+    SAL             reduce using rule 58 (term -> functionStatement .)
+    NEQ             reduce using rule 58 (term -> functionStatement .)
+    EQ              reduce using rule 58 (term -> functionStatement .)
+    GTEQ            reduce using rule 58 (term -> functionStatement .)
+    GT              reduce using rule 58 (term -> functionStatement .)
+    LTEQ            reduce using rule 58 (term -> functionStatement .)
+    LT              reduce using rule 58 (term -> functionStatement .)
+    MOD             reduce using rule 58 (term -> functionStatement .)
+    DIV             reduce using rule 58 (term -> functionStatement .)
+    MUL             reduce using rule 58 (term -> functionStatement .)
+    SUB             reduce using rule 58 (term -> functionStatement .)
+    ADD             reduce using rule 58 (term -> functionStatement .)
+    COMMA           reduce using rule 58 (term -> functionStatement .)
+    RPAREN          reduce using rule 58 (term -> functionStatement .)
+    SLICE           reduce using rule 58 (term -> functionStatement .)
+    RSQBR           reduce using rule 58 (term -> functionStatement .)
+    EOL             reduce using rule 58 (term -> functionStatement .)
+
+
+state 43
+
+    (62) term -> LSQBR . fargs RSQBR
+    (63) term -> LSQBR . RSQBR
+    (31) fargs -> . expression
+    (32) fargs -> . expression COMMA fargs
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    RSQBR           shift and go to state 85
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    fargs                          shift and go to state 84
+    expression                     shift and go to state 34
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 44
+
+    (65) term -> STRING .
+    OR              reduce using rule 65 (term -> STRING .)
+    AND             reduce using rule 65 (term -> STRING .)
+    BITXOR          reduce using rule 65 (term -> STRING .)
+    BITOR           reduce using rule 65 (term -> STRING .)
+    BITAND          reduce using rule 65 (term -> STRING .)
+    SAR             reduce using rule 65 (term -> STRING .)
+    SAL             reduce using rule 65 (term -> STRING .)
+    NEQ             reduce using rule 65 (term -> STRING .)
+    EQ              reduce using rule 65 (term -> STRING .)
+    GTEQ            reduce using rule 65 (term -> STRING .)
+    GT              reduce using rule 65 (term -> STRING .)
+    LTEQ            reduce using rule 65 (term -> STRING .)
+    LT              reduce using rule 65 (term -> STRING .)
+    MOD             reduce using rule 65 (term -> STRING .)
+    DIV             reduce using rule 65 (term -> STRING .)
+    MUL             reduce using rule 65 (term -> STRING .)
+    SUB             reduce using rule 65 (term -> STRING .)
+    ADD             reduce using rule 65 (term -> STRING .)
+    COMMA           reduce using rule 65 (term -> STRING .)
+    RPAREN          reduce using rule 65 (term -> STRING .)
+    SLICE           reduce using rule 65 (term -> STRING .)
+    RSQBR           reduce using rule 65 (term -> STRING .)
+    EOL             reduce using rule 65 (term -> STRING .)
+
+
+state 45
+
+    (66) term -> BOOL .
+    OR              reduce using rule 66 (term -> BOOL .)
+    AND             reduce using rule 66 (term -> BOOL .)
+    BITXOR          reduce using rule 66 (term -> BOOL .)
+    BITOR           reduce using rule 66 (term -> BOOL .)
+    BITAND          reduce using rule 66 (term -> BOOL .)
+    SAR             reduce using rule 66 (term -> BOOL .)
+    SAL             reduce using rule 66 (term -> BOOL .)
+    NEQ             reduce using rule 66 (term -> BOOL .)
+    EQ              reduce using rule 66 (term -> BOOL .)
+    GTEQ            reduce using rule 66 (term -> BOOL .)
+    GT              reduce using rule 66 (term -> BOOL .)
+    LTEQ            reduce using rule 66 (term -> BOOL .)
+    LT              reduce using rule 66 (term -> BOOL .)
+    MOD             reduce using rule 66 (term -> BOOL .)
+    DIV             reduce using rule 66 (term -> BOOL .)
+    MUL             reduce using rule 66 (term -> BOOL .)
+    SUB             reduce using rule 66 (term -> BOOL .)
+    ADD             reduce using rule 66 (term -> BOOL .)
+    COMMA           reduce using rule 66 (term -> BOOL .)
+    RPAREN          reduce using rule 66 (term -> BOOL .)
+    SLICE           reduce using rule 66 (term -> BOOL .)
+    RSQBR           reduce using rule 66 (term -> BOOL .)
+    EOL             reduce using rule 66 (term -> BOOL .)
+
+
+state 46
+
+    (67) term -> NUM .
+    OR              reduce using rule 67 (term -> NUM .)
+    AND             reduce using rule 67 (term -> NUM .)
+    BITXOR          reduce using rule 67 (term -> NUM .)
+    BITOR           reduce using rule 67 (term -> NUM .)
+    BITAND          reduce using rule 67 (term -> NUM .)
+    SAR             reduce using rule 67 (term -> NUM .)
+    SAL             reduce using rule 67 (term -> NUM .)
+    NEQ             reduce using rule 67 (term -> NUM .)
+    EQ              reduce using rule 67 (term -> NUM .)
+    GTEQ            reduce using rule 67 (term -> NUM .)
+    GT              reduce using rule 67 (term -> NUM .)
+    LTEQ            reduce using rule 67 (term -> NUM .)
+    LT              reduce using rule 67 (term -> NUM .)
+    MOD             reduce using rule 67 (term -> NUM .)
+    DIV             reduce using rule 67 (term -> NUM .)
+    MUL             reduce using rule 67 (term -> NUM .)
+    SUB             reduce using rule 67 (term -> NUM .)
+    ADD             reduce using rule 67 (term -> NUM .)
+    COMMA           reduce using rule 67 (term -> NUM .)
+    RPAREN          reduce using rule 67 (term -> NUM .)
+    SLICE           reduce using rule 67 (term -> NUM .)
+    RSQBR           reduce using rule 67 (term -> NUM .)
+    EOL             reduce using rule 67 (term -> NUM .)
+
+
+state 47
+
+    (12) assignmentStatement -> IDENT LSQBR expression . SLICE expression RSQBR ASSIGN expression
+    (13) assignmentStatement -> IDENT LSQBR expression . RSQBR ASSIGN expression
+    SLICE           shift and go to state 86
+    RSQBR           shift and go to state 87
+
+
+state 48
+
+    (14) assignmentStatement -> IDENT ASSIGN expression .
+    EOL             reduce using rule 14 (assignmentStatement -> IDENT ASSIGN expression .)
+
+
+state 49
+
+    (4) statements -> statement EOL statements .
+    $end            reduce using rule 4 (statements -> statement EOL statements .)
+    END             reduce using rule 4 (statements -> statement EOL statements .)
+
+
+state 50
+
+    (20) loopStatement -> FOR LPAREN IDENT . ASSIGN IDENT TO IDENT RPAREN compoundStatement
+    (21) loopStatement -> FOR LPAREN IDENT . ASSIGN NUM TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> FOR LPAREN IDENT . ASSIGN IDENT TO NUM RPAREN compoundStatement
+    (23) loopStatement -> FOR LPAREN IDENT . ASSIGN NUM TO NUM RPAREN compoundStatement
+    ASSIGN          shift and go to state 88
+
+
+state 51
+
+    (24) loopStatement -> WHILE LPAREN expression . RPAREN compoundStatement
+    RPAREN          shift and go to state 89
+
+
+state 52
+
+    (18) conditionalStatement -> IF LPAREN expression . RPAREN compoundStatement ELSE compoundStatement
+    (19) conditionalStatement -> IF LPAREN expression . RPAREN compoundStatement
+    RPAREN          shift and go to state 90
+
+
+state 53
+
+    (17) compoundStatement -> BEGIN statements END .
+    EOL             reduce using rule 17 (compoundStatement -> BEGIN statements END .)
+    $end            reduce using rule 17 (compoundStatement -> BEGIN statements END .)
+    ELSE            reduce using rule 17 (compoundStatement -> BEGIN statements END .)
+
+
+state 54
+
+    (26) variableDeclaration -> VAR IDENT ASSIGN . expression
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 91
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 55
+
+    (29) args -> IDENT .
+    (30) args -> IDENT . COMMA args
+    RPAREN          reduce using rule 29 (args -> IDENT .)
+    COMMA           shift and go to state 92
+
+
+state 56
+
+    (27) functionDeclaration -> FUNCTION IDENT LPAREN args . RPAREN compoundStatement
+    RPAREN          shift and go to state 93
+
+
+state 57
+
+    (28) functionDeclaration -> FUNCTION IDENT LPAREN RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 94
+
+state 58
+
+    (59) term -> IDENT LSQBR . expression SLICE expression RSQBR
+    (60) term -> IDENT LSQBR . expression RSQBR
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 95
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 59
+
+    (61) term -> LPAREN fargs . RPAREN
+    RPAREN          shift and go to state 96
+
+
+state 60
+
+    (15) functionStatement -> IDENT LPAREN fargs RPAREN .
+    EOL             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    OR              reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    AND             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    BITXOR          reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    BITOR           reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    BITAND          reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    SAR             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    SAL             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    NEQ             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    EQ              reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    GTEQ            reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    GT              reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    LTEQ            reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    LT              reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    MOD             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    DIV             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    MUL             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    SUB             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    ADD             reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    COMMA           reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    RPAREN          reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    SLICE           reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+    RSQBR           reduce using rule 15 (functionStatement -> IDENT LPAREN fargs RPAREN .)
+
+
+state 61
+
+    (32) fargs -> expression COMMA . fargs
+    (31) fargs -> . expression
+    (32) fargs -> . expression COMMA fargs
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 34
+    fargs                          shift and go to state 97
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 62
+
+    (34) binop -> binop OR . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 98
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 63
+
+    (35) binop -> binop AND . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 99
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 64
+
+    (36) binop -> binop BITXOR . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 100
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 65
+
+    (37) binop -> binop BITOR . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 101
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 66
+
+    (38) binop -> binop BITAND . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 102
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 67
+
+    (39) binop -> binop SAR . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 103
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 68
+
+    (40) binop -> binop SAL . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 104
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 69
+
+    (41) binop -> binop NEQ . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 105
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 70
+
+    (42) binop -> binop EQ . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 106
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 71
+
+    (43) binop -> binop GTEQ . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 107
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 72
+
+    (44) binop -> binop GT . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 108
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 73
+
+    (45) binop -> binop LTEQ . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 109
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 74
+
+    (46) binop -> binop LT . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 110
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 75
+
+    (47) binop -> binop MOD . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 111
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 76
+
+    (48) binop -> binop DIV . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 112
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 77
+
+    (49) binop -> binop MUL . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 113
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 78
+
+    (50) binop -> binop SUB . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 114
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 79
+
+    (51) binop -> binop ADD . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    unop                           shift and go to state 115
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 80
+
+    (55) unop -> SUB term .
+    OR              reduce using rule 55 (unop -> SUB term .)
+    AND             reduce using rule 55 (unop -> SUB term .)
+    BITXOR          reduce using rule 55 (unop -> SUB term .)
+    BITOR           reduce using rule 55 (unop -> SUB term .)
+    BITAND          reduce using rule 55 (unop -> SUB term .)
+    SAR             reduce using rule 55 (unop -> SUB term .)
+    SAL             reduce using rule 55 (unop -> SUB term .)
+    NEQ             reduce using rule 55 (unop -> SUB term .)
+    EQ              reduce using rule 55 (unop -> SUB term .)
+    GTEQ            reduce using rule 55 (unop -> SUB term .)
+    GT              reduce using rule 55 (unop -> SUB term .)
+    LTEQ            reduce using rule 55 (unop -> SUB term .)
+    LT              reduce using rule 55 (unop -> SUB term .)
+    MOD             reduce using rule 55 (unop -> SUB term .)
+    DIV             reduce using rule 55 (unop -> SUB term .)
+    MUL             reduce using rule 55 (unop -> SUB term .)
+    SUB             reduce using rule 55 (unop -> SUB term .)
+    ADD             reduce using rule 55 (unop -> SUB term .)
+    COMMA           reduce using rule 55 (unop -> SUB term .)
+    RPAREN          reduce using rule 55 (unop -> SUB term .)
+    SLICE           reduce using rule 55 (unop -> SUB term .)
+    RSQBR           reduce using rule 55 (unop -> SUB term .)
+    EOL             reduce using rule 55 (unop -> SUB term .)
+
+
+state 81
+
+    (56) unop -> ADD term .
+    OR              reduce using rule 56 (unop -> ADD term .)
+    AND             reduce using rule 56 (unop -> ADD term .)
+    BITXOR          reduce using rule 56 (unop -> ADD term .)
+    BITOR           reduce using rule 56 (unop -> ADD term .)
+    BITAND          reduce using rule 56 (unop -> ADD term .)
+    SAR             reduce using rule 56 (unop -> ADD term .)
+    SAL             reduce using rule 56 (unop -> ADD term .)
+    NEQ             reduce using rule 56 (unop -> ADD term .)
+    EQ              reduce using rule 56 (unop -> ADD term .)
+    GTEQ            reduce using rule 56 (unop -> ADD term .)
+    GT              reduce using rule 56 (unop -> ADD term .)
+    LTEQ            reduce using rule 56 (unop -> ADD term .)
+    LT              reduce using rule 56 (unop -> ADD term .)
+    MOD             reduce using rule 56 (unop -> ADD term .)
+    DIV             reduce using rule 56 (unop -> ADD term .)
+    MUL             reduce using rule 56 (unop -> ADD term .)
+    SUB             reduce using rule 56 (unop -> ADD term .)
+    ADD             reduce using rule 56 (unop -> ADD term .)
+    COMMA           reduce using rule 56 (unop -> ADD term .)
+    RPAREN          reduce using rule 56 (unop -> ADD term .)
+    SLICE           reduce using rule 56 (unop -> ADD term .)
+    RSQBR           reduce using rule 56 (unop -> ADD term .)
+    EOL             reduce using rule 56 (unop -> ADD term .)
+
+
+state 82
+
+    (53) unop -> NOT term .
+    OR              reduce using rule 53 (unop -> NOT term .)
+    AND             reduce using rule 53 (unop -> NOT term .)
+    BITXOR          reduce using rule 53 (unop -> NOT term .)
+    BITOR           reduce using rule 53 (unop -> NOT term .)
+    BITAND          reduce using rule 53 (unop -> NOT term .)
+    SAR             reduce using rule 53 (unop -> NOT term .)
+    SAL             reduce using rule 53 (unop -> NOT term .)
+    NEQ             reduce using rule 53 (unop -> NOT term .)
+    EQ              reduce using rule 53 (unop -> NOT term .)
+    GTEQ            reduce using rule 53 (unop -> NOT term .)
+    GT              reduce using rule 53 (unop -> NOT term .)
+    LTEQ            reduce using rule 53 (unop -> NOT term .)
+    LT              reduce using rule 53 (unop -> NOT term .)
+    MOD             reduce using rule 53 (unop -> NOT term .)
+    DIV             reduce using rule 53 (unop -> NOT term .)
+    MUL             reduce using rule 53 (unop -> NOT term .)
+    SUB             reduce using rule 53 (unop -> NOT term .)
+    ADD             reduce using rule 53 (unop -> NOT term .)
+    COMMA           reduce using rule 53 (unop -> NOT term .)
+    RPAREN          reduce using rule 53 (unop -> NOT term .)
+    SLICE           reduce using rule 53 (unop -> NOT term .)
+    RSQBR           reduce using rule 53 (unop -> NOT term .)
+    EOL             reduce using rule 53 (unop -> NOT term .)
+
+
+state 83
+
+    (54) unop -> BITNOT term .
+    OR              reduce using rule 54 (unop -> BITNOT term .)
+    AND             reduce using rule 54 (unop -> BITNOT term .)
+    BITXOR          reduce using rule 54 (unop -> BITNOT term .)
+    BITOR           reduce using rule 54 (unop -> BITNOT term .)
+    BITAND          reduce using rule 54 (unop -> BITNOT term .)
+    SAR             reduce using rule 54 (unop -> BITNOT term .)
+    SAL             reduce using rule 54 (unop -> BITNOT term .)
+    NEQ             reduce using rule 54 (unop -> BITNOT term .)
+    EQ              reduce using rule 54 (unop -> BITNOT term .)
+    GTEQ            reduce using rule 54 (unop -> BITNOT term .)
+    GT              reduce using rule 54 (unop -> BITNOT term .)
+    LTEQ            reduce using rule 54 (unop -> BITNOT term .)
+    LT              reduce using rule 54 (unop -> BITNOT term .)
+    MOD             reduce using rule 54 (unop -> BITNOT term .)
+    DIV             reduce using rule 54 (unop -> BITNOT term .)
+    MUL             reduce using rule 54 (unop -> BITNOT term .)
+    SUB             reduce using rule 54 (unop -> BITNOT term .)
+    ADD             reduce using rule 54 (unop -> BITNOT term .)
+    COMMA           reduce using rule 54 (unop -> BITNOT term .)
+    RPAREN          reduce using rule 54 (unop -> BITNOT term .)
+    SLICE           reduce using rule 54 (unop -> BITNOT term .)
+    RSQBR           reduce using rule 54 (unop -> BITNOT term .)
+    EOL             reduce using rule 54 (unop -> BITNOT term .)
+
+
+state 84
+
+    (62) term -> LSQBR fargs . RSQBR
+    RSQBR           shift and go to state 116
+
+
+state 85
+
+    (63) term -> LSQBR RSQBR .
+    OR              reduce using rule 63 (term -> LSQBR RSQBR .)
+    AND             reduce using rule 63 (term -> LSQBR RSQBR .)
+    BITXOR          reduce using rule 63 (term -> LSQBR RSQBR .)
+    BITOR           reduce using rule 63 (term -> LSQBR RSQBR .)
+    BITAND          reduce using rule 63 (term -> LSQBR RSQBR .)
+    SAR             reduce using rule 63 (term -> LSQBR RSQBR .)
+    SAL             reduce using rule 63 (term -> LSQBR RSQBR .)
+    NEQ             reduce using rule 63 (term -> LSQBR RSQBR .)
+    EQ              reduce using rule 63 (term -> LSQBR RSQBR .)
+    GTEQ            reduce using rule 63 (term -> LSQBR RSQBR .)
+    GT              reduce using rule 63 (term -> LSQBR RSQBR .)
+    LTEQ            reduce using rule 63 (term -> LSQBR RSQBR .)
+    LT              reduce using rule 63 (term -> LSQBR RSQBR .)
+    MOD             reduce using rule 63 (term -> LSQBR RSQBR .)
+    DIV             reduce using rule 63 (term -> LSQBR RSQBR .)
+    MUL             reduce using rule 63 (term -> LSQBR RSQBR .)
+    SUB             reduce using rule 63 (term -> LSQBR RSQBR .)
+    ADD             reduce using rule 63 (term -> LSQBR RSQBR .)
+    COMMA           reduce using rule 63 (term -> LSQBR RSQBR .)
+    RPAREN          reduce using rule 63 (term -> LSQBR RSQBR .)
+    SLICE           reduce using rule 63 (term -> LSQBR RSQBR .)
+    RSQBR           reduce using rule 63 (term -> LSQBR RSQBR .)
+    EOL             reduce using rule 63 (term -> LSQBR RSQBR .)
+
+
+state 86
+
+    (12) assignmentStatement -> IDENT LSQBR expression SLICE . expression RSQBR ASSIGN expression
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 117
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 87
+
+    (13) assignmentStatement -> IDENT LSQBR expression RSQBR . ASSIGN expression
+    ASSIGN          shift and go to state 118
+
+
+state 88
+
+    (20) loopStatement -> FOR LPAREN IDENT ASSIGN . IDENT TO IDENT RPAREN compoundStatement
+    (21) loopStatement -> FOR LPAREN IDENT ASSIGN . NUM TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> FOR LPAREN IDENT ASSIGN . IDENT TO NUM RPAREN compoundStatement
+    (23) loopStatement -> FOR LPAREN IDENT ASSIGN . NUM TO NUM RPAREN compoundStatement
+    IDENT           shift and go to state 119
+    NUM             shift and go to state 120
+
+
+state 89
+
+    (24) loopStatement -> WHILE LPAREN expression RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 121
+
+state 90
+
+    (18) conditionalStatement -> IF LPAREN expression RPAREN . compoundStatement ELSE compoundStatement
+    (19) conditionalStatement -> IF LPAREN expression RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 122
+
+state 91
+
+    (26) variableDeclaration -> VAR IDENT ASSIGN expression .
+    EOL             reduce using rule 26 (variableDeclaration -> VAR IDENT ASSIGN expression .)
+
+
+state 92
+
+    (30) args -> IDENT COMMA . args
+    (29) args -> . IDENT
+    (30) args -> . IDENT COMMA args
+    IDENT           shift and go to state 55
+
+    args                           shift and go to state 123
+
+state 93
+
+    (27) functionDeclaration -> FUNCTION IDENT LPAREN args RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 124
+
+state 94
+
+    (28) functionDeclaration -> FUNCTION IDENT LPAREN RPAREN compoundStatement .
+    $end            reduce using rule 28 (functionDeclaration -> FUNCTION IDENT LPAREN RPAREN compoundStatement .)
+
+
+state 95
+
+    (59) term -> IDENT LSQBR expression . SLICE expression RSQBR
+    (60) term -> IDENT LSQBR expression . RSQBR
+    SLICE           shift and go to state 125
+    RSQBR           shift and go to state 126
+
+
+state 96
+
+    (61) term -> LPAREN fargs RPAREN .
+    OR              reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    AND             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    BITXOR          reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    BITOR           reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    BITAND          reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    SAR             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    SAL             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    NEQ             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    EQ              reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    GTEQ            reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    GT              reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    LTEQ            reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    LT              reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    MOD             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    DIV             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    MUL             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    SUB             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    ADD             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    COMMA           reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    RPAREN          reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    SLICE           reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    RSQBR           reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+    EOL             reduce using rule 61 (term -> LPAREN fargs RPAREN .)
+
+
+state 97
+
+    (32) fargs -> expression COMMA fargs .
+    RPAREN          reduce using rule 32 (fargs -> expression COMMA fargs .)
+    RSQBR           reduce using rule 32 (fargs -> expression COMMA fargs .)
+
+
+state 98
+
+    (34) binop -> binop OR unop .
+    OR              reduce using rule 34 (binop -> binop OR unop .)
+    AND             reduce using rule 34 (binop -> binop OR unop .)
+    BITXOR          reduce using rule 34 (binop -> binop OR unop .)
+    BITOR           reduce using rule 34 (binop -> binop OR unop .)
+    BITAND          reduce using rule 34 (binop -> binop OR unop .)
+    SAR             reduce using rule 34 (binop -> binop OR unop .)
+    SAL             reduce using rule 34 (binop -> binop OR unop .)
+    NEQ             reduce using rule 34 (binop -> binop OR unop .)
+    EQ              reduce using rule 34 (binop -> binop OR unop .)
+    GTEQ            reduce using rule 34 (binop -> binop OR unop .)
+    GT              reduce using rule 34 (binop -> binop OR unop .)
+    LTEQ            reduce using rule 34 (binop -> binop OR unop .)
+    LT              reduce using rule 34 (binop -> binop OR unop .)
+    MOD             reduce using rule 34 (binop -> binop OR unop .)
+    DIV             reduce using rule 34 (binop -> binop OR unop .)
+    MUL             reduce using rule 34 (binop -> binop OR unop .)
+    SUB             reduce using rule 34 (binop -> binop OR unop .)
+    ADD             reduce using rule 34 (binop -> binop OR unop .)
+    COMMA           reduce using rule 34 (binop -> binop OR unop .)
+    RPAREN          reduce using rule 34 (binop -> binop OR unop .)
+    SLICE           reduce using rule 34 (binop -> binop OR unop .)
+    RSQBR           reduce using rule 34 (binop -> binop OR unop .)
+    EOL             reduce using rule 34 (binop -> binop OR unop .)
+
+
+state 99
+
+    (35) binop -> binop AND unop .
+    OR              reduce using rule 35 (binop -> binop AND unop .)
+    AND             reduce using rule 35 (binop -> binop AND unop .)
+    BITXOR          reduce using rule 35 (binop -> binop AND unop .)
+    BITOR           reduce using rule 35 (binop -> binop AND unop .)
+    BITAND          reduce using rule 35 (binop -> binop AND unop .)
+    SAR             reduce using rule 35 (binop -> binop AND unop .)
+    SAL             reduce using rule 35 (binop -> binop AND unop .)
+    NEQ             reduce using rule 35 (binop -> binop AND unop .)
+    EQ              reduce using rule 35 (binop -> binop AND unop .)
+    GTEQ            reduce using rule 35 (binop -> binop AND unop .)
+    GT              reduce using rule 35 (binop -> binop AND unop .)
+    LTEQ            reduce using rule 35 (binop -> binop AND unop .)
+    LT              reduce using rule 35 (binop -> binop AND unop .)
+    MOD             reduce using rule 35 (binop -> binop AND unop .)
+    DIV             reduce using rule 35 (binop -> binop AND unop .)
+    MUL             reduce using rule 35 (binop -> binop AND unop .)
+    SUB             reduce using rule 35 (binop -> binop AND unop .)
+    ADD             reduce using rule 35 (binop -> binop AND unop .)
+    COMMA           reduce using rule 35 (binop -> binop AND unop .)
+    RPAREN          reduce using rule 35 (binop -> binop AND unop .)
+    SLICE           reduce using rule 35 (binop -> binop AND unop .)
+    RSQBR           reduce using rule 35 (binop -> binop AND unop .)
+    EOL             reduce using rule 35 (binop -> binop AND unop .)
+
+
+state 100
+
+    (36) binop -> binop BITXOR unop .
+    OR              reduce using rule 36 (binop -> binop BITXOR unop .)
+    AND             reduce using rule 36 (binop -> binop BITXOR unop .)
+    BITXOR          reduce using rule 36 (binop -> binop BITXOR unop .)
+    BITOR           reduce using rule 36 (binop -> binop BITXOR unop .)
+    BITAND          reduce using rule 36 (binop -> binop BITXOR unop .)
+    SAR             reduce using rule 36 (binop -> binop BITXOR unop .)
+    SAL             reduce using rule 36 (binop -> binop BITXOR unop .)
+    NEQ             reduce using rule 36 (binop -> binop BITXOR unop .)
+    EQ              reduce using rule 36 (binop -> binop BITXOR unop .)
+    GTEQ            reduce using rule 36 (binop -> binop BITXOR unop .)
+    GT              reduce using rule 36 (binop -> binop BITXOR unop .)
+    LTEQ            reduce using rule 36 (binop -> binop BITXOR unop .)
+    LT              reduce using rule 36 (binop -> binop BITXOR unop .)
+    MOD             reduce using rule 36 (binop -> binop BITXOR unop .)
+    DIV             reduce using rule 36 (binop -> binop BITXOR unop .)
+    MUL             reduce using rule 36 (binop -> binop BITXOR unop .)
+    SUB             reduce using rule 36 (binop -> binop BITXOR unop .)
+    ADD             reduce using rule 36 (binop -> binop BITXOR unop .)
+    COMMA           reduce using rule 36 (binop -> binop BITXOR unop .)
+    RPAREN          reduce using rule 36 (binop -> binop BITXOR unop .)
+    SLICE           reduce using rule 36 (binop -> binop BITXOR unop .)
+    RSQBR           reduce using rule 36 (binop -> binop BITXOR unop .)
+    EOL             reduce using rule 36 (binop -> binop BITXOR unop .)
+
+
+state 101
+
+    (37) binop -> binop BITOR unop .
+    OR              reduce using rule 37 (binop -> binop BITOR unop .)
+    AND             reduce using rule 37 (binop -> binop BITOR unop .)
+    BITXOR          reduce using rule 37 (binop -> binop BITOR unop .)
+    BITOR           reduce using rule 37 (binop -> binop BITOR unop .)
+    BITAND          reduce using rule 37 (binop -> binop BITOR unop .)
+    SAR             reduce using rule 37 (binop -> binop BITOR unop .)
+    SAL             reduce using rule 37 (binop -> binop BITOR unop .)
+    NEQ             reduce using rule 37 (binop -> binop BITOR unop .)
+    EQ              reduce using rule 37 (binop -> binop BITOR unop .)
+    GTEQ            reduce using rule 37 (binop -> binop BITOR unop .)
+    GT              reduce using rule 37 (binop -> binop BITOR unop .)
+    LTEQ            reduce using rule 37 (binop -> binop BITOR unop .)
+    LT              reduce using rule 37 (binop -> binop BITOR unop .)
+    MOD             reduce using rule 37 (binop -> binop BITOR unop .)
+    DIV             reduce using rule 37 (binop -> binop BITOR unop .)
+    MUL             reduce using rule 37 (binop -> binop BITOR unop .)
+    SUB             reduce using rule 37 (binop -> binop BITOR unop .)
+    ADD             reduce using rule 37 (binop -> binop BITOR unop .)
+    COMMA           reduce using rule 37 (binop -> binop BITOR unop .)
+    RPAREN          reduce using rule 37 (binop -> binop BITOR unop .)
+    SLICE           reduce using rule 37 (binop -> binop BITOR unop .)
+    RSQBR           reduce using rule 37 (binop -> binop BITOR unop .)
+    EOL             reduce using rule 37 (binop -> binop BITOR unop .)
+
+
+state 102
+
+    (38) binop -> binop BITAND unop .
+    OR              reduce using rule 38 (binop -> binop BITAND unop .)
+    AND             reduce using rule 38 (binop -> binop BITAND unop .)
+    BITXOR          reduce using rule 38 (binop -> binop BITAND unop .)
+    BITOR           reduce using rule 38 (binop -> binop BITAND unop .)
+    BITAND          reduce using rule 38 (binop -> binop BITAND unop .)
+    SAR             reduce using rule 38 (binop -> binop BITAND unop .)
+    SAL             reduce using rule 38 (binop -> binop BITAND unop .)
+    NEQ             reduce using rule 38 (binop -> binop BITAND unop .)
+    EQ              reduce using rule 38 (binop -> binop BITAND unop .)
+    GTEQ            reduce using rule 38 (binop -> binop BITAND unop .)
+    GT              reduce using rule 38 (binop -> binop BITAND unop .)
+    LTEQ            reduce using rule 38 (binop -> binop BITAND unop .)
+    LT              reduce using rule 38 (binop -> binop BITAND unop .)
+    MOD             reduce using rule 38 (binop -> binop BITAND unop .)
+    DIV             reduce using rule 38 (binop -> binop BITAND unop .)
+    MUL             reduce using rule 38 (binop -> binop BITAND unop .)
+    SUB             reduce using rule 38 (binop -> binop BITAND unop .)
+    ADD             reduce using rule 38 (binop -> binop BITAND unop .)
+    COMMA           reduce using rule 38 (binop -> binop BITAND unop .)
+    RPAREN          reduce using rule 38 (binop -> binop BITAND unop .)
+    SLICE           reduce using rule 38 (binop -> binop BITAND unop .)
+    RSQBR           reduce using rule 38 (binop -> binop BITAND unop .)
+    EOL             reduce using rule 38 (binop -> binop BITAND unop .)
+
+
+state 103
+
+    (39) binop -> binop SAR unop .
+    OR              reduce using rule 39 (binop -> binop SAR unop .)
+    AND             reduce using rule 39 (binop -> binop SAR unop .)
+    BITXOR          reduce using rule 39 (binop -> binop SAR unop .)
+    BITOR           reduce using rule 39 (binop -> binop SAR unop .)
+    BITAND          reduce using rule 39 (binop -> binop SAR unop .)
+    SAR             reduce using rule 39 (binop -> binop SAR unop .)
+    SAL             reduce using rule 39 (binop -> binop SAR unop .)
+    NEQ             reduce using rule 39 (binop -> binop SAR unop .)
+    EQ              reduce using rule 39 (binop -> binop SAR unop .)
+    GTEQ            reduce using rule 39 (binop -> binop SAR unop .)
+    GT              reduce using rule 39 (binop -> binop SAR unop .)
+    LTEQ            reduce using rule 39 (binop -> binop SAR unop .)
+    LT              reduce using rule 39 (binop -> binop SAR unop .)
+    MOD             reduce using rule 39 (binop -> binop SAR unop .)
+    DIV             reduce using rule 39 (binop -> binop SAR unop .)
+    MUL             reduce using rule 39 (binop -> binop SAR unop .)
+    SUB             reduce using rule 39 (binop -> binop SAR unop .)
+    ADD             reduce using rule 39 (binop -> binop SAR unop .)
+    COMMA           reduce using rule 39 (binop -> binop SAR unop .)
+    RPAREN          reduce using rule 39 (binop -> binop SAR unop .)
+    SLICE           reduce using rule 39 (binop -> binop SAR unop .)
+    RSQBR           reduce using rule 39 (binop -> binop SAR unop .)
+    EOL             reduce using rule 39 (binop -> binop SAR unop .)
+
+
+state 104
+
+    (40) binop -> binop SAL unop .
+    OR              reduce using rule 40 (binop -> binop SAL unop .)
+    AND             reduce using rule 40 (binop -> binop SAL unop .)
+    BITXOR          reduce using rule 40 (binop -> binop SAL unop .)
+    BITOR           reduce using rule 40 (binop -> binop SAL unop .)
+    BITAND          reduce using rule 40 (binop -> binop SAL unop .)
+    SAR             reduce using rule 40 (binop -> binop SAL unop .)
+    SAL             reduce using rule 40 (binop -> binop SAL unop .)
+    NEQ             reduce using rule 40 (binop -> binop SAL unop .)
+    EQ              reduce using rule 40 (binop -> binop SAL unop .)
+    GTEQ            reduce using rule 40 (binop -> binop SAL unop .)
+    GT              reduce using rule 40 (binop -> binop SAL unop .)
+    LTEQ            reduce using rule 40 (binop -> binop SAL unop .)
+    LT              reduce using rule 40 (binop -> binop SAL unop .)
+    MOD             reduce using rule 40 (binop -> binop SAL unop .)
+    DIV             reduce using rule 40 (binop -> binop SAL unop .)
+    MUL             reduce using rule 40 (binop -> binop SAL unop .)
+    SUB             reduce using rule 40 (binop -> binop SAL unop .)
+    ADD             reduce using rule 40 (binop -> binop SAL unop .)
+    COMMA           reduce using rule 40 (binop -> binop SAL unop .)
+    RPAREN          reduce using rule 40 (binop -> binop SAL unop .)
+    SLICE           reduce using rule 40 (binop -> binop SAL unop .)
+    RSQBR           reduce using rule 40 (binop -> binop SAL unop .)
+    EOL             reduce using rule 40 (binop -> binop SAL unop .)
+
+
+state 105
+
+    (41) binop -> binop NEQ unop .
+    OR              reduce using rule 41 (binop -> binop NEQ unop .)
+    AND             reduce using rule 41 (binop -> binop NEQ unop .)
+    BITXOR          reduce using rule 41 (binop -> binop NEQ unop .)
+    BITOR           reduce using rule 41 (binop -> binop NEQ unop .)
+    BITAND          reduce using rule 41 (binop -> binop NEQ unop .)
+    SAR             reduce using rule 41 (binop -> binop NEQ unop .)
+    SAL             reduce using rule 41 (binop -> binop NEQ unop .)
+    NEQ             reduce using rule 41 (binop -> binop NEQ unop .)
+    EQ              reduce using rule 41 (binop -> binop NEQ unop .)
+    GTEQ            reduce using rule 41 (binop -> binop NEQ unop .)
+    GT              reduce using rule 41 (binop -> binop NEQ unop .)
+    LTEQ            reduce using rule 41 (binop -> binop NEQ unop .)
+    LT              reduce using rule 41 (binop -> binop NEQ unop .)
+    MOD             reduce using rule 41 (binop -> binop NEQ unop .)
+    DIV             reduce using rule 41 (binop -> binop NEQ unop .)
+    MUL             reduce using rule 41 (binop -> binop NEQ unop .)
+    SUB             reduce using rule 41 (binop -> binop NEQ unop .)
+    ADD             reduce using rule 41 (binop -> binop NEQ unop .)
+    COMMA           reduce using rule 41 (binop -> binop NEQ unop .)
+    RPAREN          reduce using rule 41 (binop -> binop NEQ unop .)
+    SLICE           reduce using rule 41 (binop -> binop NEQ unop .)
+    RSQBR           reduce using rule 41 (binop -> binop NEQ unop .)
+    EOL             reduce using rule 41 (binop -> binop NEQ unop .)
+
+
+state 106
+
+    (42) binop -> binop EQ unop .
+    OR              reduce using rule 42 (binop -> binop EQ unop .)
+    AND             reduce using rule 42 (binop -> binop EQ unop .)
+    BITXOR          reduce using rule 42 (binop -> binop EQ unop .)
+    BITOR           reduce using rule 42 (binop -> binop EQ unop .)
+    BITAND          reduce using rule 42 (binop -> binop EQ unop .)
+    SAR             reduce using rule 42 (binop -> binop EQ unop .)
+    SAL             reduce using rule 42 (binop -> binop EQ unop .)
+    NEQ             reduce using rule 42 (binop -> binop EQ unop .)
+    EQ              reduce using rule 42 (binop -> binop EQ unop .)
+    GTEQ            reduce using rule 42 (binop -> binop EQ unop .)
+    GT              reduce using rule 42 (binop -> binop EQ unop .)
+    LTEQ            reduce using rule 42 (binop -> binop EQ unop .)
+    LT              reduce using rule 42 (binop -> binop EQ unop .)
+    MOD             reduce using rule 42 (binop -> binop EQ unop .)
+    DIV             reduce using rule 42 (binop -> binop EQ unop .)
+    MUL             reduce using rule 42 (binop -> binop EQ unop .)
+    SUB             reduce using rule 42 (binop -> binop EQ unop .)
+    ADD             reduce using rule 42 (binop -> binop EQ unop .)
+    COMMA           reduce using rule 42 (binop -> binop EQ unop .)
+    RPAREN          reduce using rule 42 (binop -> binop EQ unop .)
+    SLICE           reduce using rule 42 (binop -> binop EQ unop .)
+    RSQBR           reduce using rule 42 (binop -> binop EQ unop .)
+    EOL             reduce using rule 42 (binop -> binop EQ unop .)
+
+
+state 107
+
+    (43) binop -> binop GTEQ unop .
+    OR              reduce using rule 43 (binop -> binop GTEQ unop .)
+    AND             reduce using rule 43 (binop -> binop GTEQ unop .)
+    BITXOR          reduce using rule 43 (binop -> binop GTEQ unop .)
+    BITOR           reduce using rule 43 (binop -> binop GTEQ unop .)
+    BITAND          reduce using rule 43 (binop -> binop GTEQ unop .)
+    SAR             reduce using rule 43 (binop -> binop GTEQ unop .)
+    SAL             reduce using rule 43 (binop -> binop GTEQ unop .)
+    NEQ             reduce using rule 43 (binop -> binop GTEQ unop .)
+    EQ              reduce using rule 43 (binop -> binop GTEQ unop .)
+    GTEQ            reduce using rule 43 (binop -> binop GTEQ unop .)
+    GT              reduce using rule 43 (binop -> binop GTEQ unop .)
+    LTEQ            reduce using rule 43 (binop -> binop GTEQ unop .)
+    LT              reduce using rule 43 (binop -> binop GTEQ unop .)
+    MOD             reduce using rule 43 (binop -> binop GTEQ unop .)
+    DIV             reduce using rule 43 (binop -> binop GTEQ unop .)
+    MUL             reduce using rule 43 (binop -> binop GTEQ unop .)
+    SUB             reduce using rule 43 (binop -> binop GTEQ unop .)
+    ADD             reduce using rule 43 (binop -> binop GTEQ unop .)
+    COMMA           reduce using rule 43 (binop -> binop GTEQ unop .)
+    RPAREN          reduce using rule 43 (binop -> binop GTEQ unop .)
+    SLICE           reduce using rule 43 (binop -> binop GTEQ unop .)
+    RSQBR           reduce using rule 43 (binop -> binop GTEQ unop .)
+    EOL             reduce using rule 43 (binop -> binop GTEQ unop .)
+
+
+state 108
+
+    (44) binop -> binop GT unop .
+    OR              reduce using rule 44 (binop -> binop GT unop .)
+    AND             reduce using rule 44 (binop -> binop GT unop .)
+    BITXOR          reduce using rule 44 (binop -> binop GT unop .)
+    BITOR           reduce using rule 44 (binop -> binop GT unop .)
+    BITAND          reduce using rule 44 (binop -> binop GT unop .)
+    SAR             reduce using rule 44 (binop -> binop GT unop .)
+    SAL             reduce using rule 44 (binop -> binop GT unop .)
+    NEQ             reduce using rule 44 (binop -> binop GT unop .)
+    EQ              reduce using rule 44 (binop -> binop GT unop .)
+    GTEQ            reduce using rule 44 (binop -> binop GT unop .)
+    GT              reduce using rule 44 (binop -> binop GT unop .)
+    LTEQ            reduce using rule 44 (binop -> binop GT unop .)
+    LT              reduce using rule 44 (binop -> binop GT unop .)
+    MOD             reduce using rule 44 (binop -> binop GT unop .)
+    DIV             reduce using rule 44 (binop -> binop GT unop .)
+    MUL             reduce using rule 44 (binop -> binop GT unop .)
+    SUB             reduce using rule 44 (binop -> binop GT unop .)
+    ADD             reduce using rule 44 (binop -> binop GT unop .)
+    COMMA           reduce using rule 44 (binop -> binop GT unop .)
+    RPAREN          reduce using rule 44 (binop -> binop GT unop .)
+    SLICE           reduce using rule 44 (binop -> binop GT unop .)
+    RSQBR           reduce using rule 44 (binop -> binop GT unop .)
+    EOL             reduce using rule 44 (binop -> binop GT unop .)
+
+
+state 109
+
+    (45) binop -> binop LTEQ unop .
+    OR              reduce using rule 45 (binop -> binop LTEQ unop .)
+    AND             reduce using rule 45 (binop -> binop LTEQ unop .)
+    BITXOR          reduce using rule 45 (binop -> binop LTEQ unop .)
+    BITOR           reduce using rule 45 (binop -> binop LTEQ unop .)
+    BITAND          reduce using rule 45 (binop -> binop LTEQ unop .)
+    SAR             reduce using rule 45 (binop -> binop LTEQ unop .)
+    SAL             reduce using rule 45 (binop -> binop LTEQ unop .)
+    NEQ             reduce using rule 45 (binop -> binop LTEQ unop .)
+    EQ              reduce using rule 45 (binop -> binop LTEQ unop .)
+    GTEQ            reduce using rule 45 (binop -> binop LTEQ unop .)
+    GT              reduce using rule 45 (binop -> binop LTEQ unop .)
+    LTEQ            reduce using rule 45 (binop -> binop LTEQ unop .)
+    LT              reduce using rule 45 (binop -> binop LTEQ unop .)
+    MOD             reduce using rule 45 (binop -> binop LTEQ unop .)
+    DIV             reduce using rule 45 (binop -> binop LTEQ unop .)
+    MUL             reduce using rule 45 (binop -> binop LTEQ unop .)
+    SUB             reduce using rule 45 (binop -> binop LTEQ unop .)
+    ADD             reduce using rule 45 (binop -> binop LTEQ unop .)
+    COMMA           reduce using rule 45 (binop -> binop LTEQ unop .)
+    RPAREN          reduce using rule 45 (binop -> binop LTEQ unop .)
+    SLICE           reduce using rule 45 (binop -> binop LTEQ unop .)
+    RSQBR           reduce using rule 45 (binop -> binop LTEQ unop .)
+    EOL             reduce using rule 45 (binop -> binop LTEQ unop .)
+
+
+state 110
+
+    (46) binop -> binop LT unop .
+    OR              reduce using rule 46 (binop -> binop LT unop .)
+    AND             reduce using rule 46 (binop -> binop LT unop .)
+    BITXOR          reduce using rule 46 (binop -> binop LT unop .)
+    BITOR           reduce using rule 46 (binop -> binop LT unop .)
+    BITAND          reduce using rule 46 (binop -> binop LT unop .)
+    SAR             reduce using rule 46 (binop -> binop LT unop .)
+    SAL             reduce using rule 46 (binop -> binop LT unop .)
+    NEQ             reduce using rule 46 (binop -> binop LT unop .)
+    EQ              reduce using rule 46 (binop -> binop LT unop .)
+    GTEQ            reduce using rule 46 (binop -> binop LT unop .)
+    GT              reduce using rule 46 (binop -> binop LT unop .)
+    LTEQ            reduce using rule 46 (binop -> binop LT unop .)
+    LT              reduce using rule 46 (binop -> binop LT unop .)
+    MOD             reduce using rule 46 (binop -> binop LT unop .)
+    DIV             reduce using rule 46 (binop -> binop LT unop .)
+    MUL             reduce using rule 46 (binop -> binop LT unop .)
+    SUB             reduce using rule 46 (binop -> binop LT unop .)
+    ADD             reduce using rule 46 (binop -> binop LT unop .)
+    COMMA           reduce using rule 46 (binop -> binop LT unop .)
+    RPAREN          reduce using rule 46 (binop -> binop LT unop .)
+    SLICE           reduce using rule 46 (binop -> binop LT unop .)
+    RSQBR           reduce using rule 46 (binop -> binop LT unop .)
+    EOL             reduce using rule 46 (binop -> binop LT unop .)
+
+
+state 111
+
+    (47) binop -> binop MOD unop .
+    OR              reduce using rule 47 (binop -> binop MOD unop .)
+    AND             reduce using rule 47 (binop -> binop MOD unop .)
+    BITXOR          reduce using rule 47 (binop -> binop MOD unop .)
+    BITOR           reduce using rule 47 (binop -> binop MOD unop .)
+    BITAND          reduce using rule 47 (binop -> binop MOD unop .)
+    SAR             reduce using rule 47 (binop -> binop MOD unop .)
+    SAL             reduce using rule 47 (binop -> binop MOD unop .)
+    NEQ             reduce using rule 47 (binop -> binop MOD unop .)
+    EQ              reduce using rule 47 (binop -> binop MOD unop .)
+    GTEQ            reduce using rule 47 (binop -> binop MOD unop .)
+    GT              reduce using rule 47 (binop -> binop MOD unop .)
+    LTEQ            reduce using rule 47 (binop -> binop MOD unop .)
+    LT              reduce using rule 47 (binop -> binop MOD unop .)
+    MOD             reduce using rule 47 (binop -> binop MOD unop .)
+    DIV             reduce using rule 47 (binop -> binop MOD unop .)
+    MUL             reduce using rule 47 (binop -> binop MOD unop .)
+    SUB             reduce using rule 47 (binop -> binop MOD unop .)
+    ADD             reduce using rule 47 (binop -> binop MOD unop .)
+    COMMA           reduce using rule 47 (binop -> binop MOD unop .)
+    RPAREN          reduce using rule 47 (binop -> binop MOD unop .)
+    SLICE           reduce using rule 47 (binop -> binop MOD unop .)
+    RSQBR           reduce using rule 47 (binop -> binop MOD unop .)
+    EOL             reduce using rule 47 (binop -> binop MOD unop .)
+
+
+state 112
+
+    (48) binop -> binop DIV unop .
+    OR              reduce using rule 48 (binop -> binop DIV unop .)
+    AND             reduce using rule 48 (binop -> binop DIV unop .)
+    BITXOR          reduce using rule 48 (binop -> binop DIV unop .)
+    BITOR           reduce using rule 48 (binop -> binop DIV unop .)
+    BITAND          reduce using rule 48 (binop -> binop DIV unop .)
+    SAR             reduce using rule 48 (binop -> binop DIV unop .)
+    SAL             reduce using rule 48 (binop -> binop DIV unop .)
+    NEQ             reduce using rule 48 (binop -> binop DIV unop .)
+    EQ              reduce using rule 48 (binop -> binop DIV unop .)
+    GTEQ            reduce using rule 48 (binop -> binop DIV unop .)
+    GT              reduce using rule 48 (binop -> binop DIV unop .)
+    LTEQ            reduce using rule 48 (binop -> binop DIV unop .)
+    LT              reduce using rule 48 (binop -> binop DIV unop .)
+    MOD             reduce using rule 48 (binop -> binop DIV unop .)
+    DIV             reduce using rule 48 (binop -> binop DIV unop .)
+    MUL             reduce using rule 48 (binop -> binop DIV unop .)
+    SUB             reduce using rule 48 (binop -> binop DIV unop .)
+    ADD             reduce using rule 48 (binop -> binop DIV unop .)
+    COMMA           reduce using rule 48 (binop -> binop DIV unop .)
+    RPAREN          reduce using rule 48 (binop -> binop DIV unop .)
+    SLICE           reduce using rule 48 (binop -> binop DIV unop .)
+    RSQBR           reduce using rule 48 (binop -> binop DIV unop .)
+    EOL             reduce using rule 48 (binop -> binop DIV unop .)
+
+
+state 113
+
+    (49) binop -> binop MUL unop .
+    OR              reduce using rule 49 (binop -> binop MUL unop .)
+    AND             reduce using rule 49 (binop -> binop MUL unop .)
+    BITXOR          reduce using rule 49 (binop -> binop MUL unop .)
+    BITOR           reduce using rule 49 (binop -> binop MUL unop .)
+    BITAND          reduce using rule 49 (binop -> binop MUL unop .)
+    SAR             reduce using rule 49 (binop -> binop MUL unop .)
+    SAL             reduce using rule 49 (binop -> binop MUL unop .)
+    NEQ             reduce using rule 49 (binop -> binop MUL unop .)
+    EQ              reduce using rule 49 (binop -> binop MUL unop .)
+    GTEQ            reduce using rule 49 (binop -> binop MUL unop .)
+    GT              reduce using rule 49 (binop -> binop MUL unop .)
+    LTEQ            reduce using rule 49 (binop -> binop MUL unop .)
+    LT              reduce using rule 49 (binop -> binop MUL unop .)
+    MOD             reduce using rule 49 (binop -> binop MUL unop .)
+    DIV             reduce using rule 49 (binop -> binop MUL unop .)
+    MUL             reduce using rule 49 (binop -> binop MUL unop .)
+    SUB             reduce using rule 49 (binop -> binop MUL unop .)
+    ADD             reduce using rule 49 (binop -> binop MUL unop .)
+    COMMA           reduce using rule 49 (binop -> binop MUL unop .)
+    RPAREN          reduce using rule 49 (binop -> binop MUL unop .)
+    SLICE           reduce using rule 49 (binop -> binop MUL unop .)
+    RSQBR           reduce using rule 49 (binop -> binop MUL unop .)
+    EOL             reduce using rule 49 (binop -> binop MUL unop .)
+
+
+state 114
+
+    (50) binop -> binop SUB unop .
+    OR              reduce using rule 50 (binop -> binop SUB unop .)
+    AND             reduce using rule 50 (binop -> binop SUB unop .)
+    BITXOR          reduce using rule 50 (binop -> binop SUB unop .)
+    BITOR           reduce using rule 50 (binop -> binop SUB unop .)
+    BITAND          reduce using rule 50 (binop -> binop SUB unop .)
+    SAR             reduce using rule 50 (binop -> binop SUB unop .)
+    SAL             reduce using rule 50 (binop -> binop SUB unop .)
+    NEQ             reduce using rule 50 (binop -> binop SUB unop .)
+    EQ              reduce using rule 50 (binop -> binop SUB unop .)
+    GTEQ            reduce using rule 50 (binop -> binop SUB unop .)
+    GT              reduce using rule 50 (binop -> binop SUB unop .)
+    LTEQ            reduce using rule 50 (binop -> binop SUB unop .)
+    LT              reduce using rule 50 (binop -> binop SUB unop .)
+    MOD             reduce using rule 50 (binop -> binop SUB unop .)
+    DIV             reduce using rule 50 (binop -> binop SUB unop .)
+    MUL             reduce using rule 50 (binop -> binop SUB unop .)
+    SUB             reduce using rule 50 (binop -> binop SUB unop .)
+    ADD             reduce using rule 50 (binop -> binop SUB unop .)
+    COMMA           reduce using rule 50 (binop -> binop SUB unop .)
+    RPAREN          reduce using rule 50 (binop -> binop SUB unop .)
+    SLICE           reduce using rule 50 (binop -> binop SUB unop .)
+    RSQBR           reduce using rule 50 (binop -> binop SUB unop .)
+    EOL             reduce using rule 50 (binop -> binop SUB unop .)
+
+
+state 115
+
+    (51) binop -> binop ADD unop .
+    OR              reduce using rule 51 (binop -> binop ADD unop .)
+    AND             reduce using rule 51 (binop -> binop ADD unop .)
+    BITXOR          reduce using rule 51 (binop -> binop ADD unop .)
+    BITOR           reduce using rule 51 (binop -> binop ADD unop .)
+    BITAND          reduce using rule 51 (binop -> binop ADD unop .)
+    SAR             reduce using rule 51 (binop -> binop ADD unop .)
+    SAL             reduce using rule 51 (binop -> binop ADD unop .)
+    NEQ             reduce using rule 51 (binop -> binop ADD unop .)
+    EQ              reduce using rule 51 (binop -> binop ADD unop .)
+    GTEQ            reduce using rule 51 (binop -> binop ADD unop .)
+    GT              reduce using rule 51 (binop -> binop ADD unop .)
+    LTEQ            reduce using rule 51 (binop -> binop ADD unop .)
+    LT              reduce using rule 51 (binop -> binop ADD unop .)
+    MOD             reduce using rule 51 (binop -> binop ADD unop .)
+    DIV             reduce using rule 51 (binop -> binop ADD unop .)
+    MUL             reduce using rule 51 (binop -> binop ADD unop .)
+    SUB             reduce using rule 51 (binop -> binop ADD unop .)
+    ADD             reduce using rule 51 (binop -> binop ADD unop .)
+    COMMA           reduce using rule 51 (binop -> binop ADD unop .)
+    RPAREN          reduce using rule 51 (binop -> binop ADD unop .)
+    SLICE           reduce using rule 51 (binop -> binop ADD unop .)
+    RSQBR           reduce using rule 51 (binop -> binop ADD unop .)
+    EOL             reduce using rule 51 (binop -> binop ADD unop .)
+
+
+state 116
+
+    (62) term -> LSQBR fargs RSQBR .
+    OR              reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    AND             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    BITXOR          reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    BITOR           reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    BITAND          reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    SAR             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    SAL             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    NEQ             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    EQ              reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    GTEQ            reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    GT              reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    LTEQ            reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    LT              reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    MOD             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    DIV             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    MUL             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    SUB             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    ADD             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    COMMA           reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    RPAREN          reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    SLICE           reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    RSQBR           reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+    EOL             reduce using rule 62 (term -> LSQBR fargs RSQBR .)
+
+
+state 117
+
+    (12) assignmentStatement -> IDENT LSQBR expression SLICE expression . RSQBR ASSIGN expression
+    RSQBR           shift and go to state 127
+
+
+state 118
+
+    (13) assignmentStatement -> IDENT LSQBR expression RSQBR ASSIGN . expression
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 128
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 119
+
+    (20) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT . TO IDENT RPAREN compoundStatement
+    (22) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT . TO NUM RPAREN compoundStatement
+    TO              shift and go to state 129
+
+
+state 120
+
+    (21) loopStatement -> FOR LPAREN IDENT ASSIGN NUM . TO IDENT RPAREN compoundStatement
+    (23) loopStatement -> FOR LPAREN IDENT ASSIGN NUM . TO NUM RPAREN compoundStatement
+    TO              shift and go to state 130
+
+
+state 121
+
+    (24) loopStatement -> WHILE LPAREN expression RPAREN compoundStatement .
+    EOL             reduce using rule 24 (loopStatement -> WHILE LPAREN expression RPAREN compoundStatement .)
+
+
+state 122
+
+    (18) conditionalStatement -> IF LPAREN expression RPAREN compoundStatement . ELSE compoundStatement
+    (19) conditionalStatement -> IF LPAREN expression RPAREN compoundStatement .
+    ELSE            shift and go to state 131
+    EOL             reduce using rule 19 (conditionalStatement -> IF LPAREN expression RPAREN compoundStatement .)
+
+
+state 123
+
+    (30) args -> IDENT COMMA args .
+    RPAREN          reduce using rule 30 (args -> IDENT COMMA args .)
+
+
+state 124
+
+    (27) functionDeclaration -> FUNCTION IDENT LPAREN args RPAREN compoundStatement .
+    $end            reduce using rule 27 (functionDeclaration -> FUNCTION IDENT LPAREN args RPAREN compoundStatement .)
+
+
+state 125
+
+    (59) term -> IDENT LSQBR expression SLICE . expression RSQBR
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 132
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 126
+
+    (60) term -> IDENT LSQBR expression RSQBR .
+    OR              reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    AND             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    BITXOR          reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    BITOR           reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    BITAND          reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    SAR             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    SAL             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    NEQ             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    EQ              reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    GTEQ            reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    GT              reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    LTEQ            reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    LT              reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    MOD             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    DIV             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    MUL             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    SUB             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    ADD             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    COMMA           reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    RPAREN          reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    SLICE           reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    RSQBR           reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+    EOL             reduce using rule 60 (term -> IDENT LSQBR expression RSQBR .)
+
+
+state 127
+
+    (12) assignmentStatement -> IDENT LSQBR expression SLICE expression RSQBR . ASSIGN expression
+    ASSIGN          shift and go to state 133
+
+
+state 128
+
+    (13) assignmentStatement -> IDENT LSQBR expression RSQBR ASSIGN expression .
+    EOL             reduce using rule 13 (assignmentStatement -> IDENT LSQBR expression RSQBR ASSIGN expression .)
+
+
+state 129
+
+    (20) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO . IDENT RPAREN compoundStatement
+    (22) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO . NUM RPAREN compoundStatement
+    IDENT           shift and go to state 134
+    NUM             shift and go to state 135
+
+
+state 130
+
+    (21) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO . IDENT RPAREN compoundStatement
+    (23) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO . NUM RPAREN compoundStatement
+    IDENT           shift and go to state 136
+    NUM             shift and go to state 137
+
+
+state 131
+
+    (18) conditionalStatement -> IF LPAREN expression RPAREN compoundStatement ELSE . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 138
+
+state 132
+
+    (59) term -> IDENT LSQBR expression SLICE expression . RSQBR
+    RSQBR           shift and go to state 139
+
+
+state 133
+
+    (12) assignmentStatement -> IDENT LSQBR expression SLICE expression RSQBR ASSIGN . expression
+    (33) expression -> . binop
+    (34) binop -> . binop OR unop
+    (35) binop -> . binop AND unop
+    (36) binop -> . binop BITXOR unop
+    (37) binop -> . binop BITOR unop
+    (38) binop -> . binop BITAND unop
+    (39) binop -> . binop SAR unop
+    (40) binop -> . binop SAL unop
+    (41) binop -> . binop NEQ unop
+    (42) binop -> . binop EQ unop
+    (43) binop -> . binop GTEQ unop
+    (44) binop -> . binop GT unop
+    (45) binop -> . binop LTEQ unop
+    (46) binop -> . binop LT unop
+    (47) binop -> . binop MOD unop
+    (48) binop -> . binop DIV unop
+    (49) binop -> . binop MUL unop
+    (50) binop -> . binop SUB unop
+    (51) binop -> . binop ADD unop
+    (52) binop -> . unop
+    (53) unop -> . NOT term
+    (54) unop -> . BITNOT term
+    (55) unop -> . SUB term
+    (56) unop -> . ADD term
+    (57) unop -> . term
+    (58) term -> . functionStatement
+    (59) term -> . IDENT LSQBR expression SLICE expression RSQBR
+    (60) term -> . IDENT LSQBR expression RSQBR
+    (61) term -> . LPAREN fargs RPAREN
+    (62) term -> . LSQBR fargs RSQBR
+    (63) term -> . LSQBR RSQBR
+    (64) term -> . IDENT
+    (65) term -> . STRING
+    (66) term -> . BOOL
+    (67) term -> . NUM
+    (15) functionStatement -> . IDENT LPAREN fargs RPAREN
+    (16) functionStatement -> . IDENT LPAREN RPAREN
+    NOT             shift and go to state 39
+    BITNOT          shift and go to state 41
+    SUB             shift and go to state 37
+    ADD             shift and go to state 38
+    IDENT           shift and go to state 30
+    LPAREN          shift and go to state 31
+    LSQBR           shift and go to state 43
+    STRING          shift and go to state 44
+    BOOL            shift and go to state 45
+    NUM             shift and go to state 46
+
+    expression                     shift and go to state 140
+    binop                          shift and go to state 35
+    unop                           shift and go to state 36
+    term                           shift and go to state 40
+    functionStatement              shift and go to state 42
+
+state 134
+
+    (20) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO IDENT . RPAREN compoundStatement
+    RPAREN          shift and go to state 141
+
+
+state 135
+
+    (22) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO NUM . RPAREN compoundStatement
+    RPAREN          shift and go to state 142
+
+
+state 136
+
+    (21) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO IDENT . RPAREN compoundStatement
+    RPAREN          shift and go to state 143
+
+
+state 137
+
+    (23) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO NUM . RPAREN compoundStatement
+    RPAREN          shift and go to state 144
+
+
+state 138
+
+    (18) conditionalStatement -> IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement .
+    EOL             reduce using rule 18 (conditionalStatement -> IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement .)
+
+
+state 139
+
+    (59) term -> IDENT LSQBR expression SLICE expression RSQBR .
+    OR              reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    AND             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    BITXOR          reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    BITOR           reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    BITAND          reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    SAR             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    SAL             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    NEQ             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    EQ              reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    GTEQ            reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    GT              reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    LTEQ            reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    LT              reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    MOD             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    DIV             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    MUL             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    SUB             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    ADD             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    COMMA           reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    RPAREN          reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    SLICE           reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    RSQBR           reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+    EOL             reduce using rule 59 (term -> IDENT LSQBR expression SLICE expression RSQBR .)
+
+
+state 140
+
+    (12) assignmentStatement -> IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression .
+    EOL             reduce using rule 12 (assignmentStatement -> IDENT LSQBR expression SLICE expression RSQBR ASSIGN expression .)
+
+
+state 141
+
+    (20) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 145
+
+state 142
+
+    (22) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 146
+
+state 143
+
+    (21) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 147
+
+state 144
+
+    (23) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN . compoundStatement
+    (17) compoundStatement -> . BEGIN statements END
+    BEGIN           shift and go to state 17
+
+    compoundStatement              shift and go to state 148
+
+state 145
+
+    (20) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement .
+    EOL             reduce using rule 20 (loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO IDENT RPAREN compoundStatement .)
+
+
+state 146
+
+    (22) loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement .
+    EOL             reduce using rule 22 (loopStatement -> FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement .)
+
+
+state 147
+
+    (21) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement .
+    EOL             reduce using rule 21 (loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement .)
+
+
+state 148
+
+    (23) loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement .
+    EOL             reduce using rule 23 (loopStatement -> FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement .)

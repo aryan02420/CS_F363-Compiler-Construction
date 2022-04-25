@@ -31,25 +31,26 @@
 %%
 
 
-program                 ::=     statements                                                         
+program                 ::=     statements
+                        |       functionDeclaration                                                          
 
 statements              ::=     statement EOL statements                                                              
                         |       statement EOL
-                        |       compoundStatement
-                        |       conditionalStatement
-                        |       loopStatement
-                        |       functionDeclaration                                                                                                  
 
 statement               ::=     emptyStatement                                                     
                         |       assignmentStatement  
                         |       variableDeclaration                                                     
-                        |       functionStatement                                                       
+                        |       functionStatement
+                        |       compoundStatement
+                        |       conditionalStatement
+                        |       loopStatement                                                       
 
 compoundStatement       ::=     BEGIN statements END
 
 conditionalStatement    ::=     IF LPAREN expression RPAREN compoundStatement
                         |       IF LPAREN expression RPAREN compoundStatement ELSE compoundStatement
-                        |       WHILE LPAREN expression RPAREN compoundStatement
+
+loopStatement           ::=     WHILE LPAREN expression RPAREN compoundStatement
                         |       FOR LPAREN IDENT ASSIGN NUM TO NUM RPAREN compoundStatement
                         |       FOR LPAREN IDENT ASSIGN IDENT TO NUM RPAREN compoundStatement
                         |       FOR LPAREN IDENT ASSIGN NUM TO IDENT RPAREN compoundStatement
@@ -107,10 +108,11 @@ term                    ::=     NUM
                         |       BOOL
                         |       STRING
                         |       IDENT
-                        |       LSQBR RSQBR
+                        |       LSQBR RSQBR (remove)
+                        |       LSQBR fargs RSQBR
+                        |       LPAREN fargs RPAREN
                         |       IDENT LSQBR expression RSQBR
                         |       IDENT LSQBR expression SLICE expression RSQBR
-                        |       LPAREN expression RPAREN
                         |       functionStatement
 
                     
