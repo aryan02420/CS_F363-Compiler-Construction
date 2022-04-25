@@ -1,5 +1,4 @@
 import random
-from socketserver import ThreadingUnixStreamServer
 import pygame
 import sys
 
@@ -61,6 +60,24 @@ class TetrisEngine(object):
     level = 0
     level_speeds = [0.35, 0.25, 0.15]
     increase_difficulty = True
+
+    game_heading = "BLOCKBUSTERS"
+    quit_text = "QUIT"
+    resume_text = "RESUME"
+    restart_text = "RESTART"
+    gameover_text = "GAMEOVER"
+    nextshape_text = "NEXT SHAPE"
+    level1_text = "LEVEL 1"
+    level2_text = "LEVEL 2"
+    level3_text = "LEVEL 3"
+    start_text = "START"
+    game_heading_color = (255,0,255)
+    gameover_color = (0,255,255)
+    general_button_color = (255,255,255)
+    click_color = (255,255,0)
+
+    playbndry_color = (255,255,255)
+    grid_color = 120
     #########################################################################
 
     """
@@ -268,7 +285,7 @@ class TetrisEngine(object):
     draws the lines of the grid for the game
     """
     def draw_grid(self, surface):
-        r = g = b = 120
+        r = g = b = self.grid_color
         grid_color = (r, g, b)
 
         for i in range(self.row):
@@ -320,7 +337,7 @@ class TetrisEngine(object):
     """
     def draw_next_shape(self, piece, surface):
         font = pygame.font.Font(self.fontpath, 30)
-        label = font.render('Next Shape', 1, (255, 255, 255))
+        label = font.render(self.nextshape_text, 1, self.general_button_color)
 
         start_x = 600
         start_y = 300
@@ -346,7 +363,7 @@ class TetrisEngine(object):
 
         # current score
         font = pygame.font.Font(self.fontpath, 30)
-        label = font.render('SCORE   ' + str(score) , 1, (255, 255, 255))
+        label = font.render('SCORE   ' + str(score) , 1, self.general_button_color)
 
         start_x = 600
         start_y = 500
@@ -355,7 +372,7 @@ class TetrisEngine(object):
 
         if self.viz_high_score:
             # last score
-            label_hi = font.render('HIGHSCORE   ' + str(self.max_score), 1, (255, 255, 255))
+            label_hi = font.render('HIGHSCORE   ' + str(self.max_score), 1, self.general_button_color)
 
             start_x_hi = 30
             start_y_hi = 500
@@ -375,7 +392,7 @@ class TetrisEngine(object):
         self.draw_grid(surface)
 
         # draw rectangular border around play area
-        border_color = (255, 255, 255)
+        border_color = self.playbndry_color
         pygame.draw.rect(surface, border_color, (self.top_left_x, self.top_left_y, self.play_width, self.play_height), 4)
 
         # pygame.display.update()
@@ -510,11 +527,45 @@ class TetrisEngine(object):
             self.draw_next_shape(self.next_piece, self.window)
         pygame.display.update()
 
+    def paused(self):
+
+        self.window.fill((0,0,0))
+        xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+        pygame.display.update()
+
+        run = True
+        while run:
+            for event in pygame.event.get():
+                
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+                #checks if a mouse is clicked
+                mouse = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    
+                    if xresu < mouse[0] < self.s_width - xresu and 20 < mouse[1] < 70:
+                        self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
+                        pygame.display.update()
+                        return False
+                    elif xquit < mouse[0] < self.s_width - xquit and 160 < mouse[1] < 210:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                        pygame.display.update()
+                        pygame.quit()
+                        sys.exit()
+                    elif xres < mouse[0] < self.s_width - xres and 90 < mouse[1] < 140:
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                        pygame.display.update()
+                        return True
+
     def game_over(self):
         self.window.fill((0,0,0))
-        self.draw_text_middle('GAMEOVER', self.window, (255,255,255), 20)
-        xres = self.draw_text_middle('RESTART', self.window, (255,255,255), 90)
-        xquit = self.draw_text_middle('QUIT', self.window, (255,255,255), 160)
+        self.draw_text_middle(self.gameover_text, self.window, self.gameover_color, 20)
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
         pygame.display.update()
 
         rrun = True
@@ -529,12 +580,12 @@ class TetrisEngine(object):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     
                     if xquit < mouse[0] < self.s_width - xquit and 160 < mouse[1] < 210:
-                        self.draw_text_middle('QUIT', self.window, (255,255,0), 160)
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
                         pygame.display.update()
                         pygame.quit()
                         sys.exit()
                     elif xres < mouse[0] < self.s_width - xres and 90 < mouse[1] < 140:
-                        self.draw_text_middle('RESTART', self.window, (255,255,0), 90)
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
                         pygame.display.update()
                         return True
 
@@ -543,13 +594,13 @@ class TetrisEngine(object):
         self.window.fill((0,0,0))
         #self.draw_text_middle('BLOCKBUSTERS', self.window, 255, 20)
         font = pygame.font.Font(self.fontpath_mario, 50, bold=True)
-        label = font.render('BLOCKBUSTERS', 1, (255, 255, 255))  # initialise 'Tetris' text with white
+        label = font.render(self.game_heading, 1, self.game_heading_color)  # initialise 'Tetris' text with white
 
         self.window.blit(label, ((self.s_width - label.get_width())//2, 20))
-        l1 = self.draw_text_middle('LEVEL1', self.window, (255,255,255), 100)
-        l2 = self.draw_text_middle('LEVEL2', self.window, (255,255,255), 170)
-        l3 = self.draw_text_middle('LEVEL3', self.window, (255,255,255), 240)
-        start = self.draw_text_middle('START', self.window, (255,255,255), 310)
+        l1 = self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+        l2 = self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+        l3 = self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+        start = self.draw_text_middle(self.start_text, self.window, self.general_button_color, 310)
         pygame.display.update()
         
         run = True
@@ -565,17 +616,17 @@ class TetrisEngine(object):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     
                     if l1 < mouse[0] < self.s_width - l1 and 100 < mouse[1] < 150:
-                        self.draw_text_middle('LEVEL1', self.window, (255,255,0), 100)
+                        self.draw_text_middle(self.level1_text, self.window, self.click_color, 100)
                         pygame.display.update()
                         run = False
                         level = 0
                     elif l2 < mouse[0] < self.s_width - l2 and 170 < mouse[1] < 220:
-                        self.draw_text_middle('LEVEL2', self.window, (255,255,0), 170)
+                        self.draw_text_middle(self.level2_text, self.window, self.click_color, 170)
                         pygame.display.update()
                         run = False
                         level = 1
                     elif l3 < mouse[0] < self.s_width - l3 and 240 < mouse[1] < 290:
-                        self.draw_text_middle('LEVEL3', self.window, (255,255,0), 240)
+                        self.draw_text_middle(self.level3_text, self.window, self.click_color, 240)
                         pygame.display.update()
                         run = False
                         level = 2
@@ -592,7 +643,7 @@ class TetrisEngine(object):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     
                     if start < mouse[0] < self.s_width - start and 310 < mouse[1] < 360:
-                        self.draw_text_middle('START', self.window, (255,255,0), 310)
+                        self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
                         pygame.display.update()
                         return level
 
@@ -624,40 +675,27 @@ class TetrisEngine(object):
     def set_level(self, val):
         self.level = val
 
-    def paused(self):
+    def design_button_text(self, game_heading, quit_text, resume_text, restart_text, gameover_text, nextshape_text, level1_text, level2_text, level3_text, start_text):
+        self.game_heading = game_heading
+        self.quit_text = quit_text
+        self.resume_text = resume_text
+        self.restart_text = restart_text
+        self.gameover_text = gameover_text
+        self.nextshape_text = nextshape_text
+        self.level1_text = level1_text
+        self.level2_text = level2_text
+        self.level3_text = level3_text
+        self.start_text = start_text
 
-        self.window.fill((0,0,0))
-        xresu = self.draw_text_middle('RESUME', self.window, (255,255,255), 20)
-        xres = self.draw_text_middle('RESTART', self.window, (255,255,255), 90)
-        xquit = self.draw_text_middle('QUIT', self.window, (255,255,255), 160)
-        pygame.display.update()
+    def design_button_color(self, game_heading_color, gameover_color, general_button_color, click_color):
+        self.game_heading_color = game_heading_color
+        self.gameover_color = gameover_color
+        self.general_button_color = general_button_color
+        self.click_color = click_color
 
-        run = True
-        while run:
-            for event in pygame.event.get():
-                
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                    
-                #checks if a mouse is clicked
-                mouse = pygame.mouse.get_pos()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    
-                    if xresu < mouse[0] < self.s_width - xresu and 20 < mouse[1] < 70:
-                        self.draw_text_middle('RESUME', self.window, (255,255,0), 20)
-                        pygame.display.update()
-                        return False
-                    elif xquit < mouse[0] < self.s_width - xquit and 160 < mouse[1] < 210:
-                        self.draw_text_middle('QUIT', self.window, (255,255,0), 160)
-                        pygame.display.update()
-                        pygame.quit()
-                        sys.exit()
-                    elif xres < mouse[0] < self.s_width - xres and 90 < mouse[1] < 140:
-                        self.draw_text_middle('RESTART', self.window, (255,255,0), 90)
-                        pygame.display.update()
-                        return True
-
+    def design_play(self, playbndry_color, grid_color):
+        self.playbndry_color = playbndry_color
+        self.grid_color = grid_color
         
                     
 
@@ -687,6 +725,9 @@ if __name__ == '__main__':
     root.show_highscore(True)
     root.increase_fall_speed(True)
     root.set_window_caption("Hardik :)")
+    #root.design_button_text(arguments)
+    #root.design_button_color(arguments)
+    #root.design_play(arguments)
 
     play_again = True
     
