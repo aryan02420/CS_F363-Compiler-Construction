@@ -34,7 +34,7 @@
 program                 ::=   statements EOL                                                          { return f'{p.statements}\n'}
 
 statements              ::=   statement                                                               { return f'{p.statement}'}
-                        |     statement moreStatements                                                { return f'{p.statements}{p.moreStatements}'}
+                        |     statement moreStatements                                                { return f'{p.statement}{p.moreStatements}'}
 
 moreStatements          ::=   EOL statement                                                           { return f'\n{p.statement}' }
                         |     EOL moreStatements                                                      { return f'\n{p.moreStatements}' }
@@ -51,7 +51,7 @@ statement               ::=   assignmentStatement                               
 assignmentStatement     ::=   IDENT ASSIGN expression                                                 { return f'{p.IDENT} = {p.expression}' }
 
 functionStatement       ::=   IDENT LPAREN RPAREN                                                     { return f'{p.IDENT}()' }
-                        |     IDENT LPAREN actparams RPAREN                                           { return f'{P.IDENT'({P.actparams}) }
+                        |     IDENT LPAREN actparams RPAREN                                           { return f'{p.IDENT'({p.actparams}) }
 
 actparams               ::=   expression                                                              { return f''{p.expression} }
                         |     expression moreparams                                                   { return f''{p.expression}{p.moreparams} }
@@ -65,11 +65,11 @@ conditionalStatement    ::=   IF expression THEN statements                     
 
 loopStatement           ::=   WHILE expression DO statement                                           { return f'while {p.expression}:\n\t{p.statement}' }
                         |     DO statement WHILE expression                                           { return f'{p.statement}\nwhile {p.expression}:\n\t{p.statement}' }
-                        |     FOR IDENT ASSIGN number TO number DO statement                          { return f'for {p.IDENT} in range(p.number, p.number):\n\t{p.statement}'}
+                        |     FOR IDENT ASSIGN NUM TO NUM DO statement                                { return f'for {p.IDENT} in range(p.NUM, p.NUM):\n\t{p.statement}'}
 
 emptyStatement          ::=   /*empty*/                                                               { return f'' }
 
-variableDeclaration     ::=   VAR IDENT ASSIGN expression                                             { return f'{p.IDENT} = p.expression' }
+variableDeclaration     ::=   VAR IDENT ASSIGN expression                                             { return f'{p.IDENT} = {p.expression}' }
 
 functionDeclaration     ::=   FUNCTION IDENT LPAREN RPAREN compoundStatement                          { return f'{p.IDENT}(){p.compoundStatement}' }
                         |     FUNCTION IDENT LPAREN fargs RPAREN compoundStatement                    { return f'{p.IDENT}({p.fargs}){p.compoundStatement}' }
@@ -116,5 +116,6 @@ unop                    ::=   term                                              
 
 term                    ::=   NUM                                                                     { return f'{p.NUM}' }
                         |     BOOL                                                                    { return f'{p.BOOL}' }
+                        |     STRING                                                                  { return f'{p.STRING}' }
                         |     LSQBR largs RSQBR                                                       { return f'[{p.largs}]' }
                         |     LPAREN expression RPAREN                                                { return f'({p.expression})' }
