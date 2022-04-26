@@ -3,13 +3,32 @@ from sly import Lexer
 class CalcLexer(Lexer):
 
     def __init__(self):
-        self.depth = 0
-        self.flag = 1
-        self.a = 0
-        self.b = 0
+        self.engineFunctionList = ['initialize_window',
+                                   'create_block',
+                                   'show_next_piece',
+                                   'show_highscore',
+                                   'set_level',
+                                   'increase_fall_speed',
+                                   'set_window_caption',
+                                   'main_menu',
+                                   'init_grid',
+                                   'init_blocks',
+                                   'init_clock',
+                                   'update_locked_grid',
+                                   'update_clock',
+                                   'shift_piece',
+                                   'take_user_input',
+                                   'draw_current_grid',
+                                   'current_piece_locked',
+                                   'spawn',
+                                   'clear_rows',
+                                   'update_highscore',
+                                   'update_window',
+                                   'check_lost',
+                                   'game_over']
         
     # Set of token names. This is always required
-    tokens = {VAR, IDENT, ASSIGN, SLICE, BOOL, NUM, LSQBR, RSQBR, COMMA, STRING, MUL, DIV, MOD, ADD, SUB, LT, LTEQ, GT, GTEQ, EQ, NEQ, BITNOT, SAL, SAR, BITAND, BITXOR, BITOR, NOT, AND, OR, FUNCTION, LPAREN, RPAREN, BEGIN, END, IF, ELSE, WHILE, FOR, TO, EOL}
+    tokens = {VAR, IDENT, ASSIGN, BOOL, NUM, LSQBR, RSQBR, COMMA, STRING, MUL, DIV, MOD, ADD, SUB, LT, LTEQ, GT, GTEQ, EQ, NEQ, BITNOT, SAL, SAR, BITAND, BITXOR, BITOR, NOT, AND, OR, FUNCTION, LPAREN, RPAREN, BEGIN, END, IF, ELSE, WHILE, FOR, TO, EOL}
 
     # String containing ignored characters between tokens
     ignore = ' \t\r'
@@ -24,7 +43,7 @@ class CalcLexer(Lexer):
     # Compute column.
     #     input is the input text string
     #     token is a token instance
-    def find_column(text, token):
+    def find_column(self, text, token):
         last_cr = text.rfind('\n', 0, token.index)
         if last_cr < 0:
             last_cr = 0
@@ -33,13 +52,12 @@ class CalcLexer(Lexer):
 
     # Error handling rule
     def error(self, t):
-        print('Line %d: Bad character %r' % (self.lineno, t.value[0]))
+        print('Line %d, Col %d: Bad character %r' % (self.lineno, self.find_column(self.text, t), t.value[0]))
         self.index += 1
 
     # Regular expression rules for tokens
     IDENT = r'[a-zA-Z][a-zA-Z0-9_]*'
     ASSIGN = r'\:\='
-    SLICE = r'\:'
     NUM = r'[0-9]+'
     LSQBR = r'\['
     RSQBR = r'\]'
@@ -66,7 +84,6 @@ class CalcLexer(Lexer):
     RPAREN = r'\)'
     EOL = r'\;'
 
-
     IDENT['var'] = VAR
     IDENT['true'] = BOOL
     IDENT['false'] = BOOL
@@ -82,79 +99,28 @@ class CalcLexer(Lexer):
     IDENT['to'] = TO
     IDENT['end'] = END
 
-    @_(r'begin')
-    def BEGIN(self, t):
-        self.b += 1
-        if self.b > self.a:
-            self.flag = 0
-
-        return t
-    
-    @_(r'end')
-    def END(self, t):
-        if self.flag == 1:
-            self.depth -= 1
-            self.a -= 1
-        
-        self.b -= 1
-        
-        if self.a == self.b:
-            self.flag = 1
-
-        return t
-    
-    @_(r'if')
-    def IF(self, t):
-        t.value = self.depth
-        self.depth += 1
-        self.a += 1
-        return t
-
-    @_(r'while')
-    def WHILE(self, t):
-        t.value = self.depth
-        self.depth += 1
-        self.a += 1
-        return t
-
-    @_(r'for')
-    def FOR(self, t):
-        t.value = self.depth
-        self.depth += 1
-        self.a += 1
-        return t
-
-    @_(r'function')
-    def FUNCTION(self, t):
-        t.value = self.depth
-        self.depth += 1
-        self.a += 1
-        return t
-
-    @_(r'var')
-    def VAR(self, t):
-        t.value = self.depth
-        return t
-
     @_(r'[a-zA-Z][a-zA-Z0-9_]*')
     def IDENT(self, t):
-        t.value += str(self.depth)
+        if t.value in self.engineFunctionList:
+            t.value = f'engine.{t.value}'
         return t
 
 
 
 if __name__ == '__main__':
-    data = input()
+    data = '''var a := b;
+    l = m;
+    if (1) begin lol() end ok()'''
 
-    try:
-        while(data[-3:] != 'EOF'):
+    while(data[-3:] != 'EOF'):
+        try:
             lexer = CalcLexer()
             for tok in lexer.tokenize(data):
-                print('type=%r, value=%r' % (tok.type, tok.value))
+                print(tok)
 
             data = input()
 
-    except:
-        print("Scanning Done!")
+        except Exception as e:
+            print(e)
         
 

@@ -9,7 +9,7 @@ var temp_block := [
     '..00.',
     '.....',
     '.....',
-    '.....']],(128,165,0)];
+    '.....']],[128,165,0]];
 
 create_block(temp_block);
 show_next_piece(True);
@@ -43,15 +43,15 @@ begin
             spawn();
             score := score + clear_rows();
           update_highscore(score);
-        end;
+        end
 
         update_window(score);
 
         if (check_lost())
         begin
             run := False;
-        end;
-    end;
+        end
+    end
     game_over();
-end;
+end
 
