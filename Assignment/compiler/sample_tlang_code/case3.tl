@@ -1,23 +1,3 @@
-initialize_window(18, 10);
-var temp_block := [
-    [['.....',
-    '.....',
-    '..0..',
-    '..0..',
-    '.....'],
-    ['.....',
-    '..00.',
-    '.....',
-    '.....',
-    '.....']],[128,165,0]];
-
-create_block(temp_block);
-show_next_piece(True);
-show_highscore(True);
-set_level(1);
-increase_fall_speed(True);
-set_window_caption("Start!");
-
 function new_func(arg)
 begin
     if(arg != 0)
@@ -26,7 +6,33 @@ begin
     end
 end
 
-play_again := True;
+initialize_window(18, 10);
+var temp_block := [
+    [
+        ['.....',
+        '.....',
+        '..0..',
+        '..0..',
+        '.....'],
+
+        ['.....',
+        '..00.',
+        '.....',
+        '.....',
+        '.....']
+    ],
+
+    [128,165,0]
+];
+
+create_block(temp_block);
+show_next_piece(True);
+show_highscore(True);
+set_level(1);
+increase_fall_speed(True);
+set_window_caption("Start!");
+
+var play_again := True;
 
 while (play_again)
 begin 
@@ -50,6 +56,7 @@ begin
         begin
             spawn();
             score := score + clear_rows();
+            new_func(score);
             update_highscore(score);
         end
 

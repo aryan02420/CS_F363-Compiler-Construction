@@ -1,4 +1,3 @@
-// basically any code with a syntax error
 
 initialize_window(18, 10);
 var temp_block := [
@@ -20,13 +19,15 @@ set_level(1);
 increase_fall_speed(True);
 set_window_caption("Hardik :)");
 
-play_again := True;
+var x := 2/2 - 1; // this is a comment
+
+var play_again := True;
 
 while (play_again)
 begin 
     main_menu();
 
-    varun := True;
+    var run := True;
     var score := 0;
 
     init_grid();
@@ -43,8 +44,8 @@ begin
         if (current_piece_locked())
         begin
             spawn();
-            score := score + clear_rows();
-          update_highscore(score);
+            score := score + x + clear_rows();
+            update_highscore(score);
         end
 
         update_window(score);
