@@ -1,2 +1,6 @@
+<<<<<<< Updated upstream
 __pycache__
 venv
+=======
+.DS_Store
+>>>>>>> Stashed changes

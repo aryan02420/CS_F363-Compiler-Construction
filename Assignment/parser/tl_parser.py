@@ -35,7 +35,7 @@ class CalcParser(Parser):
     def statements(self, p):
         return f'{self.tabChar*self.nesting_depth}{p.emptyStatement}'
 
-    semi statement
+    # semi statement
 
     @_('emptyStatement')                                                          
     def semistatement(self, p):
@@ -121,7 +121,7 @@ class CalcParser(Parser):
 
     @_('FUNCTION IDENT LPAREN params RPAREN indent compoundStatement outdent')                    
     def functionDeclaration(self, p):     
-        return f'def {p.IDENT}({p.args}):\n{p.compoundStatement}'
+        return f'def {p.IDENT}({p.params}):\n{p.compoundStatement}'
 
     # conditionals
 

@@ -4,9 +4,9 @@ import sys
 
 pygame.init()
 pygame.font.init()
-crash_sound = pygame.mixer.Sound(r"C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\gameover.wav")
-clear_sound = pygame.mixer.Sound(r"C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\clear.wav")
-key_press = pygame.mixer.Sound(r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\key_press.mp3')
+crash_sound = pygame.mixer.Sound(r"gameover.wav")
+clear_sound = pygame.mixer.Sound(r"clear.wav")
+key_press = pygame.mixer.Sound(r'key_press.wav')
 """
 10 x 20 grid
 play_height = 2 * play_width
@@ -46,9 +46,9 @@ class TetrisEngine(object):
     top_left_x = (s_width - play_width) // 2
     top_left_y = s_height - play_height
 
-    filepath = r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\highscore.txt'
-    fontpath = r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\arcade.ttf'
-    fontpath_mario = r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\mario.ttf'
+    filepath = r'assets/highscore.txt'
+    fontpath = r'assets/arcade.ttf'
+    fontpath_mario = r'assets/mario.ttf'
 
     viz_next_piece = True
     viz_high_score = True

@@ -1,0 +1,5 @@
+1. Upon encountering a syntax error, compiler should terminate. Currently the compiler gets stuck at 'None' values. Possible Solution : Implement try catch statements in compiler.
+
+2. Redeclaring a user defined variable inside a different scope overwrites its value. Incase of while loops this can result in weird situations. Eg. Game ending before it starts. Possible Solution : Give warning or errors in case of redeclaration of variables.
+
+3. 
