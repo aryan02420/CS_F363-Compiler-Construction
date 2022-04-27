@@ -712,7 +712,7 @@ class TetrisEngine(object):
 
 if __name__ == '__main__':
 
-    pygame.mixer.music.load(bg)
+    pygame.mixer.music.load("theme.wav")
     pygame.mixer.music.set_volume(0.3)
     pygame.mixer.music.play(-1)
     root = TetrisEngine()
