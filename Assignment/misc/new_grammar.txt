@@ -64,10 +64,12 @@ functionDeclarations    ::=     functionDeclaration functionDeclarations
 functionDeclaration     ::=     FUNCTION IDENT LPAREN RPAREN _indent compoundStatement _outdent
                         |       FUNCTION IDENT LPAREN params RPAREN _indent compoundStatement _outdent
 
-conditionalStatement    ::=     IF LPAREN expression RPAREN _indent compoundStatement _outdent
-                        |       IF LPAREN expression RPAREN _indent compoundStatement _outdent ELSE _indent compoundStatement _outdent
+condition               ::=     LPAREN expression RPAREN
 
-loopStatement           ::=     WHILE LPAREN expression RPAREN _indent compoundStatement _outdent
+conditionalStatement    ::=     IF condition _indent compoundStatement _outdent
+                        |       IF condition _indent compoundStatement _outdent ELSE _indent compoundStatement _outdent
+
+loopStatement           ::=     WHILE condition _indent compoundStatement _outdent
                         |       FOR LPAREN IDENT ASSIGN expression TO expression RPAREN _indent compoundStatement _outdent                                          
 
 params                  ::=     IDENT COMMA params                                                               

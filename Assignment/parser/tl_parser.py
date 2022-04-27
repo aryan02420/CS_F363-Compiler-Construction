@@ -125,26 +125,31 @@ class CalcParser(Parser):
     def functionDeclaration(self, p):     
         return f'def {p.IDENT}({p.params}):\n{p.compoundStatement}'
 
+    # condition
+
+    @_('LPAREN expression RPAREN')                                           
+    def condition(self, p):
+        return f'{p.expression}'
+
     # conditionals
 
-    @_('IF LPAREN expression RPAREN indent compoundStatement outdent')                                           
+    @_('IF condition indent compoundStatement outdent')                                           
     def conditionalStatement(self, p):
-        return f'if {p.expression}:\n{p.compoundStatement}'
+        return f'if {p.condition}:\n{p.compoundStatement}'
 
-    @_('IF LPAREN expression RPAREN indent compoundStatement outdent ELSE indent compoundStatement outdent')                           
+    @_('IF condition indent compoundStatement outdent ELSE indent compoundStatement outdent')                           
     def conditionalStatement(self, p):
-        return f'if {p.expression}:\n{p.compoundStatement0}else:{p.compoundStatement1}'
+        return f'if {p.condition}:\n{p.compoundStatement0}else:{p.compoundStatement1}'
     
     # loops
 
-    @_('WHILE LPAREN expression RPAREN indent compoundStatement outdent')                                           
+    @_('WHILE condition indent compoundStatement outdent')                                           
     def loopStatement(self, p):           
-        return f'while {p.expression}:\n{p.compoundStatement}'
+        return f'while {p.condition}:\n{p.compoundStatement}'
 
     @_('FOR LPAREN IDENT ASSIGN expression TO expression RPAREN indent compoundStatement outdent')                          
     def loopStatement(self, p):           
         return f'for {p.IDENT} in range({p.expression0}, {p.expression1}):\n{p.compoundStatement}'
-
 
     # params and args
 
