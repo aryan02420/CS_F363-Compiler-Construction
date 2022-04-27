@@ -9,7 +9,7 @@ var temp_block := [
     '..00.',
     '.....',
     '.....',
-    '.....']],[128,165,0]];
+    '.....']],[128,165,0], 'new'];
 
 create_block(temp_block);
 show_next_piece(True);

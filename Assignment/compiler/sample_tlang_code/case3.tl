@@ -22,7 +22,8 @@ var temp_block := [
         '.....']
     ],
 
-    [128,165,0]
+    [128,165,0],
+    'new'
 ];
 
 create_block(temp_block);
