@@ -8,9 +8,9 @@ class TetrisParser(Parser):
 
     start = 'program'
 
-    def __init__(self):
-        self.tabChar = '    '
-        self.nesting_depth = 0
+    def __init__(self, tab_char, nesting_depth):
+        self.tab_char = tab_char
+        self.nesting_depth = int(nesting_depth)
 
     # program
 
@@ -22,11 +22,11 @@ class TetrisParser(Parser):
 
     @_('semistatement EOL statements')                                                
     def statements(self, p):
-        return f'{self.tabChar*self.nesting_depth}{p.semistatement}{p.statements}'
+        return f'{self.tab_char*self.nesting_depth}{p.semistatement}{p.statements}'
 
     @_('nosemistatement statements')                                                               
     def statements(self, p):
-        return f'\n{self.tabChar*self.nesting_depth}{p.nosemistatement}\n{p.statements}'
+        return f'\n{self.tab_char*self.nesting_depth}{p.nosemistatement}\n{p.statements}'
 
     @_('emptyStatement')                                                               
     def statements(self, p):

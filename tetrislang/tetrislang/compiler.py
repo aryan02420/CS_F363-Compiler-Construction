@@ -6,17 +6,17 @@ from .parser import TetrisParser
 
 def TetrisCompiler(code, debug=False):
     lexer = TetrisLexer()
-    parser = TetrisParser(tab_char='    ', nesting_depth='1')
+    parser = TetrisParser('    ', '1')
 
     header = \
 '''#! /usr/bin/env python
 
 import sys
-from tetris-lang import TetrisEngine
+from tetrislang import TetrisEngine
 
 engine = TetrisEngine()
 
-def Game();
+def Game():
 '''
 
     footer = \
