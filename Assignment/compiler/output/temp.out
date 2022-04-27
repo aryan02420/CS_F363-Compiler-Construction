@@ -12,7 +12,12 @@ engine.show_next_piece(True)
 engine.show_highscore(True)
 engine.set_level(1)
 engine.increase_fall_speed(True)
-engine.set_window_caption("Hardik :)")
+engine.set_window_caption("Start!")
+def new_func(arg):
+    if arg != 0:
+        engine.set_window_caption("Score : " + str(arg))
+        
+    
 play_again = True
 while play_again:
     engine.main_menu()
