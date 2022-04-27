@@ -283,6 +283,8 @@ class CalcParser(Parser):
     def term(self, p):
         return f'({p.functionStatement})'
 
+    def error(self, p):
+        print(f"Syntax error at Line: {p.lineno}, token {p.type} '{p.value}'")
 
 if __name__ == '__main__':
     lexer = CalcLexer()
