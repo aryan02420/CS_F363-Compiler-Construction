@@ -179,6 +179,11 @@ class TetrisEngine(object):
     shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
     Dict = {'S': 0, 'Z': 1, 'I': 2, 'O': 3, 'J': 4, 'L': 5, 'T': 6}
         
+    def __init__(self):
+        self.window = pygame.display.set_mode((self.s_width, self.s_height))
+        pygame.display.set_caption("Tetris")  
+        self.max_score = self.get_max_score()
+    
     # INITIALIZE THE GRID
     def create_grid(self):
         grid = [[(0, 0, 0) for x in range(self.col)] for y in range(self.row)]  # grid represented rgb tuples
@@ -849,12 +854,11 @@ class TetrisEngine(object):
                     
 
 if __name__ == '__main__':
-
+    
     root = TetrisEngine()
     
     root.initialize_window(18, 10)
-    temp_block = [
-        [['.....',
+    i = [['.....',
         '.....',
         '..0..',
         '..0..',
@@ -863,7 +867,9 @@ if __name__ == '__main__':
         '..00.',
         '.....',
         '.....',
-        '.....']],(128,165,0),'i']
+        '.....']]
+    temp_block = [i
+        ,(128,165,0),'i']
 
     root.create_block(temp_block)
     root.design_block_color('i', (255,255,255))
