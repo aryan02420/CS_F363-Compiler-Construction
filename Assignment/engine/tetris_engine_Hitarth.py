@@ -512,7 +512,7 @@ class TetrisEngine(object):
                 
                 elif event.key == pygame.K_ESCAPE:
                     pygame.mixer.Sound.play(key_press)
-                    pygame.mixer.music.stop()
+                    # pygame.mixer.music.stop()
                     return True
     
     def current_piece_locked(self):
@@ -534,7 +534,7 @@ class TetrisEngine(object):
         pygame.display.update()
 
     def paused(self):
-
+        pygame.mixer.music.pause()
         self.window.fill((0,0,0))
         xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
         xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
@@ -553,7 +553,8 @@ class TetrisEngine(object):
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.mixer.Sound.play(key_press)
-                    pygame.mixer.music.stop()
+                    # pygame.mixer.music.stop()
+                    pygame.mixer.music.unpause()
                     if xresu < mouse[0] < self.s_width - xresu and 20 < mouse[1] < 70:
                         self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
                         pygame.display.update()
@@ -622,7 +623,7 @@ class TetrisEngine(object):
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.mixer.Sound.play(key_press)
-                    pygame.mixer.music.stop()
+                    # pygame.mixer.music.stop()
                     if l1 < mouse[0] < self.s_width - l1 and 100 < mouse[1] < 150:
                         self.draw_text_middle(self.level1_text, self.window, self.click_color, 100)
                         pygame.display.update()
@@ -640,6 +641,7 @@ class TetrisEngine(object):
                         level = 2
         run = True
         while run:
+            
             for event in pygame.event.get():
                 
                 if event.type == pygame.QUIT:
@@ -650,12 +652,12 @@ class TetrisEngine(object):
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.mixer.Sound.play(key_press)
-                    pygame.mixer.music.stop()
+                    # pygame.mixer.music.stop()
                     if start < mouse[0] < self.s_width - start and 310 < mouse[1] < 360:
                         self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
                         pygame.display.update()
                         return level
-
+            
 
     def initialize_window(self, row, col):
         self.row = row
@@ -710,6 +712,9 @@ class TetrisEngine(object):
 
 if __name__ == '__main__':
 
+    pygame.mixer.music.load(bg)
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.play(-1)
     root = TetrisEngine()
     # win = pygame.display.set_mode((root.s_width, root.s_height))
     # pygame.display.set_caption('Tetris')
@@ -752,6 +757,7 @@ if __name__ == '__main__':
         root.init_blocks()
         root.init_clock()
         while run:
+            
             root.update_locked_grid()
             root.update_clock()
             root.shift_piece()
@@ -770,9 +776,9 @@ if __name__ == '__main__':
 
             if root.check_lost():
                 pygame.mixer.Sound.play(crash_sound)
-                pygame.mixer.music.stop()
+                # pygame.mixer.music.stop()
                 run = False
-        
+
         if restart:
             continue
         else:
