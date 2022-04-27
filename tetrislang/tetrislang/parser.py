@@ -106,7 +106,7 @@ class TetrisParser(Parser):
 
     @_('functionDeclaration functionDeclarations')                                                               
     def functionDeclarations(self, p):
-        return f'{p.functionDeclaration}{p.functionDeclarations}'
+        return f'{self.tab_char*self.nesting_depth}{p.functionDeclaration}{p.functionDeclarations}'
 
     @_('emptyStatement')                                                               
     def functionDeclarations(self, p):
