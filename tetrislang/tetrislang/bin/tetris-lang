@@ -11,5 +11,5 @@ input_code = ''
 with open(args.input_file, 'r') as f:
   input_code = f.read()
 
-out = tetrislang.TetrisCompiler(input_code, True)
+out = tetrislang.TetrisCompiler(input_code, False)
 exec(out)
