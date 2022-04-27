@@ -1,0 +1,6 @@
+1. ebnf to bnf
+2. infinite recursion
+3. parser conflicts
+4. rejected rules
+5. no indentation
+6. unexpected indents

@@ -31,7 +31,7 @@
 %%
 
 
-program                 ::=     statements                                                      
+program                 ::=     functionDeclarations statements
 
 statements              ::=     semistatement EOL statements                                                              
                         |       nosemistatement statements
@@ -42,9 +42,7 @@ semistatement           ::=     emptyStatement
                         |       assignmentStatement  
                         |       functionStatement
 
-nosemistatement         ::=     emptyStatement                                                     
-                        |       compoundStatement
-                        |       functionDeclaration
+nosemistatement         ::=     compoundStatement
                         |       conditionalStatement
                         |       loopStatement                                               
 
@@ -56,9 +54,12 @@ assignmentStatement     ::=     IDENT ASSIGN expression
                         |       IDENT LSQBR expression RSQBR ASSIGN expression                                                
 
 functionStatement       ::=     IDENT LPAREN RPAREN                                                     
-                        |       IDENT LPAREN fargs RPAREN                                                                  
+                        |       IDENT LPAREN args RPAREN                                                                  
 
 compoundStatement       ::=     BEGIN statements END
+
+functionDeclarations    ::=     functionDeclaration functionDeclarations
+                        |       emptyStatement
 
 functionDeclaration     ::=     FUNCTION IDENT LPAREN RPAREN _indent compoundStatement _outdent
                         |       FUNCTION IDENT LPAREN params RPAREN _indent compoundStatement _outdent
@@ -103,8 +104,7 @@ unop                    ::=     term
                         |       BITNOT term
                         |       NOT term
 
-list                    ::=     LSQBR RSQBR
-                        |       LSQBR args RSQBR
+list                    ::=     LSQBR args RSQBR
 
 term                    ::=     NUM
                         |       BOOL

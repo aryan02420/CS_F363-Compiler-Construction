@@ -17,9 +17,9 @@ class CalcParser(Parser):
 
     # program
 
-    @_('statements')                                                          
+    @_('functionDeclarations statements')                                                          
     def program(self, p):
-        return f'{p.statements}'
+        return f'{p.functionDeclarations}{p.statements}'
 
     # statements 
 
@@ -29,11 +29,11 @@ class CalcParser(Parser):
 
     @_('nosemistatement statements')                                                               
     def statements(self, p):
-        return f'{self.tabChar*self.nesting_depth}{p.nosemistatement}\n{p.statements}'
+        return f'\n{self.tabChar*self.nesting_depth}{p.nosemistatement}\n{p.statements}'
 
     @_('emptyStatement')                                                               
     def statements(self, p):
-        return f'{self.tabChar*self.nesting_depth}{p.emptyStatement}'
+        return f'{p.emptyStatement}'
 
     # semi statement
 
@@ -55,17 +55,9 @@ class CalcParser(Parser):
 
     # no semi statement 
 
-    @_('emptyStatement')                                                       
-    def nosemistatement(self, p):
-        return f'{p.emptyStatement}'
-
     @_('compoundStatement')                                                       
     def nosemistatement(self, p):
         return f'{p.compoundStatement}'
-
-    @_('functionDeclaration')                                                       
-    def nosemistatement(self, p):
-        return f'{p.functionDeclaration}'
 
     @_('conditionalStatement')                                                    
     def nosemistatement(self, p):
@@ -113,6 +105,16 @@ class CalcParser(Parser):
     def compoundStatement(self, p):
         return f'{p.statements}'
 
+    # function defs
+
+    @_('functionDeclaration functionDeclarations')                                                               
+    def functionDeclarations(self, p):
+        return f'{p.functionDeclaration}{p.functionDeclarations}'
+
+    @_('emptyStatement')                                                               
+    def functionDeclarations(self, p):
+        return f'{p.emptyStatement}'
+
     # function def
 
     @_('FUNCTION IDENT LPAREN RPAREN indent compoundStatement outdent')                          
@@ -144,7 +146,7 @@ class CalcParser(Parser):
         return f'for {p.IDENT} in range({p.expression0}, {p.expression1}):\n{p.compoundStatement}'
 
 
-    # lists
+    # params and args
 
     @_('IDENT COMMA params')
     def params(self, p):
@@ -269,10 +271,6 @@ class CalcParser(Parser):
         return f'not {p.term}'
 
     # list type
-    
-    @_('LSQBR RSQBR')                                                                     
-    def list(self, p):
-        return f'[]'
     
     @_('LSQBR args RSQBR')                                                                     
     def list(self, p):
