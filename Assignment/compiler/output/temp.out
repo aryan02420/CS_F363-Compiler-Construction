@@ -13,13 +13,12 @@ engine.show_highscore(True)
 engine.set_level(1)
 engine.increase_fall_speed(True)
 engine.set_window_caption("Start!")
-play_again = True
-def int(lol):
-    if lol == 0:
-        score = 0
-        score = score + 1000
+def new_func(arg):
+    if arg != 0:
+        engine.set_window_caption("Score : " + str(arg))
         
     
+play_again = True
 while play_again:
     engine.main_menu()
     run = True
@@ -36,7 +35,6 @@ while play_again:
         if engine.current_piece_locked():
             engine.spawn()
             score = score + engine.clear_rows()
-            int(score)
             engine.update_highscore(score)
             
         engine.update_window(score)

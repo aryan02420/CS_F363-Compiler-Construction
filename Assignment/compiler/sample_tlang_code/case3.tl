@@ -18,6 +18,14 @@ set_level(1);
 increase_fall_speed(True);
 set_window_caption("Start!");
 
+function new_func(arg)
+begin
+    if(arg != 0)
+    begin
+        set_window_caption("Score : " + str(arg));
+    end
+end
+
 play_again := True;
 
 while (play_again)
