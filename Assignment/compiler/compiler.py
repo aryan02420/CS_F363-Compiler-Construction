@@ -34,13 +34,12 @@ if __name__ == '__main__':
     # print("TOKENS")
     # print('\n'.join([f'{tok.type}\t{tok.value}' for tok in tokens]))
 
-    header = '''
-    #!/usr/bin/python3
-    import sys
-    sys.path.append(sys.path[0][:(sys.path[0].find('Assignment/')) + len('Assignment/')] + 'engine')\n
-    from tetris_engine import TetrisEngine\n
-    engine = TetrisEngine()\n
-    '''
+    header = '''#!/usr/bin/python3
+import sys
+sys.path.append(sys.path[0][:(sys.path[0].find('Assignment/')) + len('Assignment/')] + 'engine')\n
+from tetris_engine import TetrisEngine\n
+engine = TetrisEngine()\n
+'''
     output = parser.parse(lexer.tokenize(input_code))
     
     with open(output_path, 'w') as f:
