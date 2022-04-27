@@ -18,7 +18,7 @@ set_level(1);
 increase_fall_speed(True);
 set_window_caption("Player's Game!");
 
-play_again := True;
+var play_again := True;
 
 while (play_again)
 begin 

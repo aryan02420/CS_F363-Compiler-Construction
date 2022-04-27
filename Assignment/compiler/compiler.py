@@ -34,13 +34,23 @@ if __name__ == '__main__':
     # print("TOKENS")
     # print('\n'.join([f'{tok.type}\t{tok.value}' for tok in tokens]))
 
-    header = "import sys\nsys.path.append(sys.path[0][:(sys.path[0].find('Assignment/')) + len('Assignment/')] + 'engine')\n\nfrom tetris_engine import TetrisEngine\n\nengine = TetrisEngine()\n\n"
+    header = '''
+    #!/usr/bin/python3
+    import sys
+    sys.path.append(sys.path[0][:(sys.path[0].find('Assignment/')) + len('Assignment/')] + 'engine')\n
+    from tetris_engine import TetrisEngine\n
+    engine = TetrisEngine()\n
+    '''
     output = parser.parse(lexer.tokenize(input_code))
-    
-    print(f"Compilation Successful!\nOutput file generated at: {output_path}\nRun the output file to launch the game.")
-    # print("OUTPUT")
-    # print(output)
     
     with open(output_path, 'w') as f:
         f.write(header)
         f.write(output)
+    
+    
+    if output != None:
+        print(f"Compilation Successful!\nOutput file generated at: {output_path}\nRun the output file to launch the game.")
+        # print("OUTPUT")
+        # print(output)
+    else:
+        print(f"Compilation NOT Successful! :(\n")
