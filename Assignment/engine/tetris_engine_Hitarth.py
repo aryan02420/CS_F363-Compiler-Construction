@@ -4,11 +4,12 @@ import sys
 
 pygame.init()
 pygame.font.init()
-    
+crash_sound = pygame.mixer.Sound(r"C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\gameover.wav")
+clear_sound = pygame.mixer.Sound(r"C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\clear.wav")
+key_press = pygame.mixer.Sound(r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\key_press.mp3')
 """
 10 x 20 grid
 play_height = 2 * play_width
-
 tetriminos:
     0 - S - green
     1 - Z - red
@@ -45,9 +46,9 @@ class TetrisEngine(object):
     top_left_x = (s_width - play_width) // 2
     top_left_y = s_height - play_height
 
-    filepath = 'assets/highscore.txt'
-    fontpath = 'assets/arcade.TTF'
-    fontpath_mario = 'assets/mario.ttf'
+    filepath = r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\highscore.txt'
+    fontpath = r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\arcade.ttf'
+    fontpath_mario = r'C:\Users\Sujit\Desktop\Assignment\CS_F363-Compiler-Construction\Assignment\engine\mario.ttf'
 
     viz_next_piece = True
     viz_high_score = True
@@ -302,6 +303,7 @@ class TetrisEngine(object):
     clear a row when it is filled
     """
     def clear_rows(self):
+        
         # need to check if row is clear then shift every other row above down one
         increment = 0
         for i in range(len(self.grid) - 1, -1, -1):      # start checking the grid backwards
@@ -321,6 +323,8 @@ class TetrisEngine(object):
         # add another empty row on the top
         # move down one step
         if increment > 0:
+            pygame.mixer.Sound.play(clear_sound)
+            pygame.mixer.music.stop()
             # sort the locked list according to y value in (x,y) and then reverse
             # reversed because otherwise the ones on the top will overwrite the lower ones
             for key in sorted(list(self.locked_positions), key=lambda a: a[1])[::-1]:
@@ -507,7 +511,9 @@ class TetrisEngine(object):
                     return False
                 
                 elif event.key == pygame.K_ESCAPE:
-                   return True
+                    pygame.mixer.Sound.play(key_press)
+                    pygame.mixer.music.stop()
+                    return True
     
     def current_piece_locked(self):
         return self.change_piece
@@ -546,7 +552,8 @@ class TetrisEngine(object):
                 #checks if a mouse is clicked
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    
+                    pygame.mixer.Sound.play(key_press)
+                    pygame.mixer.music.stop()
                     if xresu < mouse[0] < self.s_width - xresu and 20 < mouse[1] < 70:
                         self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
                         pygame.display.update()
@@ -614,7 +621,8 @@ class TetrisEngine(object):
                 #checks if a mouse is clicked
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    
+                    pygame.mixer.Sound.play(key_press)
+                    pygame.mixer.music.stop()
                     if l1 < mouse[0] < self.s_width - l1 and 100 < mouse[1] < 150:
                         self.draw_text_middle(self.level1_text, self.window, self.click_color, 100)
                         pygame.display.update()
@@ -641,7 +649,8 @@ class TetrisEngine(object):
                 #checks if a mouse is clicked
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    
+                    pygame.mixer.Sound.play(key_press)
+                    pygame.mixer.music.stop()
                     if start < mouse[0] < self.s_width - start and 310 < mouse[1] < 360:
                         self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
                         pygame.display.update()
@@ -760,6 +769,8 @@ if __name__ == '__main__':
             root.update_window(score)
 
             if root.check_lost():
+                pygame.mixer.Sound.play(crash_sound)
+                pygame.mixer.music.stop()
                 run = False
         
         if restart:
