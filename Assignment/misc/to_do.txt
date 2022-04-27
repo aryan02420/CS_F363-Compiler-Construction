@@ -8,3 +8,5 @@ and by red dotted lines, if in invalid area (area already occupied by blocks). C
 4. In the first level selection screen add an option to quit the game there and then. This facilitates accidental opening of the game.
 
 5. Level selection screen does not change color of a selected level, once a level selected. 
+
+6. Sound for the background theme stops playing once the sound for clear rows is played.
