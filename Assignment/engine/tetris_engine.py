@@ -178,7 +178,7 @@ class TetrisEngine(object):
     shapes = [S, Z, I, O, J, L, T]
     shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
     Dict = {'S': 0, 'Z': 1, 'I': 2, 'O': 3, 'J': 4, 'L': 5, 'T': 6}
-        
+
     def __init__(self):
         self.window = pygame.display.set_mode((self.s_width, self.s_height))
         pygame.display.set_caption("Tetris")  
@@ -225,7 +225,7 @@ class TetrisEngine(object):
     # CHECK IF CURRENT POSITION OF GRID IS VALID
     def valid_space(self, piece):
         # makes a 2D list of all the possible (x,y)
-        accepted_pos = [[(x, y) for x in range(self.col) if self.grid[y][x] == (0, 0, 0)] for y in range(self.row)]
+        accepted_pos = [[(x, y) for x in range(self.col) if self.grid[y][x] == (0, 0, 0) or self.grid[y][x] == (105, 105, 105)] for y in range(self.row)]
         # removes sub lists and puts (x,y) in one list; easier to search
         accepted_pos = [x for item in accepted_pos for x in item]
 
@@ -236,7 +236,6 @@ class TetrisEngine(object):
                 if pos[1] >= 0:
                     return False
         return True
-
 
     # CHOOSE A SHAPE RANDOMLY
     def get_shape(self):
@@ -331,6 +330,12 @@ class TetrisEngine(object):
             score = int(lines[0].strip())   # remove \n
 
         return score
+    
+    def get_hard_position(self):
+        while(self.valid_space(self.current_piece)):
+            self.current_piece.y += 1
+
+        self.current_piece.y -= 1
 
     """
     Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
@@ -443,6 +448,7 @@ class TetrisEngine(object):
     """
     def draw_current_grid(self):
         self.piece_pos = self.convert_shape_format(self.current_piece)
+        
 
         # draw the piece on the grid by giving color in the piece locations
         for i in range(len(self.piece_pos)):
@@ -482,7 +488,7 @@ class TetrisEngine(object):
                 # need to lock the piece position
                 # need to generate new piece
                 self.change_piece = True
-                
+
     """
     Take user inputs while game is being played. Piece movement - left, right, up(clockwise rotation), down. Escape key to pause game
 
@@ -524,6 +530,13 @@ class TetrisEngine(object):
                     # pygame.mixer.Sound.play(key_press)
                     # pygame.mixer.music.stop()
                     return True
+
+                elif event.key == pygame.K_d:
+                    # pygame.mixer.Sound.play(key_press)
+                    # pygame.mixer.music.stop()
+                    self.get_hard_position()
+                    return False
+
     
     """
     Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
