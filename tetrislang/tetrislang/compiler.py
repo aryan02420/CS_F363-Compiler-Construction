@@ -1,4 +1,5 @@
 import sys
+import re
 import argparse
 
 from .scanner import TetrisLexer
@@ -8,8 +9,11 @@ def TetrisCompiler(code, debug=False):
     lexer = TetrisLexer()
     parser = TetrisParser('    ', '1')
 
+    # comment shebang
+    code = re.sub(r'^(#![^\r\n]+)', r'// \1', code)
+
     header = \
-'''#! /usr/bin/env python
+'''#!/usr/bin/env python
 
 import sys
 from tetrislang import TetrisEngine
