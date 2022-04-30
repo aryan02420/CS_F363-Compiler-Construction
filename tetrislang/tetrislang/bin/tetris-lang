@@ -5,11 +5,12 @@ import tetrislang
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input_file', metavar='file.tl')
+parser.add_argument('debug', metavar='True or False', default = False, nargs='?')
 args = parser.parse_args()
 
 input_code = ''
 with open(args.input_file, 'r') as f:
   input_code = f.read()
 
-out = tetrislang.TetrisCompiler(input_code, False)
+out = tetrislang.TetrisCompiler(input_code, args.debug)
 exec(out)
