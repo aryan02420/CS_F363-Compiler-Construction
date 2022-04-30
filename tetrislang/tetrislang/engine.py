@@ -5,7 +5,7 @@ import os
  
 directory = os.path.join(os.path.dirname(__file__), 'assets')
  
-print(directory)
+# print(directory)
 pygame.init()
 pygame.font.init()
 # pygame.mixer.init(44100, -16,2,2048)
@@ -13,9 +13,9 @@ crash_sound = pygame.mixer.Sound(os.path.join(directory, 'gameover.wav'))
 clear_sound = pygame.mixer.Sound(os.path.join(directory, 'clear.wav'))
 key_press = pygame.mixer.Sound(os.path.join(directory, 'key_press.wav'))
  
-# pygame.mixer.music.load('theme.wav')
-# pygame.mixer.music.set_volume(0.3)
-# pygame.mixer.music.play(-1)
+pygame.mixer.music.load(os.path.join(directory,'theme.wav'))
+pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.play(-1)
  
 # class to represent each of the pieces
 class Piece(object):
@@ -348,6 +348,7 @@ class TetrisEngine(object):
         for pos in self.locked_positions:
             x, y = pos
             if y < 1:
+                pygame.mixer.Sound.play(crash_sound)
                 return True
         return False
  
