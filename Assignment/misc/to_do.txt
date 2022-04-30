@@ -1,12 +1,12 @@
 1. Ghost Piece : Indicates position of a block if it were to drop to bottom immediately. Generally denoted with grey dotted lines, if it falls in valid areas
-and by red dotted lines, if in invalid area (area already occupied by blocks). Can be implemented as a switch and provided to the dev, show_drop_location(Bool)
+and by red dotted lines, if in invalid area (area already occupied by blocks). Can be implemented as a switch and provided to the dev, show_drop_location(Bool) - IN PROGRESS
 
-2. Hard Drop : Enable a dedicated key to 'hard drop' a tetrimino directly to the surface. Developer can map the key for this functionality.
+2. Hard Drop : Enable a dedicated key to 'hard drop' a tetrimino directly to the surface. Developer can map the key for this functionality. - IN PROGRESS
 
-3. Infinite mode : Drop speed gradually increases, however the player cannot lose due to 'block up'. The tower, when completely filled, 'scrolls' downwards. The player aims to score maximum points in the stipulated time. Developer can be provided with regular functionalities as in the actual game.
+3. Infinite mode : Drop speed gradually increases, however the player cannot lose due to 'block up'. The tower, when completely filled, 'scrolls' downwards. The player aims to score maximum points in the stipulated time. Developer can be provided with regular functionalities as in the actual game. - DIFFICULT TO IMPLEMENT AND MIGHT NOT BE WORTH THE TIME, ON HOLD
 
-4. In the first level selection screen add an option to quit the game there and then. This facilitates accidental opening of the game.
+4. In the first level selection screen add an option to quit the game there and then. This facilitates accidental opening of the game. - RESOLVED
 
-5. Level selection screen does not change color of a selected level, once a level selected. 
+5. Level selection screen does not change color of a selected level, once a level selected. - RESOLVED
 
-6. Sound for the background theme stops playing once the sound for clear rows is played.
+6. Sound for the background theme stops playing once the sound for clear rows is played. - OVERALL SOUND CONFIGURATION PENDING, ON HOLD
