@@ -25,13 +25,14 @@ if __name__ == '__main__':
     Game()
 '''
 
+    output = header + '\n' + parser.parse(lexer.tokenize(code)) + '\n' + footer
 
     if (debug):
         tokens = lexer.tokenize(code)
         print("TOKENS")
         print('\n'.join([f'{tok.type}\t{tok.value}' for tok in tokens]))
-    
-    output = header + '\n' + parser.parse(lexer.tokenize(code)) + '\n' + footer
+        print("OUPUT")
+        print(f'\n{output}')
 
     return output
 
