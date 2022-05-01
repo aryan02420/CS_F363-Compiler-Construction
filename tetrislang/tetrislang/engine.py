@@ -1,7 +1,9 @@
 import random
-import pygame
 import sys
 import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+
+import pygame
  
 directory = os.path.join(os.path.dirname(__file__), 'assets')
  
