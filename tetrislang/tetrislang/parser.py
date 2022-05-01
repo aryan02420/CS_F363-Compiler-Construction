@@ -50,6 +50,25 @@ class TetrisParser(Parser):
     def semistatement(self, p):
         return f'{p.functionStatement}\n'
 
+    ################changed##############
+    @_('breakStatement')                                                       
+    def semistatement(self, p):
+        return f'{p.breakStatement}\n'
+
+    @_('BREAK')                                                       
+    def breakStatement(self, p):
+        return f'{p.BREAK}\n'
+
+
+    @_('continueStatement')                                                       
+    def semistatement(self, p):
+        return f'{p.continueStatement}\n'
+
+    @_('CONTINUE')                                                       
+    def continueStatement(self, p):
+        return f'{p.CONTINUE}\n'
+    #####################################
+
     # no semi statement 
 
     @_('compoundStatement')                                                       
@@ -136,7 +155,7 @@ class TetrisParser(Parser):
 
     @_('IF condition indent compoundStatement outdent ELSE indent compoundStatement outdent')                           
     def conditionalStatement(self, p):
-        return f'if {p.condition}:\n{p.compoundStatement0}else:{p.compoundStatement1}'
+        return f'if {p.condition}:\n{p.compoundStatement0}{self.tab_char*self.nesting_depth}else:\n{p.compoundStatement1}'
     
     # loops
 
@@ -283,6 +302,12 @@ class TetrisParser(Parser):
     @_('NUM')                                                                     
     def term(self, p):
         return f'{p.NUM}'
+
+    ############changed#############
+    @_('FLOAT')                                                                     
+    def term(self, p):
+        return f'{p.FLOAT}'
+    ################################
 
     @_('BOOL')                                                                    
     def term(self, p):

@@ -7,7 +7,10 @@ class TetrisLexer(Lexer):
                                    'create_block',
                                    'show_next_piece',
                                    'show_highscore',
+                                   'enable_shadow',
+                                   'enable_hard_drop',
                                    'set_level',
+                                   'set_level_fallspeed',
                                    'increase_fall_speed',
                                    'set_window_caption',
                                    'main_menu',
@@ -25,10 +28,11 @@ class TetrisLexer(Lexer):
                                    'update_highscore',
                                    'update_window',
                                    'check_lost',
+                                   'paused',
                                    'game_over']
         
     # Set of token names. This is always required
-    tokens = {VAR, IDENT, ASSIGN, BOOL, NUM, LSQBR, RSQBR, COMMA, STRING, MUL, DIV, MOD, ADD, SUB, LT, LTEQ, GT, GTEQ, EQ, NEQ, BITNOT, SAL, SAR, BITAND, BITXOR, BITOR, NOT, AND, OR, FUNCTION, LPAREN, RPAREN, BEGIN, END, IF, ELSE, WHILE, FOR, TO, EOL}
+    tokens = {VAR, IDENT, ASSIGN, BOOL, NUM, LSQBR, RSQBR, COMMA, STRING, MUL, DIV, MOD, ADD, SUB, LT, LTEQ, GT, GTEQ, EQ, NEQ, BITNOT, SAL, SAR, BITAND, BITXOR, BITOR, NOT, AND, OR, FUNCTION, LPAREN, RPAREN, BEGIN, END, IF, ELSE, WHILE, FOR, TO, EOL, BREAK, CONTINUE, FLOAT}
 
     # String containing ignored characters between tokens
     ignore = ' \t\r'
@@ -58,6 +62,7 @@ class TetrisLexer(Lexer):
     # Regular expression rules for tokens
     IDENT = r'[a-zA-Z][a-zA-Z0-9_]*'
     ASSIGN = r'\:\='
+    FLOAT = r'[0-9]+\.[0-9]+'
     NUM = r'[0-9]+'
     LSQBR = r'\['
     RSQBR = r'\]'
@@ -98,6 +103,11 @@ class TetrisLexer(Lexer):
     IDENT['for'] = FOR
     IDENT['to'] = TO
     IDENT['end'] = END
+
+    ##############changed##########
+    IDENT['continue'] = CONTINUE
+    IDENT['break'] = BREAK
+    ###############################
 
     @_(r'[a-zA-Z][a-zA-Z0-9_]*')
     def IDENT(self, t):
