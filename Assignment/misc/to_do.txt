@@ -10,3 +10,14 @@ and by red dotted lines, if in invalid area (area already occupied by blocks). C
 5. Level selection screen does not change color of a selected level, once a level selected. - RESOLVED
 
 6. Sound for the background theme stops playing once the sound for clear rows is played. - OVERALL SOUND CONFIGURATION PENDING, ON HOLD
+
+----
+(new)
+0. do not exec if syntax error!!!
+1. Change font
+2. Allow user to set volume
+3. Future plans after the project
+    a. keyboard config
+    b. timer, clear row increases time
+    c. font
+    d. sound
