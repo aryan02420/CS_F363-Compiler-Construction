@@ -58,6 +58,8 @@ class TetrisEngine(object):
     level = 0
     level_speeds = [0.35, 0.25, 0.15]
     increase_difficulty = True
+    show_shadow = True
+    hard_drop = True
  
     game_heading = 'BLOCKBUSTERS'
     quit_text = 'QUIT'
@@ -335,7 +337,19 @@ class TetrisEngine(object):
             score = int(lines[0].strip())   # remove \n
  
         return score
- 
+    
+    def get_hard_position(self):
+        while(self.valid_space(self.current_piece)):
+            self.current_piece.y += 1
+
+        self.current_piece.y -= 1
+
+    def get_ghost_position(self):
+        while(self.valid_space(self.ghost_piece)):
+            self.ghost_piece.y += 1
+
+        self.ghost_piece.y -= 1
+
     """
     Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
  
@@ -423,6 +437,7 @@ class TetrisEngine(object):
         self.current_piece = self.get_shape()
         self.change_piece = False
         self.next_piece = self.get_shape()
+        self.ghost_piece = self.get_shape()
  
     """
     Initialize the game clock 
@@ -448,7 +463,24 @@ class TetrisEngine(object):
     """
     def draw_current_grid(self):
         self.piece_pos = self.convert_shape_format(self.current_piece)
- 
+        
+        self.ghost_piece.x = self.current_piece.x
+        self.ghost_piece.y = self.current_piece.y
+        self.ghost_piece.shape = self.current_piece.shape
+        self.ghost_piece.rotation = self.current_piece.rotation    
+       
+        self.ghost_piece.color = (105,105,105)
+
+        self.get_ghost_position()
+        self.ghost_pos = self.convert_shape_format(self.ghost_piece)
+
+        if self.show_shadow:
+            # draw the ghost piece on the grid by giving color in the piece locations
+            for i in range(len(self.ghost_pos)):
+                x, y = self.ghost_pos[i]
+                if y >= 0:
+                    self.grid[y][x] = self.ghost_piece.color
+        
         # draw the piece on the grid by giving color in the piece locations
         for i in range(len(self.piece_pos)):
             x, y = self.piece_pos[i]
@@ -529,6 +561,10 @@ class TetrisEngine(object):
                     pygame.mixer.Sound.play(key_press)
                     # pygame.mixer.music.stop()
                     return True
+                
+                elif self.hard_drop and event.key == pygame.K_d:
+                    self.get_hard_position()
+                    return False
     
     """
     Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
@@ -699,7 +735,7 @@ class TetrisEngine(object):
                     elif start < mouse[0] < self.s_width - start and 310 < mouse[1] < 360:
                         self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
                         pygame.display.update()
-                        level = 1
+                        # level = 1
                         run = False
                         return level
                     elif xquit < mouse[0] < self.s_width - xquit and 380 < mouse[1] < 430:
@@ -790,7 +826,37 @@ class TetrisEngine(object):
     """
     def set_level(self, val):
         self.level = val
+
+    """
+    Set the fall speeds for the 3 difficulty levels.
  
+    Args:
+        speed_list (list): speed of difficulty level 1,2 and 3  
+ 
+    """
+    def set_level_fallspeed(self, speed_list):
+        self.level_speeds = speed_list
+    
+    """
+    Enable ghost mode i.e. expected locked position of current piece is displayed.
+ 
+    Args:
+        val (int): Bool value True or False
+ 
+    """
+    def enable_shadow(self, val):
+        self.show_shadow = val
+
+    """
+    Enable hard drop i.e. on pressing the 'd' key, the block falls down.
+ 
+    Args:
+        val (int): Bool value True or False
+ 
+    """
+    def enable_hard_drop(self, val):
+        self.hard_drop= val
+
     """
     Customize the text displayed over buttons or over gameover and game heading text.
  
@@ -876,6 +942,11 @@ if __name__ == '__main__':
         '..00.',
         '.....',
         '.....',
+        '.....']]
+    x = [['.....',
+        '..0..',
+        '.000.',
+        '..0..',
         '.....']]
     temp_block = [i,[128,165,0],'i']
 
