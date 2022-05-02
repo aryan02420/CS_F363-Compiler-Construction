@@ -1,0 +1,3158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>tetrislang.engine API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>tetrislang.engine</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import random
+import sys
+import os
+os.environ[&#39;PYGAME_HIDE_SUPPORT_PROMPT&#39;] = &#34;hide&#34;
+
+import pygame
+ 
+directory = os.path.join(os.path.dirname(__file__), &#39;assets&#39;)
+ 
+# print(directory)
+pygame.init()
+pygame.font.init()
+# pygame.mixer.init(44100, -16,2,2048)
+crash_sound = pygame.mixer.Sound(os.path.join(directory, &#39;gameover.wav&#39;))
+clear_sound = pygame.mixer.Sound(os.path.join(directory, &#39;clear.wav&#39;))
+key_press = pygame.mixer.Sound(os.path.join(directory, &#39;key_press.wav&#39;))
+ 
+pygame.mixer.music.load(os.path.join(directory,&#39;theme.wav&#39;))
+pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.play(-1)
+
+__pdoc__ = {}
+__pdoc__[&#39;Piece&#39;] = False
+ 
+# class to represent each of the pieces
+class Piece(object):
+    def __init__(self, x, y, shape, shape_colors, shapes):
+        self.x = x
+        self.y = y
+        self.shape = shape
+        self.color = shape_colors[shapes.index(shape)]  # choose color from the shape_color list
+        self.rotation = 0                               # chooses the rotation according to index
+ 
+class TetrisEngine(object):
+ 
+    #################################################
+    # DOCUMENTATION CONTROL
+    ## CLASS VARIABLES
+    __pdoc__[&#39;TetrisEngine.s_width&#39;] = False
+    __pdoc__[&#39;TetrisEngine.s_height&#39;] = False
+    __pdoc__[&#39;TetrisEngine.col&#39;] = False
+    __pdoc__[&#39;TetrisEngine.row&#39;] = False
+    __pdoc__[&#39;TetrisEngine.block_size&#39;] = False
+    __pdoc__[&#39;TetrisEngine.play_width&#39;] = False
+    __pdoc__[&#39;TetrisEngine.play_height&#39;] = False
+    __pdoc__[&#39;TetrisEngine.top_left_x&#39;] = False
+    __pdoc__[&#39;TetrisEngine.top_left_y&#39;] = False
+    __pdoc__[&#39;TetrisEngine.filepath&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fontpath&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fontpath_mario&#39;] = False
+    __pdoc__[&#39;TetrisEngine.viz_next_piece&#39;] = False
+    __pdoc__[&#39;TetrisEngine.viz_high_score&#39;] = False
+    __pdoc__[&#39;TetrisEngine.clock&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fall_time&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fall_speed&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level_time&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level_speeds&#39;] = False
+    __pdoc__[&#39;TetrisEngine.increase_difficulty&#39;] = False
+    __pdoc__[&#39;TetrisEngine.show_shadow&#39;] = False
+    __pdoc__[&#39;TetrisEngine.hard_drop&#39;] = False
+    __pdoc__[&#39;TetrisEngine.game_heading&#39;] = False
+    __pdoc__[&#39;TetrisEngine.quit_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.resume_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.restart_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.gameover_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.nextshape_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level1_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level2_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level3_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.start_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.game_heading_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.gameover_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.general_button_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.click_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.playbndry_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.grid_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.S&#39;] = False
+    __pdoc__[&#39;TetrisEngine.Z&#39;] = False
+    __pdoc__[&#39;TetrisEngine.I&#39;] = False
+    __pdoc__[&#39;TetrisEngine.O&#39;] = False
+    __pdoc__[&#39;TetrisEngine.J&#39;] = False
+    __pdoc__[&#39;TetrisEngine.L&#39;] = False
+    __pdoc__[&#39;TetrisEngine.T&#39;] = False
+    __pdoc__[&#39;TetrisEngine.shapes&#39;] = False
+    __pdoc__[&#39;TetrisEngine.shape_colors&#39;] = False
+    __pdoc__[&#39;TetrisEngine.Dict&#39;] = False
+
+    ## CLASS FUNCTIONS
+    __pdoc__[&#39;TetrisEngine.create_grid&#39;] = False
+    __pdoc__[&#39;TetrisEngine.convert_shape_format&#39;] = False
+    __pdoc__[&#39;TetrisEngine.valid_space&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_shape&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_text_middle&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_grid&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_next_shape&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_window&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_max_score&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_hard_position&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_ghost_position&#39;] = False
+    ######################################################
+    
+    # GAME VARIABLES 
+    
+    s_width = 800       # window width
+    s_height = 750      # window height
+    
+    col = 10            
+    row = 20            
+    block_size = 30     # size of block
+ 
+    play_width = col*block_size    # play window width
+    play_height = row*block_size   # play window height
+ 
+    top_left_x = (s_width - play_width) // 2
+    top_left_y = s_height - play_height
+ 
+    filepath = os.path.join(directory, &#39;highscore.txt&#39;)
+    fontpath = os.path.join(directory, &#39;arcade.ttf&#39;)
+    fontpath_mario = os.path.join(directory, &#39;mario.ttf&#39;)
+ 
+    viz_next_piece = True
+    viz_high_score = True
+ 
+    clock = pygame.time.Clock()
+    fall_time = 0
+    fall_speed = 0.35
+    level_time = 0
+ 
+    level = 0
+    level_speeds = [0.35, 0.25, 0.15]
+    increase_difficulty = True
+    show_shadow = True
+    hard_drop = True
+ 
+    game_heading = &#39;BLOCKBUSTERS&#39;
+    quit_text = &#39;QUIT&#39;
+    resume_text = &#39;RESUME&#39;
+    restart_text = &#39;RESTART&#39;
+    gameover_text = &#39;GAMEOVER&#39;
+    nextshape_text = &#39;NEXT SHAPE&#39;
+    level1_text = &#39;LEVEL 1&#39;
+    level2_text = &#39;LEVEL 2&#39;
+    level3_text = &#39;LEVEL 3&#39;
+    start_text = &#39;START&#39;
+    game_heading_color = (255,0,255)
+    gameover_color = (0,255,255)
+    general_button_color = (255,255,255)
+    click_color = (255,255,0)
+ 
+    playbndry_color = (255,255,255)
+    grid_color = 120
+ 
+    S = [[&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;..00.&#39;,
+        &#39;.00..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..00.&#39;,
+        &#39;...0.&#39;,
+        &#39;.....&#39;]]
+ 
+    Z = [[&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.00..&#39;,
+        &#39;..00.&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;.00..&#39;,
+        &#39;.0...&#39;,
+        &#39;.....&#39;]]
+ 
+    I = [[&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;],
+        [&#39;.....&#39;,
+        &#39;0000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;]]
+ 
+    O = [[&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.00..&#39;,
+        &#39;.00..&#39;,
+        &#39;.....&#39;]]
+ 
+    J = [[&#39;.....&#39;,
+        &#39;.0...&#39;,
+        &#39;.000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..00.&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.000.&#39;,
+        &#39;...0.&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;.00..&#39;,
+        &#39;.....&#39;]]
+ 
+    L = [[&#39;.....&#39;,
+        &#39;...0.&#39;,
+        &#39;.000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;..00.&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.000.&#39;,
+        &#39;.0...&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.00..&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;]]
+ 
+    T = [[&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;.000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..00.&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.000.&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;.00..&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;]]
+ 
+    shapes = [S, Z, I, O, J, L, T]
+    shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
+    Dict = {&#39;S&#39;: 0, &#39;Z&#39;: 1, &#39;I&#39;: 2, &#39;O&#39;: 3, &#39;J&#39;: 4, &#39;L&#39;: 5, &#39;T&#39;: 6}
+    
+    def __init__(self):
+        self.window = pygame.display.set_mode((self.s_width, self.s_height))    
+        pygame.display.set_caption(&#39;Tetris&#39;)
+        self.max_score = self.get_max_score()
+    
+    # INITIALIZE THE GRID
+    def create_grid(self):
+        grid = [[(0, 0, 0) for x in range(self.col)] for y in range(self.row)]  # grid represented rgb tuples
+ 
+        # locked_positions dictionary
+        # (x,y):(r,g,b)
+        for y in range(self.row):
+            for x in range(self.col):
+                if (x, y) in self.locked_positions:
+                    color = self.locked_positions[
+                        (x, y)]  # get the value color (r,g,b) from the locked_positions dictionary using key (x,y)
+                    grid[y][x] = color  # set grid position to color
+        return grid
+    
+    # GET THE 0 . 2D FORMAT
+    def convert_shape_format(self, piece):
+        positions = []
+        shape_format = piece.shape[piece.rotation % len(piece.shape)]  # get the desired rotated shape from piece
+ 
+        # e.g.
+        # [&#39;.....&#39;,
+        #     &#39;.....&#39;,
+        #     &#39;..00.&#39;,
+        #     &#39;.00..&#39;,
+        #     &#39;.....&#39;]
+        
+        for i, line in enumerate(shape_format):  # i gives index; line gives string
+            row = list(line)  # makes a list of char from string
+            for j, column in enumerate(row):  # j gives index of char; column gives char
+                if column == &#39;0&#39;:
+                    positions.append((piece.x + j, piece.y + i))
+ 
+        for i, pos in enumerate(positions):
+            positions[i] = (pos[0] - 2, pos[1] - 4)  # offset according to the input given with dot and zero
+ 
+        return positions
+ 
+ 
+    # CHECK IF CURRENT POSITION OF GRID IS VALID
+    def valid_space(self, piece):
+        # makes a 2D list of all the possible (x,y)
+        accepted_pos = [[(x, y) for x in range(self.col) if self.grid[y][x] == (0, 0, 0)] for y in range(self.row)]
+        # removes sub lists and puts (x,y) in one list; easier to search
+        accepted_pos = [x for item in accepted_pos for x in item]
+ 
+        formatted_shape = self.convert_shape_format(piece)
+ 
+        for pos in formatted_shape:
+            if pos not in accepted_pos:
+                if pos[1] &gt;= 0:
+                    return False
+        return True
+ 
+ 
+    # CHOOSE A SHAPE RANDOMLY
+    def get_shape(self):
+        return Piece(int(self.col/2), 0, random.choice(self.shapes), self.shape_colors, self.shapes)
+ 
+ 
+    # DRAW TEXT IN MIDDLE
+    def draw_text_middle(self,text,surface, c, y):
+        font = pygame.font.Font(self.fontpath, 50)
+        label = font.render(text, 1, c)
+        surface.blit(label, ((self.s_width - label.get_width())//2, y))
+        return (self.s_width - label.get_width())//2
+ 
+ 
+    # DRAW THE PLAY AREA GRID
+    def draw_grid(self, surface):
+        r = g = b = self.grid_color
+        grid_color = (r, g, b)
+ 
+        for i in range(self.row):
+            # draw grey horizontal lines
+            pygame.draw.line(surface, grid_color, (self.top_left_x, self.top_left_y + i * self.block_size),
+                            (self.top_left_x + self.play_width, self.top_left_y + i * self.block_size))
+            for j in range(self.col):
+                # draw grey vertical lines
+                pygame.draw.line(surface, grid_color, (self.top_left_x + j * self.block_size, self.top_left_y),
+                                (self.top_left_x + j * self.block_size, self.top_left_y + self.play_height))
+ 
+ 
+    # DRAW THE UPCOMING PIECE
+    def draw_next_shape(self, piece, surface):
+        font = pygame.font.Font(self.fontpath, 30)
+        label = font.render(self.nextshape_text, 1, self.general_button_color)
+ 
+        start_x = 600
+        start_y = 300
+ 
+        shape_format = piece.shape[piece.rotation % len(piece.shape)]
+ 
+        for i, line in enumerate(shape_format):
+            row = list(line)
+            for j, column in enumerate(row):
+                if column == &#39;0&#39;:
+                    pygame.draw.rect(surface, piece.color, (start_x + j*self.block_size, start_y + i*self.block_size, self.block_size, self.block_size), 0)
+ 
+        surface.blit(label, (start_x, start_y - 30))
+ 
+ 
+    # DRAW THE WINDOW CONTENT
+    def draw_window(self, surface, grid, score=0):
+        surface.fill((0, 0, 0))  # fill the surface with black
+ 
+        # current score
+        font = pygame.font.Font(self.fontpath, 30)
+        label = font.render(&#39;SCORE   &#39; + str(score) , 1, self.general_button_color)
+ 
+        start_x = 600
+        start_y = 500
+ 
+        surface.blit(label, (start_x, start_y))
+ 
+        if self.viz_high_score:
+            # last score
+            label_hi = font.render(&#39;HIGHSCORE   &#39; + str(self.max_score), 1, self.general_button_color)
+ 
+            start_x_hi = 30
+            start_y_hi = 500
+ 
+            surface.blit(label_hi, (start_x_hi, start_y_hi))
+ 
+        # draw content of the grid
+        for i in range(self.row):
+            for j in range(self.col):
+                # pygame.draw.rect()
+                # draw a rectangle shape
+                # rect(Surface, color, Rect, width=0) -&gt; Rect
+                pygame.draw.rect(surface, grid[i][j],
+                                (self.top_left_x + j * self.block_size, self.top_left_y + i * self.block_size, self.block_size, self.block_size), 0)
+ 
+        # draw vertical and horizontal grid lines
+        self.draw_grid(surface)
+ 
+        # draw rectangular border around play area
+        border_color = self.playbndry_color
+        pygame.draw.rect(surface, border_color, (self.top_left_x, self.top_left_y, self.play_width, self.play_height), 4)
+ 
+ 
+    # GET HIGH SCORE FROM FILE
+    def get_max_score(self):
+        with open(self.filepath, &#39;r&#39;) as file:
+            lines = file.readlines()        # reads all the lines and puts in a list
+            score = int(lines[0].strip())   # remove \n
+ 
+        return score
+    
+    def get_hard_position(self):
+        while(self.valid_space(self.current_piece)):
+            self.current_piece.y += 1
+
+        self.current_piece.y -= 1
+
+    def get_ghost_position(self):
+        while(self.valid_space(self.ghost_piece)):
+            self.ghost_piece.y += 1
+
+        self.ghost_piece.y -= 1
+
+    def check_lost(self):
+        &#34;&#34;&#34;
+        Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
+    
+        Returns:
+            bool: True if game is lost
+                False if game is not yet lost
+    
+        &#34;&#34;&#34;
+        for pos in self.locked_positions:
+            x, y = pos
+            if y &lt; 1:
+                pygame.mixer.Sound.play(crash_sound)
+                return True
+        return False
+ 
+ 
+    def update_highscore(self, new_score):
+        &#34;&#34;&#34;
+        Update high score if required
+    
+        Args:
+            new_score (int): New highscore
+    
+        &#34;&#34;&#34;
+        score = self.get_max_score()
+ 
+        with open(self.filepath, &#39;w&#39;) as file:
+            if new_score &gt; score:
+                file.write(str(new_score))
+                self.max_score = new_score
+            else:
+                file.write(str(score))
+ 
+    def clear_rows(self):
+        &#34;&#34;&#34;
+        Clear rows if required. Also update score and locked positions based on that.
+    
+        &#34;&#34;&#34;
+        
+        # need to check if row is clear then shift every other row above down one
+        increment = 0
+        for i in range(len(self.grid) - 1, -1, -1):      # start checking the grid backwards
+            grid_row = self.grid[i]                      # get the last row
+            if (0, 0, 0) not in grid_row:           # if there are no empty spaces (i.e. black blocks)
+                increment += 1
+                # add positions to remove from locked
+                index = i                           # row index will be constant
+                for j in range(len(grid_row)):
+                    try:
+                        del self.locked_positions[(j, i)]          # delete every locked element in the bottom row
+                    except ValueError:
+                        continue
+ 
+        # shift every row one step down
+        # delete filled bottom row
+        # add another empty row on the top
+        # move down one step
+        if increment &gt; 0:
+            pygame.mixer.Sound.play(clear_sound)
+            # pygame.mixer.music.stop()
+            # sort the locked list according to y value in (x,y) and then reverse
+            # reversed because otherwise the ones on the top will overwrite the lower ones
+            for key in sorted(list(self.locked_positions), key=lambda a: a[1])[::-1]:
+                x, y = key
+                if y &lt; index:                       # if the y value is above the removed index
+                    new_key = (x, y + increment)    # shift position to down
+                    self.locked_positions[new_key] = self.locked_positions.pop(key)
+ 
+        return increment
+ 
+    def init_grid(self):
+        &#34;&#34;&#34;
+        Initialize the game grid
+    
+        &#34;&#34;&#34;
+        self.locked_positions = {}
+        self.grid = self.create_grid()
+ 
+    def init_blocks(self):
+        &#34;&#34;&#34;
+        Initialize the current block/piece, next piece and boolean variable to bring in next piece when required 
+    
+        &#34;&#34;&#34;
+        self.current_piece = self.get_shape()
+        self.change_piece = False
+        self.next_piece = self.get_shape()
+        self.ghost_piece = self.get_shape()
+ 
+    def init_clock(self):
+        &#34;&#34;&#34;
+        Initialize the game clock 
+    
+        &#34;&#34;&#34;
+        self.clock = pygame.time.Clock()
+        self.fall_time = 0
+        self.fall_speed = self.level_speeds[self.level]
+        self.level_time = 0
+ 
+   
+    def update_locked_grid(self):
+        &#34;&#34;&#34;
+        Update the grid based on locked positions for display.
+    
+        &#34;&#34;&#34;
+        self.grid = self.create_grid()
+ 
+    def draw_current_grid(self):
+        &#34;&#34;&#34;
+        Draw the grid at the current moment in time.
+    
+        &#34;&#34;&#34;
+        self.piece_pos = self.convert_shape_format(self.current_piece)
+        
+        self.ghost_piece.x = self.current_piece.x
+        self.ghost_piece.y = self.current_piece.y
+        self.ghost_piece.shape = self.current_piece.shape
+        self.ghost_piece.rotation = self.current_piece.rotation    
+       
+        self.ghost_piece.color = (105,105,105)
+
+        self.get_ghost_position()
+        self.ghost_pos = self.convert_shape_format(self.ghost_piece)
+
+        if self.show_shadow:
+            # draw the ghost piece on the grid by giving color in the piece locations
+            for i in range(len(self.ghost_pos)):
+                x, y = self.ghost_pos[i]
+                if y &gt;= 0:
+                    self.grid[y][x] = self.ghost_piece.color
+        
+        # draw the piece on the grid by giving color in the piece locations
+        for i in range(len(self.piece_pos)):
+            x, y = self.piece_pos[i]
+            if y &gt;= 0:
+                self.grid[y][x] = self.current_piece.color
+ 
+    def update_clock(self):
+        &#34;&#34;&#34;
+        Update the game clock
+    
+        &#34;&#34;&#34;
+        # helps run the same on every computer
+        # add time since last tick() to fall_time
+        self.fall_time += self.clock.get_rawtime()  # returns in milliseconds
+        self.level_time += self.clock.get_rawtime()
+ 
+        self.clock.tick()  # updates clock
+ 
+        if self.increase_difficulty:
+            if self.level_time/1000 &gt; 5:    # make the difficulty harder every 10 seconds
+                self.level_time = 0
+                if self.fall_speed &gt; 0.15:   # until fall speed is 0.15
+                    self.fall_speed -= 0.005
+ 
+    def shift_piece(self):
+        &#34;&#34;&#34;
+        Shift the piece down by gravity effect (no player input) if it has space.
+    
+        &#34;&#34;&#34;
+        if self.fall_time / 1000 &gt; self.fall_speed:
+            self.fall_time = 0
+            self.current_piece.y += 1
+            if not self.valid_space(self.current_piece) and self.current_piece.y &gt; 0:
+                self.current_piece.y -= 1
+                # since only checking for down - either reached bottom or hit another piece
+                # need to lock the piece position
+                # need to generate new piece
+                self.change_piece = True
+                
+    def take_user_input(self):
+        &#34;&#34;&#34;
+        Take user inputs while game is being played. Piece movement - left, right, up(clockwise rotation), down. Escape key to pause game
+    
+        &#34;&#34;&#34;
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.display.quit()
+                quit()
+ 
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.current_piece.x -= 1  # move x position left
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.x += 1
+                    return False
+ 
+                elif event.key == pygame.K_RIGHT:
+                    self.current_piece.x += 1  # move x position right
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.x -= 1
+                    return False
+ 
+                elif event.key == pygame.K_DOWN:
+                    # move shape down
+                    self.current_piece.y += 1
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.y -= 1
+                    return False
+ 
+                elif event.key == pygame.K_UP:
+                    # rotate shape
+                    self.current_piece.rotation = self.current_piece.rotation + 1 % len(self.current_piece.shape)
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.rotation = self.current_piece.rotation - 1 % len(self.current_piece.shape)
+                    return False
+                
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.mixer.Sound.play(key_press)
+                    # pygame.mixer.music.stop()
+                    return True
+                
+                elif self.hard_drop and event.key == pygame.K_d:
+                    self.get_hard_position()
+                    return False
+    
+    def current_piece_locked(self):
+        &#34;&#34;&#34;
+        Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
+    
+        Returns:
+            bool: True or False
+    
+        &#34;&#34;&#34;
+        return self.change_piece
+ 
+    def spawn(self):
+        &#34;&#34;&#34;
+        After a piece is locked, it updates the locked positions - the positions with stationery piece colors at the bottom, and it changes the piece in motion.
+    
+        &#34;&#34;&#34;
+        for pos in self.piece_pos:
+            p = (pos[0], pos[1])
+            self.locked_positions[p] = self.current_piece.color       # add the key and value in the dictionary
+        self.current_piece = self.next_piece
+        self.next_piece = self.get_shape()
+        self.change_piece = False
+ 
+    def update_window(self, score):
+        &#34;&#34;&#34;
+        Update the rest of the window except playing grid - Display score and next shape.
+    
+        Args:
+            score (int): Current score
+    
+        &#34;&#34;&#34;
+        self.draw_window(self.window, self.grid, score)
+ 
+        if self.viz_next_piece:
+            self.draw_next_shape(self.next_piece, self.window)
+        pygame.display.update()
+ 
+    def paused(self):
+        &#34;&#34;&#34;
+        Pause the game play and display necessary options
+    
+        Returns:
+            bool: False return corresponds to player choosing to resume game
+                True return corresponds to player choosing to restart game
+            NULL: No return occurs when player chooses to quit game
+    
+        &#34;&#34;&#34;
+        # .music.pause()
+        self.window.fill((0,0,0))
+        xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+        pygame.display.update()
+ 
+        run = True
+        while run:
+            for event in pygame.event.get():
+                
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+                #checks if a mouse is clicked
+                mouse = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.Sound.play(key_press)
+                    # pygame.mixer.music.stop()
+                    # pygame.mixer.music.unpause()
+                    if xresu &lt; mouse[0] &lt; self.s_width - xresu and 20 &lt; mouse[1] &lt; 70:
+                        self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
+                        pygame.display.update()
+                        return False
+                    elif xquit &lt; mouse[0] &lt; self.s_width - xquit and 160 &lt; mouse[1] &lt; 210:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                        pygame.display.update()
+                        pygame.quit()
+                        sys.exit()
+                    elif xres &lt; mouse[0] &lt; self.s_width - xres and 90 &lt; mouse[1] &lt; 140:
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                        pygame.display.update()
+                        return True
+ 
+    def game_over(self):
+        &#34;&#34;&#34;
+        Display the game over screen with gameover message and buttons to restart game or quit game.
+    
+        Returns:
+            bool: True if player decides to restart game
+            NULL: Nothing if player decides to quit game
+    
+        &#34;&#34;&#34;
+        self.window.fill((0,0,0))
+        self.draw_text_middle(self.gameover_text, self.window, self.gameover_color, 20)
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+        pygame.display.update()
+ 
+        rrun = True
+        while rrun:
+            for event in pygame.event.get():
+                    
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+ 
+                mouse = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    
+                    if xquit &lt; mouse[0] &lt; self.s_width - xquit and 160 &lt; mouse[1] &lt; 210:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                        pygame.display.update()
+                        pygame.quit()
+                        sys.exit()
+                    elif xres &lt; mouse[0] &lt; self.s_width - xres and 90 &lt; mouse[1] &lt; 140:
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                        pygame.display.update()
+                        return True
+ 
+ 
+    def main_menu(self):
+        &#34;&#34;&#34;
+        The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated. 
+        &#34;&#34;&#34;
+        self.window.fill((0,0,0))
+        
+        font = pygame.font.Font(self.fontpath_mario, 50, bold=True)
+        label = font.render(self.game_heading, 1, self.game_heading_color)  # initialise &#39;Tetris&#39; text with white
+ 
+        self.window.blit(label, ((self.s_width - label.get_width())//2, 20))
+        l1 = self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+        l2 = self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+        l3 = self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+        start = self.draw_text_middle(self.start_text, self.window, self.general_button_color, 310)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 380)
+        pygame.display.update()
+        
+        run = True
+        while run:
+            for event in pygame.event.get():
+                
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+                #checks if a mouse is clicked
+                mouse = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.Sound.play(key_press)
+                    # pygame.mixer.music.stop()
+                    if l1 &lt; mouse[0] &lt; self.s_width - l1 and 100 &lt; mouse[1] &lt; 150:
+                        self.draw_text_middle(self.level1_text, self.window, self.click_color, 100)
+                        self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+                        self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+                        pygame.display.update()
+                        level = 0
+                    elif l2 &lt; mouse[0] &lt; self.s_width - l2 and 170 &lt; mouse[1] &lt; 220:
+                        self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+                        self.draw_text_middle(self.level2_text, self.window, self.click_color, 170)
+                        self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+                        pygame.display.update()
+                        level = 1
+                    elif l3 &lt; mouse[0] &lt; self.s_width - l3 and 240 &lt; mouse[1] &lt; 290:
+                        self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+                        self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+                        self.draw_text_middle(self.level3_text, self.window, self.click_color, 240)
+                        pygame.display.update()
+                        level = 2
+                    elif start &lt; mouse[0] &lt; self.s_width - start and 310 &lt; mouse[1] &lt; 360:
+                        self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
+                        pygame.display.update()
+                        # level = 1
+                        run = False
+                        return level
+                    elif xquit &lt; mouse[0] &lt; self.s_width - xquit and 380 &lt; mouse[1] &lt; 430:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 380)
+                        pygame.display.update()
+                        pygame.quit()
+                        sys.exit()
+            
+ 
+    def initialize_window(self, row, col):
+        &#34;&#34;&#34;
+        Initializes the game window. Screen width - s_width(800) and screen height - s_height(750) are fixed.
+    
+        Args:
+            row (int): Number of rows in playing grid
+            col (int): Number of columns in playing grid
+    
+        &#34;&#34;&#34;
+        self.row = row
+        self.col = col
+        self.play_width = self.col * self.block_size
+        self.play_height = self.row * self.block_size
+        self.top_left_x = (self.s_width - self.play_width) // 2
+        self.top_left_y = self.s_height - self.play_height - 50
+ 
+    def create_block(self, temp_block):
+        &#34;&#34;&#34;
+        Creates a custom block(tetriminoe) for the programmer.
+    
+        Args:
+            temp_block (List []): List of length 3 - Rotation configurations, color of block, identifier string
+                temp_block[0] (List []): The different 2D rotation configurations of the block as string lists
+                    temp_block[0][i] (List []): List containing strings of fixed length that give the ith 2D orientation of block
+                temp_block[1] (list [r,g,b]): R G B values of block denoting its color
+                temp_block[2] (string): Identifier string of the block  
+    
+        &#34;&#34;&#34;
+        self.shapes.append(temp_block[0])
+        self.Dict[temp_block[2]] = len(self.shape_colors)
+        self.shape_colors.append(tuple(temp_block[1]))
+    
+    def show_next_piece(self, val):
+        &#34;&#34;&#34;
+        Enable or disable showing next block to player.
+    
+        Args:
+            val (bool): True or False  
+    
+        &#34;&#34;&#34;
+        self.viz_next_piece = val
+ 
+    def show_highscore(self, val):
+        &#34;&#34;&#34;
+        Enable or disable showing next highscore to player.
+    
+        Args:
+            val (bool): True or False  
+    
+        &#34;&#34;&#34;
+        self.viz_high_score = val
+    
+    def increase_fall_speed(self, val):
+        &#34;&#34;&#34;
+        Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses.
+    
+        Args:
+            val (bool): True or False  
+    
+        &#34;&#34;&#34;
+        self.increase_difficulty = val
+    
+    def set_window_caption(self, val):
+        &#34;&#34;&#34;
+        Set the game caption shown in the game window.
+    
+        Args:
+            val (string): Game window caption  
+    
+        &#34;&#34;&#34;
+        pygame.display.set_caption(val)
+ 
+    def set_level(self, val):
+        &#34;&#34;&#34;
+        Set the game level - from 3 difficulty levels.
+    
+        Args:
+            val (int): Difficulty level 1 or 2 or 3  
+    
+        &#34;&#34;&#34;
+        self.level = val
+
+    def set_level_fallspeed(self, speed_list):
+        &#34;&#34;&#34;
+        Set the fall speeds for the 3 difficulty levels.
+    
+        Args:
+            speed_list (list): speed of difficulty level 1,2 and 3  
+    
+        &#34;&#34;&#34;
+        self.level_speeds = speed_list
+    
+    def enable_shadow(self, val):
+        &#34;&#34;&#34;
+        Enable ghost mode i.e. expected locked position of current piece is displayed.
+    
+        Args:
+            val (int): Bool value True or False
+    
+        &#34;&#34;&#34;
+        self.show_shadow = val
+
+    def enable_hard_drop(self, val):
+        &#34;&#34;&#34;
+        Enable hard drop i.e. on pressing the &#39;d&#39; key, the block falls down.
+    
+        Args:
+            val (int): Bool value True or False
+    
+        &#34;&#34;&#34;
+        self.hard_drop= val
+
+    def design_button_text(self, game_heading, quit_text, resume_text, restart_text, gameover_text, level1_text, level2_text, level3_text, start_text):
+        &#34;&#34;&#34;
+        Customize the text displayed over buttons or over gameover and game heading text.
+    
+        Args:
+            game_heading (string): Game heading text
+            quit_text (string): Quit button text
+            resume_text (string): Resume button text
+            restart_text (string): Restart button text
+            gameover_text (string): Gameover message text
+            level1_text (string): Level 1 button text  
+            level2_text (string): Level 2 button text
+            level3_text (string): Level 3 button text
+            start_text (string): Start button text
+    
+        &#34;&#34;&#34;
+        self.game_heading = game_heading
+        self.quit_text = quit_text
+        self.resume_text = resume_text
+        self.restart_text = restart_text
+        self.gameover_text = gameover_text
+        self.level1_text = level1_text
+        self.level2_text = level2_text
+        self.level3_text = level3_text
+        self.start_text = start_text
+ 
+    def design_button_color(self, game_heading_color, gameover_color, general_button_color, click_color):
+        &#34;&#34;&#34;
+        Customize the text color over buttons, button clicks, gameover text and game heading text.
+    
+        Args:
+            game_heading_color (tuple (r,g,b)): R G B values denoting game heading color
+            gameover_color (tuple (r,g,b)): R G B values denoting gameover message color
+            general_button_color (tuple (r,g,b)): R G B values denoting button color prior to click
+            click_color (tuple (r,g,b)): R G B values denoting button color post clicking
+    
+        &#34;&#34;&#34;
+        self.game_heading_color = game_heading_color
+        self.gameover_color = gameover_color
+        self.general_button_color = general_button_color
+        self.click_color = click_color
+ 
+    def design_play(self, playbndry_color, grid_color):
+        &#34;&#34;&#34;
+        Customize the play boundary color and play grid color.
+    
+        Args:
+            playbndry_color (tuple (r,g,b)): R G B values denoting play boundary color
+            grid_color (tuple (r,g,b)): R G B values denoting play grid color
+    
+        &#34;&#34;&#34;
+        self.playbndry_color = playbndry_color
+        self.grid_color = grid_color
+ 
+    def design_block_color(self, block, color):
+        &#34;&#34;&#34;
+        Alter the color for the given block.
+    
+        Args:
+            block (string): String identifier of block
+            color (tuple (r,g,b)): R G B values of block denoting its color
+    
+        &#34;&#34;&#34;
+        self.shape_colors[self.Dict[block]] = color
+        
+                    
+ 
+if __name__ == &#39;__main__&#39;:
+ 
+    pygame.mixer.music.load(os.path.join(directory, &#39;theme.wav&#39;))
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.play(-1)
+    
+    root = TetrisEngine()
+    
+    root.initialize_window(18, 10)
+    i = [[&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..00.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;]]
+    x = [[&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;.000.&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;]]
+    temp_block = [i,[128,165,0],&#39;i&#39;]
+
+    root.create_block(temp_block)
+    root.design_block_color(&#39;i&#39;, (255,255,255))
+    root.show_next_piece(True)
+    root.show_highscore(True)
+    root.increase_fall_speed(True)
+    root.set_window_caption(&#39;Tetris by blockbusters&#39;)
+    root.set_level(1)
+    #root.design_button_text(arguments)
+    #root.design_button_color(arguments)
+    #root.design_play(arguments)
+ 
+    play_again = True
+    
+    while play_again:
+        level = root.main_menu()
+        root.set_level(level)
+ 
+        run = True
+        restart = False
+        score = 0
+ 
+        root.init_grid()
+        root.init_blocks()
+        root.init_clock()
+        while run:
+            
+            root.update_locked_grid()
+            root.update_clock()
+            root.shift_piece()
+            if root.take_user_input():
+                restart = root.paused()
+                if restart:
+                    break
+            root.draw_current_grid()
+ 
+            if root.current_piece_locked():
+                root.spawn()
+                score+=root.clear_rows()
+                root.update_highscore(score)
+ 
+            root.update_window(score)
+ 
+            if root.check_lost():
+                pygame.mixer.Sound.play(crash_sound)
+                # pygame.mixer.music.stop()
+                run = False
+ 
+        if restart:
+            continue
+        else:
+            play_again = root.game_over()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="tetrislang.engine.TetrisEngine"><code class="flex name class">
+<span>class <span class="ident">TetrisEngine</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TetrisEngine(object):
+ 
+    #################################################
+    # DOCUMENTATION CONTROL
+    ## CLASS VARIABLES
+    __pdoc__[&#39;TetrisEngine.s_width&#39;] = False
+    __pdoc__[&#39;TetrisEngine.s_height&#39;] = False
+    __pdoc__[&#39;TetrisEngine.col&#39;] = False
+    __pdoc__[&#39;TetrisEngine.row&#39;] = False
+    __pdoc__[&#39;TetrisEngine.block_size&#39;] = False
+    __pdoc__[&#39;TetrisEngine.play_width&#39;] = False
+    __pdoc__[&#39;TetrisEngine.play_height&#39;] = False
+    __pdoc__[&#39;TetrisEngine.top_left_x&#39;] = False
+    __pdoc__[&#39;TetrisEngine.top_left_y&#39;] = False
+    __pdoc__[&#39;TetrisEngine.filepath&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fontpath&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fontpath_mario&#39;] = False
+    __pdoc__[&#39;TetrisEngine.viz_next_piece&#39;] = False
+    __pdoc__[&#39;TetrisEngine.viz_high_score&#39;] = False
+    __pdoc__[&#39;TetrisEngine.clock&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fall_time&#39;] = False
+    __pdoc__[&#39;TetrisEngine.fall_speed&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level_time&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level_speeds&#39;] = False
+    __pdoc__[&#39;TetrisEngine.increase_difficulty&#39;] = False
+    __pdoc__[&#39;TetrisEngine.show_shadow&#39;] = False
+    __pdoc__[&#39;TetrisEngine.hard_drop&#39;] = False
+    __pdoc__[&#39;TetrisEngine.game_heading&#39;] = False
+    __pdoc__[&#39;TetrisEngine.quit_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.resume_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.restart_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.gameover_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.nextshape_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level1_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level2_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.level3_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.start_text&#39;] = False
+    __pdoc__[&#39;TetrisEngine.game_heading_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.gameover_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.general_button_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.click_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.playbndry_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.grid_color&#39;] = False
+    __pdoc__[&#39;TetrisEngine.S&#39;] = False
+    __pdoc__[&#39;TetrisEngine.Z&#39;] = False
+    __pdoc__[&#39;TetrisEngine.I&#39;] = False
+    __pdoc__[&#39;TetrisEngine.O&#39;] = False
+    __pdoc__[&#39;TetrisEngine.J&#39;] = False
+    __pdoc__[&#39;TetrisEngine.L&#39;] = False
+    __pdoc__[&#39;TetrisEngine.T&#39;] = False
+    __pdoc__[&#39;TetrisEngine.shapes&#39;] = False
+    __pdoc__[&#39;TetrisEngine.shape_colors&#39;] = False
+    __pdoc__[&#39;TetrisEngine.Dict&#39;] = False
+
+    ## CLASS FUNCTIONS
+    __pdoc__[&#39;TetrisEngine.create_grid&#39;] = False
+    __pdoc__[&#39;TetrisEngine.convert_shape_format&#39;] = False
+    __pdoc__[&#39;TetrisEngine.valid_space&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_shape&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_text_middle&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_grid&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_next_shape&#39;] = False
+    __pdoc__[&#39;TetrisEngine.draw_window&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_max_score&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_hard_position&#39;] = False
+    __pdoc__[&#39;TetrisEngine.get_ghost_position&#39;] = False
+    ######################################################
+    
+    # GAME VARIABLES 
+    
+    s_width = 800       # window width
+    s_height = 750      # window height
+    
+    col = 10            
+    row = 20            
+    block_size = 30     # size of block
+ 
+    play_width = col*block_size    # play window width
+    play_height = row*block_size   # play window height
+ 
+    top_left_x = (s_width - play_width) // 2
+    top_left_y = s_height - play_height
+ 
+    filepath = os.path.join(directory, &#39;highscore.txt&#39;)
+    fontpath = os.path.join(directory, &#39;arcade.ttf&#39;)
+    fontpath_mario = os.path.join(directory, &#39;mario.ttf&#39;)
+ 
+    viz_next_piece = True
+    viz_high_score = True
+ 
+    clock = pygame.time.Clock()
+    fall_time = 0
+    fall_speed = 0.35
+    level_time = 0
+ 
+    level = 0
+    level_speeds = [0.35, 0.25, 0.15]
+    increase_difficulty = True
+    show_shadow = True
+    hard_drop = True
+ 
+    game_heading = &#39;BLOCKBUSTERS&#39;
+    quit_text = &#39;QUIT&#39;
+    resume_text = &#39;RESUME&#39;
+    restart_text = &#39;RESTART&#39;
+    gameover_text = &#39;GAMEOVER&#39;
+    nextshape_text = &#39;NEXT SHAPE&#39;
+    level1_text = &#39;LEVEL 1&#39;
+    level2_text = &#39;LEVEL 2&#39;
+    level3_text = &#39;LEVEL 3&#39;
+    start_text = &#39;START&#39;
+    game_heading_color = (255,0,255)
+    gameover_color = (0,255,255)
+    general_button_color = (255,255,255)
+    click_color = (255,255,0)
+ 
+    playbndry_color = (255,255,255)
+    grid_color = 120
+ 
+    S = [[&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;..00.&#39;,
+        &#39;.00..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..00.&#39;,
+        &#39;...0.&#39;,
+        &#39;.....&#39;]]
+ 
+    Z = [[&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.00..&#39;,
+        &#39;..00.&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;.00..&#39;,
+        &#39;.0...&#39;,
+        &#39;.....&#39;]]
+ 
+    I = [[&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;],
+        [&#39;.....&#39;,
+        &#39;0000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;]]
+ 
+    O = [[&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.00..&#39;,
+        &#39;.00..&#39;,
+        &#39;.....&#39;]]
+ 
+    J = [[&#39;.....&#39;,
+        &#39;.0...&#39;,
+        &#39;.000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..00.&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.000.&#39;,
+        &#39;...0.&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;.00..&#39;,
+        &#39;.....&#39;]]
+ 
+    L = [[&#39;.....&#39;,
+        &#39;...0.&#39;,
+        &#39;.000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;..00.&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.000.&#39;,
+        &#39;.0...&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.00..&#39;,
+        &#39;..0..&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;]]
+ 
+    T = [[&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;.000.&#39;,
+        &#39;.....&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;..00.&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;.....&#39;,
+        &#39;.000.&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;],
+        [&#39;.....&#39;,
+        &#39;..0..&#39;,
+        &#39;.00..&#39;,
+        &#39;..0..&#39;,
+        &#39;.....&#39;]]
+ 
+    shapes = [S, Z, I, O, J, L, T]
+    shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
+    Dict = {&#39;S&#39;: 0, &#39;Z&#39;: 1, &#39;I&#39;: 2, &#39;O&#39;: 3, &#39;J&#39;: 4, &#39;L&#39;: 5, &#39;T&#39;: 6}
+    
+    def __init__(self):
+        self.window = pygame.display.set_mode((self.s_width, self.s_height))    
+        pygame.display.set_caption(&#39;Tetris&#39;)
+        self.max_score = self.get_max_score()
+    
+    # INITIALIZE THE GRID
+    def create_grid(self):
+        grid = [[(0, 0, 0) for x in range(self.col)] for y in range(self.row)]  # grid represented rgb tuples
+ 
+        # locked_positions dictionary
+        # (x,y):(r,g,b)
+        for y in range(self.row):
+            for x in range(self.col):
+                if (x, y) in self.locked_positions:
+                    color = self.locked_positions[
+                        (x, y)]  # get the value color (r,g,b) from the locked_positions dictionary using key (x,y)
+                    grid[y][x] = color  # set grid position to color
+        return grid
+    
+    # GET THE 0 . 2D FORMAT
+    def convert_shape_format(self, piece):
+        positions = []
+        shape_format = piece.shape[piece.rotation % len(piece.shape)]  # get the desired rotated shape from piece
+ 
+        # e.g.
+        # [&#39;.....&#39;,
+        #     &#39;.....&#39;,
+        #     &#39;..00.&#39;,
+        #     &#39;.00..&#39;,
+        #     &#39;.....&#39;]
+        
+        for i, line in enumerate(shape_format):  # i gives index; line gives string
+            row = list(line)  # makes a list of char from string
+            for j, column in enumerate(row):  # j gives index of char; column gives char
+                if column == &#39;0&#39;:
+                    positions.append((piece.x + j, piece.y + i))
+ 
+        for i, pos in enumerate(positions):
+            positions[i] = (pos[0] - 2, pos[1] - 4)  # offset according to the input given with dot and zero
+ 
+        return positions
+ 
+ 
+    # CHECK IF CURRENT POSITION OF GRID IS VALID
+    def valid_space(self, piece):
+        # makes a 2D list of all the possible (x,y)
+        accepted_pos = [[(x, y) for x in range(self.col) if self.grid[y][x] == (0, 0, 0)] for y in range(self.row)]
+        # removes sub lists and puts (x,y) in one list; easier to search
+        accepted_pos = [x for item in accepted_pos for x in item]
+ 
+        formatted_shape = self.convert_shape_format(piece)
+ 
+        for pos in formatted_shape:
+            if pos not in accepted_pos:
+                if pos[1] &gt;= 0:
+                    return False
+        return True
+ 
+ 
+    # CHOOSE A SHAPE RANDOMLY
+    def get_shape(self):
+        return Piece(int(self.col/2), 0, random.choice(self.shapes), self.shape_colors, self.shapes)
+ 
+ 
+    # DRAW TEXT IN MIDDLE
+    def draw_text_middle(self,text,surface, c, y):
+        font = pygame.font.Font(self.fontpath, 50)
+        label = font.render(text, 1, c)
+        surface.blit(label, ((self.s_width - label.get_width())//2, y))
+        return (self.s_width - label.get_width())//2
+ 
+ 
+    # DRAW THE PLAY AREA GRID
+    def draw_grid(self, surface):
+        r = g = b = self.grid_color
+        grid_color = (r, g, b)
+ 
+        for i in range(self.row):
+            # draw grey horizontal lines
+            pygame.draw.line(surface, grid_color, (self.top_left_x, self.top_left_y + i * self.block_size),
+                            (self.top_left_x + self.play_width, self.top_left_y + i * self.block_size))
+            for j in range(self.col):
+                # draw grey vertical lines
+                pygame.draw.line(surface, grid_color, (self.top_left_x + j * self.block_size, self.top_left_y),
+                                (self.top_left_x + j * self.block_size, self.top_left_y + self.play_height))
+ 
+ 
+    # DRAW THE UPCOMING PIECE
+    def draw_next_shape(self, piece, surface):
+        font = pygame.font.Font(self.fontpath, 30)
+        label = font.render(self.nextshape_text, 1, self.general_button_color)
+ 
+        start_x = 600
+        start_y = 300
+ 
+        shape_format = piece.shape[piece.rotation % len(piece.shape)]
+ 
+        for i, line in enumerate(shape_format):
+            row = list(line)
+            for j, column in enumerate(row):
+                if column == &#39;0&#39;:
+                    pygame.draw.rect(surface, piece.color, (start_x + j*self.block_size, start_y + i*self.block_size, self.block_size, self.block_size), 0)
+ 
+        surface.blit(label, (start_x, start_y - 30))
+ 
+ 
+    # DRAW THE WINDOW CONTENT
+    def draw_window(self, surface, grid, score=0):
+        surface.fill((0, 0, 0))  # fill the surface with black
+ 
+        # current score
+        font = pygame.font.Font(self.fontpath, 30)
+        label = font.render(&#39;SCORE   &#39; + str(score) , 1, self.general_button_color)
+ 
+        start_x = 600
+        start_y = 500
+ 
+        surface.blit(label, (start_x, start_y))
+ 
+        if self.viz_high_score:
+            # last score
+            label_hi = font.render(&#39;HIGHSCORE   &#39; + str(self.max_score), 1, self.general_button_color)
+ 
+            start_x_hi = 30
+            start_y_hi = 500
+ 
+            surface.blit(label_hi, (start_x_hi, start_y_hi))
+ 
+        # draw content of the grid
+        for i in range(self.row):
+            for j in range(self.col):
+                # pygame.draw.rect()
+                # draw a rectangle shape
+                # rect(Surface, color, Rect, width=0) -&gt; Rect
+                pygame.draw.rect(surface, grid[i][j],
+                                (self.top_left_x + j * self.block_size, self.top_left_y + i * self.block_size, self.block_size, self.block_size), 0)
+ 
+        # draw vertical and horizontal grid lines
+        self.draw_grid(surface)
+ 
+        # draw rectangular border around play area
+        border_color = self.playbndry_color
+        pygame.draw.rect(surface, border_color, (self.top_left_x, self.top_left_y, self.play_width, self.play_height), 4)
+ 
+ 
+    # GET HIGH SCORE FROM FILE
+    def get_max_score(self):
+        with open(self.filepath, &#39;r&#39;) as file:
+            lines = file.readlines()        # reads all the lines and puts in a list
+            score = int(lines[0].strip())   # remove \n
+ 
+        return score
+    
+    def get_hard_position(self):
+        while(self.valid_space(self.current_piece)):
+            self.current_piece.y += 1
+
+        self.current_piece.y -= 1
+
+    def get_ghost_position(self):
+        while(self.valid_space(self.ghost_piece)):
+            self.ghost_piece.y += 1
+
+        self.ghost_piece.y -= 1
+
+    def check_lost(self):
+        &#34;&#34;&#34;
+        Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
+    
+        Returns:
+            bool: True if game is lost
+                False if game is not yet lost
+    
+        &#34;&#34;&#34;
+        for pos in self.locked_positions:
+            x, y = pos
+            if y &lt; 1:
+                pygame.mixer.Sound.play(crash_sound)
+                return True
+        return False
+ 
+ 
+    def update_highscore(self, new_score):
+        &#34;&#34;&#34;
+        Update high score if required
+    
+        Args:
+            new_score (int): New highscore
+    
+        &#34;&#34;&#34;
+        score = self.get_max_score()
+ 
+        with open(self.filepath, &#39;w&#39;) as file:
+            if new_score &gt; score:
+                file.write(str(new_score))
+                self.max_score = new_score
+            else:
+                file.write(str(score))
+ 
+    def clear_rows(self):
+        &#34;&#34;&#34;
+        Clear rows if required. Also update score and locked positions based on that.
+    
+        &#34;&#34;&#34;
+        
+        # need to check if row is clear then shift every other row above down one
+        increment = 0
+        for i in range(len(self.grid) - 1, -1, -1):      # start checking the grid backwards
+            grid_row = self.grid[i]                      # get the last row
+            if (0, 0, 0) not in grid_row:           # if there are no empty spaces (i.e. black blocks)
+                increment += 1
+                # add positions to remove from locked
+                index = i                           # row index will be constant
+                for j in range(len(grid_row)):
+                    try:
+                        del self.locked_positions[(j, i)]          # delete every locked element in the bottom row
+                    except ValueError:
+                        continue
+ 
+        # shift every row one step down
+        # delete filled bottom row
+        # add another empty row on the top
+        # move down one step
+        if increment &gt; 0:
+            pygame.mixer.Sound.play(clear_sound)
+            # pygame.mixer.music.stop()
+            # sort the locked list according to y value in (x,y) and then reverse
+            # reversed because otherwise the ones on the top will overwrite the lower ones
+            for key in sorted(list(self.locked_positions), key=lambda a: a[1])[::-1]:
+                x, y = key
+                if y &lt; index:                       # if the y value is above the removed index
+                    new_key = (x, y + increment)    # shift position to down
+                    self.locked_positions[new_key] = self.locked_positions.pop(key)
+ 
+        return increment
+ 
+    def init_grid(self):
+        &#34;&#34;&#34;
+        Initialize the game grid
+    
+        &#34;&#34;&#34;
+        self.locked_positions = {}
+        self.grid = self.create_grid()
+ 
+    def init_blocks(self):
+        &#34;&#34;&#34;
+        Initialize the current block/piece, next piece and boolean variable to bring in next piece when required 
+    
+        &#34;&#34;&#34;
+        self.current_piece = self.get_shape()
+        self.change_piece = False
+        self.next_piece = self.get_shape()
+        self.ghost_piece = self.get_shape()
+ 
+    def init_clock(self):
+        &#34;&#34;&#34;
+        Initialize the game clock 
+    
+        &#34;&#34;&#34;
+        self.clock = pygame.time.Clock()
+        self.fall_time = 0
+        self.fall_speed = self.level_speeds[self.level]
+        self.level_time = 0
+ 
+   
+    def update_locked_grid(self):
+        &#34;&#34;&#34;
+        Update the grid based on locked positions for display.
+    
+        &#34;&#34;&#34;
+        self.grid = self.create_grid()
+ 
+    def draw_current_grid(self):
+        &#34;&#34;&#34;
+        Draw the grid at the current moment in time.
+    
+        &#34;&#34;&#34;
+        self.piece_pos = self.convert_shape_format(self.current_piece)
+        
+        self.ghost_piece.x = self.current_piece.x
+        self.ghost_piece.y = self.current_piece.y
+        self.ghost_piece.shape = self.current_piece.shape
+        self.ghost_piece.rotation = self.current_piece.rotation    
+       
+        self.ghost_piece.color = (105,105,105)
+
+        self.get_ghost_position()
+        self.ghost_pos = self.convert_shape_format(self.ghost_piece)
+
+        if self.show_shadow:
+            # draw the ghost piece on the grid by giving color in the piece locations
+            for i in range(len(self.ghost_pos)):
+                x, y = self.ghost_pos[i]
+                if y &gt;= 0:
+                    self.grid[y][x] = self.ghost_piece.color
+        
+        # draw the piece on the grid by giving color in the piece locations
+        for i in range(len(self.piece_pos)):
+            x, y = self.piece_pos[i]
+            if y &gt;= 0:
+                self.grid[y][x] = self.current_piece.color
+ 
+    def update_clock(self):
+        &#34;&#34;&#34;
+        Update the game clock
+    
+        &#34;&#34;&#34;
+        # helps run the same on every computer
+        # add time since last tick() to fall_time
+        self.fall_time += self.clock.get_rawtime()  # returns in milliseconds
+        self.level_time += self.clock.get_rawtime()
+ 
+        self.clock.tick()  # updates clock
+ 
+        if self.increase_difficulty:
+            if self.level_time/1000 &gt; 5:    # make the difficulty harder every 10 seconds
+                self.level_time = 0
+                if self.fall_speed &gt; 0.15:   # until fall speed is 0.15
+                    self.fall_speed -= 0.005
+ 
+    def shift_piece(self):
+        &#34;&#34;&#34;
+        Shift the piece down by gravity effect (no player input) if it has space.
+    
+        &#34;&#34;&#34;
+        if self.fall_time / 1000 &gt; self.fall_speed:
+            self.fall_time = 0
+            self.current_piece.y += 1
+            if not self.valid_space(self.current_piece) and self.current_piece.y &gt; 0:
+                self.current_piece.y -= 1
+                # since only checking for down - either reached bottom or hit another piece
+                # need to lock the piece position
+                # need to generate new piece
+                self.change_piece = True
+                
+    def take_user_input(self):
+        &#34;&#34;&#34;
+        Take user inputs while game is being played. Piece movement - left, right, up(clockwise rotation), down. Escape key to pause game
+    
+        &#34;&#34;&#34;
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.display.quit()
+                quit()
+ 
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.current_piece.x -= 1  # move x position left
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.x += 1
+                    return False
+ 
+                elif event.key == pygame.K_RIGHT:
+                    self.current_piece.x += 1  # move x position right
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.x -= 1
+                    return False
+ 
+                elif event.key == pygame.K_DOWN:
+                    # move shape down
+                    self.current_piece.y += 1
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.y -= 1
+                    return False
+ 
+                elif event.key == pygame.K_UP:
+                    # rotate shape
+                    self.current_piece.rotation = self.current_piece.rotation + 1 % len(self.current_piece.shape)
+                    if not self.valid_space(self.current_piece):
+                        self.current_piece.rotation = self.current_piece.rotation - 1 % len(self.current_piece.shape)
+                    return False
+                
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.mixer.Sound.play(key_press)
+                    # pygame.mixer.music.stop()
+                    return True
+                
+                elif self.hard_drop and event.key == pygame.K_d:
+                    self.get_hard_position()
+                    return False
+    
+    def current_piece_locked(self):
+        &#34;&#34;&#34;
+        Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
+    
+        Returns:
+            bool: True or False
+    
+        &#34;&#34;&#34;
+        return self.change_piece
+ 
+    def spawn(self):
+        &#34;&#34;&#34;
+        After a piece is locked, it updates the locked positions - the positions with stationery piece colors at the bottom, and it changes the piece in motion.
+    
+        &#34;&#34;&#34;
+        for pos in self.piece_pos:
+            p = (pos[0], pos[1])
+            self.locked_positions[p] = self.current_piece.color       # add the key and value in the dictionary
+        self.current_piece = self.next_piece
+        self.next_piece = self.get_shape()
+        self.change_piece = False
+ 
+    def update_window(self, score):
+        &#34;&#34;&#34;
+        Update the rest of the window except playing grid - Display score and next shape.
+    
+        Args:
+            score (int): Current score
+    
+        &#34;&#34;&#34;
+        self.draw_window(self.window, self.grid, score)
+ 
+        if self.viz_next_piece:
+            self.draw_next_shape(self.next_piece, self.window)
+        pygame.display.update()
+ 
+    def paused(self):
+        &#34;&#34;&#34;
+        Pause the game play and display necessary options
+    
+        Returns:
+            bool: False return corresponds to player choosing to resume game
+                True return corresponds to player choosing to restart game
+            NULL: No return occurs when player chooses to quit game
+    
+        &#34;&#34;&#34;
+        # .music.pause()
+        self.window.fill((0,0,0))
+        xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+        pygame.display.update()
+ 
+        run = True
+        while run:
+            for event in pygame.event.get():
+                
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+                #checks if a mouse is clicked
+                mouse = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.Sound.play(key_press)
+                    # pygame.mixer.music.stop()
+                    # pygame.mixer.music.unpause()
+                    if xresu &lt; mouse[0] &lt; self.s_width - xresu and 20 &lt; mouse[1] &lt; 70:
+                        self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
+                        pygame.display.update()
+                        return False
+                    elif xquit &lt; mouse[0] &lt; self.s_width - xquit and 160 &lt; mouse[1] &lt; 210:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                        pygame.display.update()
+                        pygame.quit()
+                        sys.exit()
+                    elif xres &lt; mouse[0] &lt; self.s_width - xres and 90 &lt; mouse[1] &lt; 140:
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                        pygame.display.update()
+                        return True
+ 
+    def game_over(self):
+        &#34;&#34;&#34;
+        Display the game over screen with gameover message and buttons to restart game or quit game.
+    
+        Returns:
+            bool: True if player decides to restart game
+            NULL: Nothing if player decides to quit game
+    
+        &#34;&#34;&#34;
+        self.window.fill((0,0,0))
+        self.draw_text_middle(self.gameover_text, self.window, self.gameover_color, 20)
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+        pygame.display.update()
+ 
+        rrun = True
+        while rrun:
+            for event in pygame.event.get():
+                    
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+ 
+                mouse = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    
+                    if xquit &lt; mouse[0] &lt; self.s_width - xquit and 160 &lt; mouse[1] &lt; 210:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                        pygame.display.update()
+                        pygame.quit()
+                        sys.exit()
+                    elif xres &lt; mouse[0] &lt; self.s_width - xres and 90 &lt; mouse[1] &lt; 140:
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                        pygame.display.update()
+                        return True
+ 
+ 
+    def main_menu(self):
+        &#34;&#34;&#34;
+        The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated. 
+        &#34;&#34;&#34;
+        self.window.fill((0,0,0))
+        
+        font = pygame.font.Font(self.fontpath_mario, 50, bold=True)
+        label = font.render(self.game_heading, 1, self.game_heading_color)  # initialise &#39;Tetris&#39; text with white
+ 
+        self.window.blit(label, ((self.s_width - label.get_width())//2, 20))
+        l1 = self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+        l2 = self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+        l3 = self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+        start = self.draw_text_middle(self.start_text, self.window, self.general_button_color, 310)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 380)
+        pygame.display.update()
+        
+        run = True
+        while run:
+            for event in pygame.event.get():
+                
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+                #checks if a mouse is clicked
+                mouse = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.Sound.play(key_press)
+                    # pygame.mixer.music.stop()
+                    if l1 &lt; mouse[0] &lt; self.s_width - l1 and 100 &lt; mouse[1] &lt; 150:
+                        self.draw_text_middle(self.level1_text, self.window, self.click_color, 100)
+                        self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+                        self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+                        pygame.display.update()
+                        level = 0
+                    elif l2 &lt; mouse[0] &lt; self.s_width - l2 and 170 &lt; mouse[1] &lt; 220:
+                        self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+                        self.draw_text_middle(self.level2_text, self.window, self.click_color, 170)
+                        self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+                        pygame.display.update()
+                        level = 1
+                    elif l3 &lt; mouse[0] &lt; self.s_width - l3 and 240 &lt; mouse[1] &lt; 290:
+                        self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+                        self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+                        self.draw_text_middle(self.level3_text, self.window, self.click_color, 240)
+                        pygame.display.update()
+                        level = 2
+                    elif start &lt; mouse[0] &lt; self.s_width - start and 310 &lt; mouse[1] &lt; 360:
+                        self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
+                        pygame.display.update()
+                        # level = 1
+                        run = False
+                        return level
+                    elif xquit &lt; mouse[0] &lt; self.s_width - xquit and 380 &lt; mouse[1] &lt; 430:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 380)
+                        pygame.display.update()
+                        pygame.quit()
+                        sys.exit()
+            
+ 
+    def initialize_window(self, row, col):
+        &#34;&#34;&#34;
+        Initializes the game window. Screen width - s_width(800) and screen height - s_height(750) are fixed.
+    
+        Args:
+            row (int): Number of rows in playing grid
+            col (int): Number of columns in playing grid
+    
+        &#34;&#34;&#34;
+        self.row = row
+        self.col = col
+        self.play_width = self.col * self.block_size
+        self.play_height = self.row * self.block_size
+        self.top_left_x = (self.s_width - self.play_width) // 2
+        self.top_left_y = self.s_height - self.play_height - 50
+ 
+    def create_block(self, temp_block):
+        &#34;&#34;&#34;
+        Creates a custom block(tetriminoe) for the programmer.
+    
+        Args:
+            temp_block (List []): List of length 3 - Rotation configurations, color of block, identifier string
+                temp_block[0] (List []): The different 2D rotation configurations of the block as string lists
+                    temp_block[0][i] (List []): List containing strings of fixed length that give the ith 2D orientation of block
+                temp_block[1] (list [r,g,b]): R G B values of block denoting its color
+                temp_block[2] (string): Identifier string of the block  
+    
+        &#34;&#34;&#34;
+        self.shapes.append(temp_block[0])
+        self.Dict[temp_block[2]] = len(self.shape_colors)
+        self.shape_colors.append(tuple(temp_block[1]))
+    
+    def show_next_piece(self, val):
+        &#34;&#34;&#34;
+        Enable or disable showing next block to player.
+    
+        Args:
+            val (bool): True or False  
+    
+        &#34;&#34;&#34;
+        self.viz_next_piece = val
+ 
+    def show_highscore(self, val):
+        &#34;&#34;&#34;
+        Enable or disable showing next highscore to player.
+    
+        Args:
+            val (bool): True or False  
+    
+        &#34;&#34;&#34;
+        self.viz_high_score = val
+    
+    def increase_fall_speed(self, val):
+        &#34;&#34;&#34;
+        Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses.
+    
+        Args:
+            val (bool): True or False  
+    
+        &#34;&#34;&#34;
+        self.increase_difficulty = val
+    
+    def set_window_caption(self, val):
+        &#34;&#34;&#34;
+        Set the game caption shown in the game window.
+    
+        Args:
+            val (string): Game window caption  
+    
+        &#34;&#34;&#34;
+        pygame.display.set_caption(val)
+ 
+    def set_level(self, val):
+        &#34;&#34;&#34;
+        Set the game level - from 3 difficulty levels.
+    
+        Args:
+            val (int): Difficulty level 1 or 2 or 3  
+    
+        &#34;&#34;&#34;
+        self.level = val
+
+    def set_level_fallspeed(self, speed_list):
+        &#34;&#34;&#34;
+        Set the fall speeds for the 3 difficulty levels.
+    
+        Args:
+            speed_list (list): speed of difficulty level 1,2 and 3  
+    
+        &#34;&#34;&#34;
+        self.level_speeds = speed_list
+    
+    def enable_shadow(self, val):
+        &#34;&#34;&#34;
+        Enable ghost mode i.e. expected locked position of current piece is displayed.
+    
+        Args:
+            val (int): Bool value True or False
+    
+        &#34;&#34;&#34;
+        self.show_shadow = val
+
+    def enable_hard_drop(self, val):
+        &#34;&#34;&#34;
+        Enable hard drop i.e. on pressing the &#39;d&#39; key, the block falls down.
+    
+        Args:
+            val (int): Bool value True or False
+    
+        &#34;&#34;&#34;
+        self.hard_drop= val
+
+    def design_button_text(self, game_heading, quit_text, resume_text, restart_text, gameover_text, level1_text, level2_text, level3_text, start_text):
+        &#34;&#34;&#34;
+        Customize the text displayed over buttons or over gameover and game heading text.
+    
+        Args:
+            game_heading (string): Game heading text
+            quit_text (string): Quit button text
+            resume_text (string): Resume button text
+            restart_text (string): Restart button text
+            gameover_text (string): Gameover message text
+            level1_text (string): Level 1 button text  
+            level2_text (string): Level 2 button text
+            level3_text (string): Level 3 button text
+            start_text (string): Start button text
+    
+        &#34;&#34;&#34;
+        self.game_heading = game_heading
+        self.quit_text = quit_text
+        self.resume_text = resume_text
+        self.restart_text = restart_text
+        self.gameover_text = gameover_text
+        self.level1_text = level1_text
+        self.level2_text = level2_text
+        self.level3_text = level3_text
+        self.start_text = start_text
+ 
+    def design_button_color(self, game_heading_color, gameover_color, general_button_color, click_color):
+        &#34;&#34;&#34;
+        Customize the text color over buttons, button clicks, gameover text and game heading text.
+    
+        Args:
+            game_heading_color (tuple (r,g,b)): R G B values denoting game heading color
+            gameover_color (tuple (r,g,b)): R G B values denoting gameover message color
+            general_button_color (tuple (r,g,b)): R G B values denoting button color prior to click
+            click_color (tuple (r,g,b)): R G B values denoting button color post clicking
+    
+        &#34;&#34;&#34;
+        self.game_heading_color = game_heading_color
+        self.gameover_color = gameover_color
+        self.general_button_color = general_button_color
+        self.click_color = click_color
+ 
+    def design_play(self, playbndry_color, grid_color):
+        &#34;&#34;&#34;
+        Customize the play boundary color and play grid color.
+    
+        Args:
+            playbndry_color (tuple (r,g,b)): R G B values denoting play boundary color
+            grid_color (tuple (r,g,b)): R G B values denoting play grid color
+    
+        &#34;&#34;&#34;
+        self.playbndry_color = playbndry_color
+        self.grid_color = grid_color
+ 
+    def design_block_color(self, block, color):
+        &#34;&#34;&#34;
+        Alter the color for the given block.
+    
+        Args:
+            block (string): String identifier of block
+            color (tuple (r,g,b)): R G B values of block denoting its color
+    
+        &#34;&#34;&#34;
+        self.shape_colors[self.Dict[block]] = color</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="tetrislang.engine.TetrisEngine.check_lost"><code class="name flex">
+<span>def <span class="ident">check_lost</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if game is lost
+False if game is not yet lost</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_lost(self):
+    &#34;&#34;&#34;
+    Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
+
+    Returns:
+        bool: True if game is lost
+            False if game is not yet lost
+
+    &#34;&#34;&#34;
+    for pos in self.locked_positions:
+        x, y = pos
+        if y &lt; 1:
+            pygame.mixer.Sound.play(crash_sound)
+            return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.clear_rows"><code class="name flex">
+<span>def <span class="ident">clear_rows</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Clear rows if required. Also update score and locked positions based on that.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear_rows(self):
+    &#34;&#34;&#34;
+    Clear rows if required. Also update score and locked positions based on that.
+
+    &#34;&#34;&#34;
+    
+    # need to check if row is clear then shift every other row above down one
+    increment = 0
+    for i in range(len(self.grid) - 1, -1, -1):      # start checking the grid backwards
+        grid_row = self.grid[i]                      # get the last row
+        if (0, 0, 0) not in grid_row:           # if there are no empty spaces (i.e. black blocks)
+            increment += 1
+            # add positions to remove from locked
+            index = i                           # row index will be constant
+            for j in range(len(grid_row)):
+                try:
+                    del self.locked_positions[(j, i)]          # delete every locked element in the bottom row
+                except ValueError:
+                    continue
+
+    # shift every row one step down
+    # delete filled bottom row
+    # add another empty row on the top
+    # move down one step
+    if increment &gt; 0:
+        pygame.mixer.Sound.play(clear_sound)
+        # pygame.mixer.music.stop()
+        # sort the locked list according to y value in (x,y) and then reverse
+        # reversed because otherwise the ones on the top will overwrite the lower ones
+        for key in sorted(list(self.locked_positions), key=lambda a: a[1])[::-1]:
+            x, y = key
+            if y &lt; index:                       # if the y value is above the removed index
+                new_key = (x, y + increment)    # shift position to down
+                self.locked_positions[new_key] = self.locked_positions.pop(key)
+
+    return increment</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.create_block"><code class="name flex">
+<span>def <span class="ident">create_block</span></span>(<span>self, temp_block)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a custom block(tetriminoe) for the programmer.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>temp_block</code></strong> :&ensp;<code>List []</code></dt>
+<dd>List of length 3 - Rotation configurations, color of block, identifier string
+temp_block[0] (List []): The different 2D rotation configurations of the block as string lists
+temp_block[0][i] (List []): List containing strings of fixed length that give the ith 2D orientation of block
+temp_block[1] (list [r,g,b]): R G B values of block denoting its color
+temp_block[2] (string): Identifier string of the block</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_block(self, temp_block):
+    &#34;&#34;&#34;
+    Creates a custom block(tetriminoe) for the programmer.
+
+    Args:
+        temp_block (List []): List of length 3 - Rotation configurations, color of block, identifier string
+            temp_block[0] (List []): The different 2D rotation configurations of the block as string lists
+                temp_block[0][i] (List []): List containing strings of fixed length that give the ith 2D orientation of block
+            temp_block[1] (list [r,g,b]): R G B values of block denoting its color
+            temp_block[2] (string): Identifier string of the block  
+
+    &#34;&#34;&#34;
+    self.shapes.append(temp_block[0])
+    self.Dict[temp_block[2]] = len(self.shape_colors)
+    self.shape_colors.append(tuple(temp_block[1]))</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.current_piece_locked"><code class="name flex">
+<span>def <span class="ident">current_piece_locked</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return if it is time to change piece or not - based on if gravity effect has stopped working or not.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True or False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def current_piece_locked(self):
+    &#34;&#34;&#34;
+    Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
+
+    Returns:
+        bool: True or False
+
+    &#34;&#34;&#34;
+    return self.change_piece</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.design_block_color"><code class="name flex">
+<span>def <span class="ident">design_block_color</span></span>(<span>self, block, color)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Alter the color for the given block.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>block</code></strong> :&ensp;<code>string</code></dt>
+<dd>String identifier of block</dd>
+</dl>
+<p>color (tuple (r,g,b)): R G B values of block denoting its color</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def design_block_color(self, block, color):
+    &#34;&#34;&#34;
+    Alter the color for the given block.
+
+    Args:
+        block (string): String identifier of block
+        color (tuple (r,g,b)): R G B values of block denoting its color
+
+    &#34;&#34;&#34;
+    self.shape_colors[self.Dict[block]] = color</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.design_button_color"><code class="name flex">
+<span>def <span class="ident">design_button_color</span></span>(<span>self, game_heading_color, gameover_color, general_button_color, click_color)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Customize the text color over buttons, button clicks, gameover text and game heading text.</p>
+<h2 id="args">Args</h2>
+<p>game_heading_color (tuple (r,g,b)): R G B values denoting game heading color
+gameover_color (tuple (r,g,b)): R G B values denoting gameover message color
+general_button_color (tuple (r,g,b)): R G B values denoting button color prior to click
+click_color (tuple (r,g,b)): R G B values denoting button color post clicking</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def design_button_color(self, game_heading_color, gameover_color, general_button_color, click_color):
+    &#34;&#34;&#34;
+    Customize the text color over buttons, button clicks, gameover text and game heading text.
+
+    Args:
+        game_heading_color (tuple (r,g,b)): R G B values denoting game heading color
+        gameover_color (tuple (r,g,b)): R G B values denoting gameover message color
+        general_button_color (tuple (r,g,b)): R G B values denoting button color prior to click
+        click_color (tuple (r,g,b)): R G B values denoting button color post clicking
+
+    &#34;&#34;&#34;
+    self.game_heading_color = game_heading_color
+    self.gameover_color = gameover_color
+    self.general_button_color = general_button_color
+    self.click_color = click_color</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.design_button_text"><code class="name flex">
+<span>def <span class="ident">design_button_text</span></span>(<span>self, game_heading, quit_text, resume_text, restart_text, gameover_text, level1_text, level2_text, level3_text, start_text)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Customize the text displayed over buttons or over gameover and game heading text.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_heading</code></strong> :&ensp;<code>string</code></dt>
+<dd>Game heading text</dd>
+<dt><strong><code>quit_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Quit button text</dd>
+<dt><strong><code>resume_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Resume button text</dd>
+<dt><strong><code>restart_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Restart button text</dd>
+<dt><strong><code>gameover_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Gameover message text</dd>
+<dt><strong><code>level1_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Level 1 button text
+</dd>
+<dt><strong><code>level2_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Level 2 button text</dd>
+<dt><strong><code>level3_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Level 3 button text</dd>
+<dt><strong><code>start_text</code></strong> :&ensp;<code>string</code></dt>
+<dd>Start button text</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def design_button_text(self, game_heading, quit_text, resume_text, restart_text, gameover_text, level1_text, level2_text, level3_text, start_text):
+    &#34;&#34;&#34;
+    Customize the text displayed over buttons or over gameover and game heading text.
+
+    Args:
+        game_heading (string): Game heading text
+        quit_text (string): Quit button text
+        resume_text (string): Resume button text
+        restart_text (string): Restart button text
+        gameover_text (string): Gameover message text
+        level1_text (string): Level 1 button text  
+        level2_text (string): Level 2 button text
+        level3_text (string): Level 3 button text
+        start_text (string): Start button text
+
+    &#34;&#34;&#34;
+    self.game_heading = game_heading
+    self.quit_text = quit_text
+    self.resume_text = resume_text
+    self.restart_text = restart_text
+    self.gameover_text = gameover_text
+    self.level1_text = level1_text
+    self.level2_text = level2_text
+    self.level3_text = level3_text
+    self.start_text = start_text</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.design_play"><code class="name flex">
+<span>def <span class="ident">design_play</span></span>(<span>self, playbndry_color, grid_color)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Customize the play boundary color and play grid color.</p>
+<h2 id="args">Args</h2>
+<p>playbndry_color (tuple (r,g,b)): R G B values denoting play boundary color
+grid_color (tuple (r,g,b)): R G B values denoting play grid color</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def design_play(self, playbndry_color, grid_color):
+    &#34;&#34;&#34;
+    Customize the play boundary color and play grid color.
+
+    Args:
+        playbndry_color (tuple (r,g,b)): R G B values denoting play boundary color
+        grid_color (tuple (r,g,b)): R G B values denoting play grid color
+
+    &#34;&#34;&#34;
+    self.playbndry_color = playbndry_color
+    self.grid_color = grid_color</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.draw_current_grid"><code class="name flex">
+<span>def <span class="ident">draw_current_grid</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Draw the grid at the current moment in time.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_current_grid(self):
+    &#34;&#34;&#34;
+    Draw the grid at the current moment in time.
+
+    &#34;&#34;&#34;
+    self.piece_pos = self.convert_shape_format(self.current_piece)
+    
+    self.ghost_piece.x = self.current_piece.x
+    self.ghost_piece.y = self.current_piece.y
+    self.ghost_piece.shape = self.current_piece.shape
+    self.ghost_piece.rotation = self.current_piece.rotation    
+   
+    self.ghost_piece.color = (105,105,105)
+
+    self.get_ghost_position()
+    self.ghost_pos = self.convert_shape_format(self.ghost_piece)
+
+    if self.show_shadow:
+        # draw the ghost piece on the grid by giving color in the piece locations
+        for i in range(len(self.ghost_pos)):
+            x, y = self.ghost_pos[i]
+            if y &gt;= 0:
+                self.grid[y][x] = self.ghost_piece.color
+    
+    # draw the piece on the grid by giving color in the piece locations
+    for i in range(len(self.piece_pos)):
+        x, y = self.piece_pos[i]
+        if y &gt;= 0:
+            self.grid[y][x] = self.current_piece.color</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.enable_hard_drop"><code class="name flex">
+<span>def <span class="ident">enable_hard_drop</span></span>(<span>self, val)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enable hard drop i.e. on pressing the 'd' key, the block falls down.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>int</code></dt>
+<dd>Bool value True or False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enable_hard_drop(self, val):
+    &#34;&#34;&#34;
+    Enable hard drop i.e. on pressing the &#39;d&#39; key, the block falls down.
+
+    Args:
+        val (int): Bool value True or False
+
+    &#34;&#34;&#34;
+    self.hard_drop= val</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.enable_shadow"><code class="name flex">
+<span>def <span class="ident">enable_shadow</span></span>(<span>self, val)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enable ghost mode i.e. expected locked position of current piece is displayed.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>int</code></dt>
+<dd>Bool value True or False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enable_shadow(self, val):
+    &#34;&#34;&#34;
+    Enable ghost mode i.e. expected locked position of current piece is displayed.
+
+    Args:
+        val (int): Bool value True or False
+
+    &#34;&#34;&#34;
+    self.show_shadow = val</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.game_over"><code class="name flex">
+<span>def <span class="ident">game_over</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display the game over screen with gameover message and buttons to restart game or quit game.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if player decides to restart game</dd>
+<dt><code>NULL</code></dt>
+<dd>Nothing if player decides to quit game</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def game_over(self):
+    &#34;&#34;&#34;
+    Display the game over screen with gameover message and buttons to restart game or quit game.
+
+    Returns:
+        bool: True if player decides to restart game
+        NULL: Nothing if player decides to quit game
+
+    &#34;&#34;&#34;
+    self.window.fill((0,0,0))
+    self.draw_text_middle(self.gameover_text, self.window, self.gameover_color, 20)
+    xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+    xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+    pygame.display.update()
+
+    rrun = True
+    while rrun:
+        for event in pygame.event.get():
+                
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            mouse = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                
+                if xquit &lt; mouse[0] &lt; self.s_width - xquit and 160 &lt; mouse[1] &lt; 210:
+                    self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                    pygame.display.update()
+                    pygame.quit()
+                    sys.exit()
+                elif xres &lt; mouse[0] &lt; self.s_width - xres and 90 &lt; mouse[1] &lt; 140:
+                    self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                    pygame.display.update()
+                    return True</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.increase_fall_speed"><code class="name flex">
+<span>def <span class="ident">increase_fall_speed</span></span>(<span>self, val)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True or False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def increase_fall_speed(self, val):
+    &#34;&#34;&#34;
+    Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses.
+
+    Args:
+        val (bool): True or False  
+
+    &#34;&#34;&#34;
+    self.increase_difficulty = val</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.init_blocks"><code class="name flex">
+<span>def <span class="ident">init_blocks</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initialize the current block/piece, next piece and boolean variable to bring in next piece when required</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_blocks(self):
+    &#34;&#34;&#34;
+    Initialize the current block/piece, next piece and boolean variable to bring in next piece when required 
+
+    &#34;&#34;&#34;
+    self.current_piece = self.get_shape()
+    self.change_piece = False
+    self.next_piece = self.get_shape()
+    self.ghost_piece = self.get_shape()</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.init_clock"><code class="name flex">
+<span>def <span class="ident">init_clock</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initialize the game clock</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_clock(self):
+    &#34;&#34;&#34;
+    Initialize the game clock 
+
+    &#34;&#34;&#34;
+    self.clock = pygame.time.Clock()
+    self.fall_time = 0
+    self.fall_speed = self.level_speeds[self.level]
+    self.level_time = 0</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.init_grid"><code class="name flex">
+<span>def <span class="ident">init_grid</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initialize the game grid</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_grid(self):
+    &#34;&#34;&#34;
+    Initialize the game grid
+
+    &#34;&#34;&#34;
+    self.locked_positions = {}
+    self.grid = self.create_grid()</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.initialize_window"><code class="name flex">
+<span>def <span class="ident">initialize_window</span></span>(<span>self, row, col)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializes the game window. Screen width - s_width(800) and screen height - s_height(750) are fixed.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>row</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of rows in playing grid</dd>
+<dt><strong><code>col</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of columns in playing grid</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def initialize_window(self, row, col):
+    &#34;&#34;&#34;
+    Initializes the game window. Screen width - s_width(800) and screen height - s_height(750) are fixed.
+
+    Args:
+        row (int): Number of rows in playing grid
+        col (int): Number of columns in playing grid
+
+    &#34;&#34;&#34;
+    self.row = row
+    self.col = col
+    self.play_width = self.col * self.block_size
+    self.play_height = self.row * self.block_size
+    self.top_left_x = (self.s_width - self.play_width) // 2
+    self.top_left_y = self.s_height - self.play_height - 50</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.main_menu"><code class="name flex">
+<span>def <span class="ident">main_menu</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main_menu(self):
+    &#34;&#34;&#34;
+    The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated. 
+    &#34;&#34;&#34;
+    self.window.fill((0,0,0))
+    
+    font = pygame.font.Font(self.fontpath_mario, 50, bold=True)
+    label = font.render(self.game_heading, 1, self.game_heading_color)  # initialise &#39;Tetris&#39; text with white
+
+    self.window.blit(label, ((self.s_width - label.get_width())//2, 20))
+    l1 = self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+    l2 = self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+    l3 = self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+    start = self.draw_text_middle(self.start_text, self.window, self.general_button_color, 310)
+    xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 380)
+    pygame.display.update()
+    
+    run = True
+    while run:
+        for event in pygame.event.get():
+            
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
+            #checks if a mouse is clicked
+            mouse = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pygame.mixer.Sound.play(key_press)
+                # pygame.mixer.music.stop()
+                if l1 &lt; mouse[0] &lt; self.s_width - l1 and 100 &lt; mouse[1] &lt; 150:
+                    self.draw_text_middle(self.level1_text, self.window, self.click_color, 100)
+                    self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+                    self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+                    pygame.display.update()
+                    level = 0
+                elif l2 &lt; mouse[0] &lt; self.s_width - l2 and 170 &lt; mouse[1] &lt; 220:
+                    self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+                    self.draw_text_middle(self.level2_text, self.window, self.click_color, 170)
+                    self.draw_text_middle(self.level3_text, self.window, self.general_button_color, 240)
+                    pygame.display.update()
+                    level = 1
+                elif l3 &lt; mouse[0] &lt; self.s_width - l3 and 240 &lt; mouse[1] &lt; 290:
+                    self.draw_text_middle(self.level1_text, self.window, self.general_button_color, 100)
+                    self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
+                    self.draw_text_middle(self.level3_text, self.window, self.click_color, 240)
+                    pygame.display.update()
+                    level = 2
+                elif start &lt; mouse[0] &lt; self.s_width - start and 310 &lt; mouse[1] &lt; 360:
+                    self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
+                    pygame.display.update()
+                    # level = 1
+                    run = False
+                    return level
+                elif xquit &lt; mouse[0] &lt; self.s_width - xquit and 380 &lt; mouse[1] &lt; 430:
+                    self.draw_text_middle(self.quit_text, self.window, self.click_color, 380)
+                    pygame.display.update()
+                    pygame.quit()
+                    sys.exit()</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.paused"><code class="name flex">
+<span>def <span class="ident">paused</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pause the game play and display necessary options</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>False return corresponds to player choosing to resume game
+True return corresponds to player choosing to restart game</dd>
+<dt><code>NULL</code></dt>
+<dd>No return occurs when player chooses to quit game</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def paused(self):
+    &#34;&#34;&#34;
+    Pause the game play and display necessary options
+
+    Returns:
+        bool: False return corresponds to player choosing to resume game
+            True return corresponds to player choosing to restart game
+        NULL: No return occurs when player chooses to quit game
+
+    &#34;&#34;&#34;
+    # .music.pause()
+    self.window.fill((0,0,0))
+    xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
+    xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
+    xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+    pygame.display.update()
+
+    run = True
+    while run:
+        for event in pygame.event.get():
+            
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
+            #checks if a mouse is clicked
+            mouse = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pygame.mixer.Sound.play(key_press)
+                # pygame.mixer.music.stop()
+                # pygame.mixer.music.unpause()
+                if xresu &lt; mouse[0] &lt; self.s_width - xresu and 20 &lt; mouse[1] &lt; 70:
+                    self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
+                    pygame.display.update()
+                    return False
+                elif xquit &lt; mouse[0] &lt; self.s_width - xquit and 160 &lt; mouse[1] &lt; 210:
+                    self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                    pygame.display.update()
+                    pygame.quit()
+                    sys.exit()
+                elif xres &lt; mouse[0] &lt; self.s_width - xres and 90 &lt; mouse[1] &lt; 140:
+                    self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                    pygame.display.update()
+                    return True</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.set_level"><code class="name flex">
+<span>def <span class="ident">set_level</span></span>(<span>self, val)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the game level - from 3 difficulty levels.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>int</code></dt>
+<dd>Difficulty level 1 or 2 or 3</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_level(self, val):
+    &#34;&#34;&#34;
+    Set the game level - from 3 difficulty levels.
+
+    Args:
+        val (int): Difficulty level 1 or 2 or 3  
+
+    &#34;&#34;&#34;
+    self.level = val</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.set_level_fallspeed"><code class="name flex">
+<span>def <span class="ident">set_level_fallspeed</span></span>(<span>self, speed_list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the fall speeds for the 3 difficulty levels.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>speed_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>speed of difficulty level 1,2 and 3</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_level_fallspeed(self, speed_list):
+    &#34;&#34;&#34;
+    Set the fall speeds for the 3 difficulty levels.
+
+    Args:
+        speed_list (list): speed of difficulty level 1,2 and 3  
+
+    &#34;&#34;&#34;
+    self.level_speeds = speed_list</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.set_window_caption"><code class="name flex">
+<span>def <span class="ident">set_window_caption</span></span>(<span>self, val)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the game caption shown in the game window.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>string</code></dt>
+<dd>Game window caption</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_window_caption(self, val):
+    &#34;&#34;&#34;
+    Set the game caption shown in the game window.
+
+    Args:
+        val (string): Game window caption  
+
+    &#34;&#34;&#34;
+    pygame.display.set_caption(val)</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.shift_piece"><code class="name flex">
+<span>def <span class="ident">shift_piece</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shift the piece down by gravity effect (no player input) if it has space.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def shift_piece(self):
+    &#34;&#34;&#34;
+    Shift the piece down by gravity effect (no player input) if it has space.
+
+    &#34;&#34;&#34;
+    if self.fall_time / 1000 &gt; self.fall_speed:
+        self.fall_time = 0
+        self.current_piece.y += 1
+        if not self.valid_space(self.current_piece) and self.current_piece.y &gt; 0:
+            self.current_piece.y -= 1
+            # since only checking for down - either reached bottom or hit another piece
+            # need to lock the piece position
+            # need to generate new piece
+            self.change_piece = True</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.show_highscore"><code class="name flex">
+<span>def <span class="ident">show_highscore</span></span>(<span>self, val)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enable or disable showing next highscore to player.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True or False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_highscore(self, val):
+    &#34;&#34;&#34;
+    Enable or disable showing next highscore to player.
+
+    Args:
+        val (bool): True or False  
+
+    &#34;&#34;&#34;
+    self.viz_high_score = val</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.show_next_piece"><code class="name flex">
+<span>def <span class="ident">show_next_piece</span></span>(<span>self, val)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enable or disable showing next block to player.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True or False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_next_piece(self, val):
+    &#34;&#34;&#34;
+    Enable or disable showing next block to player.
+
+    Args:
+        val (bool): True or False  
+
+    &#34;&#34;&#34;
+    self.viz_next_piece = val</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.spawn"><code class="name flex">
+<span>def <span class="ident">spawn</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>After a piece is locked, it updates the locked positions - the positions with stationery piece colors at the bottom, and it changes the piece in motion.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def spawn(self):
+    &#34;&#34;&#34;
+    After a piece is locked, it updates the locked positions - the positions with stationery piece colors at the bottom, and it changes the piece in motion.
+
+    &#34;&#34;&#34;
+    for pos in self.piece_pos:
+        p = (pos[0], pos[1])
+        self.locked_positions[p] = self.current_piece.color       # add the key and value in the dictionary
+    self.current_piece = self.next_piece
+    self.next_piece = self.get_shape()
+    self.change_piece = False</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.take_user_input"><code class="name flex">
+<span>def <span class="ident">take_user_input</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Take user inputs while game is being played. Piece movement - left, right, up(clockwise rotation), down. Escape key to pause game</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def take_user_input(self):
+    &#34;&#34;&#34;
+    Take user inputs while game is being played. Piece movement - left, right, up(clockwise rotation), down. Escape key to pause game
+
+    &#34;&#34;&#34;
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.display.quit()
+            quit()
+
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                self.current_piece.x -= 1  # move x position left
+                if not self.valid_space(self.current_piece):
+                    self.current_piece.x += 1
+                return False
+
+            elif event.key == pygame.K_RIGHT:
+                self.current_piece.x += 1  # move x position right
+                if not self.valid_space(self.current_piece):
+                    self.current_piece.x -= 1
+                return False
+
+            elif event.key == pygame.K_DOWN:
+                # move shape down
+                self.current_piece.y += 1
+                if not self.valid_space(self.current_piece):
+                    self.current_piece.y -= 1
+                return False
+
+            elif event.key == pygame.K_UP:
+                # rotate shape
+                self.current_piece.rotation = self.current_piece.rotation + 1 % len(self.current_piece.shape)
+                if not self.valid_space(self.current_piece):
+                    self.current_piece.rotation = self.current_piece.rotation - 1 % len(self.current_piece.shape)
+                return False
+            
+            elif event.key == pygame.K_ESCAPE:
+                pygame.mixer.Sound.play(key_press)
+                # pygame.mixer.music.stop()
+                return True
+            
+            elif self.hard_drop and event.key == pygame.K_d:
+                self.get_hard_position()
+                return False</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.update_clock"><code class="name flex">
+<span>def <span class="ident">update_clock</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update the game clock</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_clock(self):
+    &#34;&#34;&#34;
+    Update the game clock
+
+    &#34;&#34;&#34;
+    # helps run the same on every computer
+    # add time since last tick() to fall_time
+    self.fall_time += self.clock.get_rawtime()  # returns in milliseconds
+    self.level_time += self.clock.get_rawtime()
+
+    self.clock.tick()  # updates clock
+
+    if self.increase_difficulty:
+        if self.level_time/1000 &gt; 5:    # make the difficulty harder every 10 seconds
+            self.level_time = 0
+            if self.fall_speed &gt; 0.15:   # until fall speed is 0.15
+                self.fall_speed -= 0.005</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.update_highscore"><code class="name flex">
+<span>def <span class="ident">update_highscore</span></span>(<span>self, new_score)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update high score if required</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>new_score</code></strong> :&ensp;<code>int</code></dt>
+<dd>New highscore</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_highscore(self, new_score):
+    &#34;&#34;&#34;
+    Update high score if required
+
+    Args:
+        new_score (int): New highscore
+
+    &#34;&#34;&#34;
+    score = self.get_max_score()
+
+    with open(self.filepath, &#39;w&#39;) as file:
+        if new_score &gt; score:
+            file.write(str(new_score))
+            self.max_score = new_score
+        else:
+            file.write(str(score))</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.update_locked_grid"><code class="name flex">
+<span>def <span class="ident">update_locked_grid</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update the grid based on locked positions for display.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_locked_grid(self):
+    &#34;&#34;&#34;
+    Update the grid based on locked positions for display.
+
+    &#34;&#34;&#34;
+    self.grid = self.create_grid()</code></pre>
+</details>
+</dd>
+<dt id="tetrislang.engine.TetrisEngine.update_window"><code class="name flex">
+<span>def <span class="ident">update_window</span></span>(<span>self, score)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update the rest of the window except playing grid - Display score and next shape.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>score</code></strong> :&ensp;<code>int</code></dt>
+<dd>Current score</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_window(self, score):
+    &#34;&#34;&#34;
+    Update the rest of the window except playing grid - Display score and next shape.
+
+    Args:
+        score (int): Current score
+
+    &#34;&#34;&#34;
+    self.draw_window(self.window, self.grid, score)
+
+    if self.viz_next_piece:
+        self.draw_next_shape(self.next_piece, self.window)
+    pygame.display.update()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="tetrislang" href="index.html">tetrislang</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="tetrislang.engine.TetrisEngine" href="#tetrislang.engine.TetrisEngine">TetrisEngine</a></code></h4>
+<ul class="">
+<li><code><a title="tetrislang.engine.TetrisEngine.check_lost" href="#tetrislang.engine.TetrisEngine.check_lost">check_lost</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.clear_rows" href="#tetrislang.engine.TetrisEngine.clear_rows">clear_rows</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.create_block" href="#tetrislang.engine.TetrisEngine.create_block">create_block</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.current_piece_locked" href="#tetrislang.engine.TetrisEngine.current_piece_locked">current_piece_locked</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.design_block_color" href="#tetrislang.engine.TetrisEngine.design_block_color">design_block_color</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.design_button_color" href="#tetrislang.engine.TetrisEngine.design_button_color">design_button_color</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.design_button_text" href="#tetrislang.engine.TetrisEngine.design_button_text">design_button_text</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.design_play" href="#tetrislang.engine.TetrisEngine.design_play">design_play</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.draw_current_grid" href="#tetrislang.engine.TetrisEngine.draw_current_grid">draw_current_grid</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.enable_hard_drop" href="#tetrislang.engine.TetrisEngine.enable_hard_drop">enable_hard_drop</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.enable_shadow" href="#tetrislang.engine.TetrisEngine.enable_shadow">enable_shadow</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.game_over" href="#tetrislang.engine.TetrisEngine.game_over">game_over</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.increase_fall_speed" href="#tetrislang.engine.TetrisEngine.increase_fall_speed">increase_fall_speed</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.init_blocks" href="#tetrislang.engine.TetrisEngine.init_blocks">init_blocks</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.init_clock" href="#tetrislang.engine.TetrisEngine.init_clock">init_clock</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.init_grid" href="#tetrislang.engine.TetrisEngine.init_grid">init_grid</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.initialize_window" href="#tetrislang.engine.TetrisEngine.initialize_window">initialize_window</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.main_menu" href="#tetrislang.engine.TetrisEngine.main_menu">main_menu</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.paused" href="#tetrislang.engine.TetrisEngine.paused">paused</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.set_level" href="#tetrislang.engine.TetrisEngine.set_level">set_level</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.set_level_fallspeed" href="#tetrislang.engine.TetrisEngine.set_level_fallspeed">set_level_fallspeed</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.set_window_caption" href="#tetrislang.engine.TetrisEngine.set_window_caption">set_window_caption</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.shift_piece" href="#tetrislang.engine.TetrisEngine.shift_piece">shift_piece</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.show_highscore" href="#tetrislang.engine.TetrisEngine.show_highscore">show_highscore</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.show_next_piece" href="#tetrislang.engine.TetrisEngine.show_next_piece">show_next_piece</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.spawn" href="#tetrislang.engine.TetrisEngine.spawn">spawn</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.take_user_input" href="#tetrislang.engine.TetrisEngine.take_user_input">take_user_input</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.update_clock" href="#tetrislang.engine.TetrisEngine.update_clock">update_clock</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.update_highscore" href="#tetrislang.engine.TetrisEngine.update_highscore">update_highscore</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.update_locked_grid" href="#tetrislang.engine.TetrisEngine.update_locked_grid">update_locked_grid</a></code></li>
+<li><code><a title="tetrislang.engine.TetrisEngine.update_window" href="#tetrislang.engine.TetrisEngine.update_window">update_window</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -18,6 +18,9 @@ key_press = pygame.mixer.Sound(os.path.join(directory, 'key_press.wav'))
 pygame.mixer.music.load(os.path.join(directory,'theme.wav'))
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
+
+__pdoc__ = {}
+__pdoc__['Piece'] = False
  
 # class to represent each of the pieces
 class Piece(object):
@@ -30,8 +33,75 @@ class Piece(object):
  
 class TetrisEngine(object):
  
+    #################################################
+    # DOCUMENTATION CONTROL
+    ## CLASS VARIABLES
+    __pdoc__['TetrisEngine.s_width'] = False
+    __pdoc__['TetrisEngine.s_height'] = False
+    __pdoc__['TetrisEngine.col'] = False
+    __pdoc__['TetrisEngine.row'] = False
+    __pdoc__['TetrisEngine.block_size'] = False
+    __pdoc__['TetrisEngine.play_width'] = False
+    __pdoc__['TetrisEngine.play_height'] = False
+    __pdoc__['TetrisEngine.top_left_x'] = False
+    __pdoc__['TetrisEngine.top_left_y'] = False
+    __pdoc__['TetrisEngine.filepath'] = False
+    __pdoc__['TetrisEngine.fontpath'] = False
+    __pdoc__['TetrisEngine.fontpath_mario'] = False
+    __pdoc__['TetrisEngine.viz_next_piece'] = False
+    __pdoc__['TetrisEngine.viz_high_score'] = False
+    __pdoc__['TetrisEngine.clock'] = False
+    __pdoc__['TetrisEngine.fall_time'] = False
+    __pdoc__['TetrisEngine.fall_speed'] = False
+    __pdoc__['TetrisEngine.level_time'] = False
+    __pdoc__['TetrisEngine.level'] = False
+    __pdoc__['TetrisEngine.level_speeds'] = False
+    __pdoc__['TetrisEngine.increase_difficulty'] = False
+    __pdoc__['TetrisEngine.show_shadow'] = False
+    __pdoc__['TetrisEngine.hard_drop'] = False
+    __pdoc__['TetrisEngine.game_heading'] = False
+    __pdoc__['TetrisEngine.quit_text'] = False
+    __pdoc__['TetrisEngine.resume_text'] = False
+    __pdoc__['TetrisEngine.restart_text'] = False
+    __pdoc__['TetrisEngine.gameover_text'] = False
+    __pdoc__['TetrisEngine.nextshape_text'] = False
+    __pdoc__['TetrisEngine.level1_text'] = False
+    __pdoc__['TetrisEngine.level2_text'] = False
+    __pdoc__['TetrisEngine.level3_text'] = False
+    __pdoc__['TetrisEngine.start_text'] = False
+    __pdoc__['TetrisEngine.game_heading_color'] = False
+    __pdoc__['TetrisEngine.gameover_color'] = False
+    __pdoc__['TetrisEngine.general_button_color'] = False
+    __pdoc__['TetrisEngine.click_color'] = False
+    __pdoc__['TetrisEngine.playbndry_color'] = False
+    __pdoc__['TetrisEngine.grid_color'] = False
+    __pdoc__['TetrisEngine.S'] = False
+    __pdoc__['TetrisEngine.Z'] = False
+    __pdoc__['TetrisEngine.I'] = False
+    __pdoc__['TetrisEngine.O'] = False
+    __pdoc__['TetrisEngine.J'] = False
+    __pdoc__['TetrisEngine.L'] = False
+    __pdoc__['TetrisEngine.T'] = False
+    __pdoc__['TetrisEngine.shapes'] = False
+    __pdoc__['TetrisEngine.shape_colors'] = False
+    __pdoc__['TetrisEngine.Dict'] = False
+
+    ## CLASS FUNCTIONS
+    __pdoc__['TetrisEngine.create_grid'] = False
+    __pdoc__['TetrisEngine.convert_shape_format'] = False
+    __pdoc__['TetrisEngine.valid_space'] = False
+    __pdoc__['TetrisEngine.get_shape'] = False
+    __pdoc__['TetrisEngine.draw_text_middle'] = False
+    __pdoc__['TetrisEngine.draw_grid'] = False
+    __pdoc__['TetrisEngine.draw_next_shape'] = False
+    __pdoc__['TetrisEngine.draw_window'] = False
+    __pdoc__['TetrisEngine.get_max_score'] = False
+    __pdoc__['TetrisEngine.get_hard_position'] = False
+    __pdoc__['TetrisEngine.get_ghost_position'] = False
+    ######################################################
+    
     # GAME VARIABLES 
- 
+    
     s_width = 800       # window width
     s_height = 750      # window height
     
@@ -205,7 +275,7 @@ class TetrisEngine(object):
                         (x, y)]  # get the value color (r,g,b) from the locked_positions dictionary using key (x,y)
                     grid[y][x] = color  # set grid position to color
         return grid
- 
+    
     # GET THE 0 . 2D FORMAT
     def convert_shape_format(self, piece):
         positions = []
@@ -352,15 +422,15 @@ class TetrisEngine(object):
 
         self.ghost_piece.y -= 1
 
-    """
-    Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
- 
-    Returns:
-        bool: True if game is lost
-              False if game is not yet lost
- 
-    """
     def check_lost(self):
+        """
+        Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
+    
+        Returns:
+            bool: True if game is lost
+                False if game is not yet lost
+    
+        """
         for pos in self.locked_positions:
             x, y = pos
             if y < 1:
@@ -369,14 +439,14 @@ class TetrisEngine(object):
         return False
  
  
-    """
-    Update high score if required
- 
-    Args:
-        new_score (int): New highscore
- 
-    """
     def update_highscore(self, new_score):
+        """
+        Update high score if required
+    
+        Args:
+            new_score (int): New highscore
+    
+        """
         score = self.get_max_score()
  
         with open(self.filepath, 'w') as file:
@@ -386,11 +456,11 @@ class TetrisEngine(object):
             else:
                 file.write(str(score))
  
-    """
-    Clear rows if required. Also update score and locked positions based on that.
- 
-    """
     def clear_rows(self):
+        """
+        Clear rows if required. Also update score and locked positions based on that.
+    
+        """
         
         # need to check if row is clear then shift every other row above down one
         increment = 0
@@ -423,47 +493,47 @@ class TetrisEngine(object):
  
         return increment
  
-    """
-    Initialize the game grid
- 
-    """
     def init_grid(self):
+        """
+        Initialize the game grid
+    
+        """
         self.locked_positions = {}
         self.grid = self.create_grid()
  
-    """
-    Initialize the current block/piece, next piece and boolean variable to bring in next piece when required 
- 
-    """
     def init_blocks(self):
+        """
+        Initialize the current block/piece, next piece and boolean variable to bring in next piece when required 
+    
+        """
         self.current_piece = self.get_shape()
         self.change_piece = False
         self.next_piece = self.get_shape()
         self.ghost_piece = self.get_shape()
  
-    """
-    Initialize the game clock 
- 
-    """
     def init_clock(self):
+        """
+        Initialize the game clock 
+    
+        """
         self.clock = pygame.time.Clock()
         self.fall_time = 0
         self.fall_speed = self.level_speeds[self.level]
         self.level_time = 0
  
    
-    """
-    Update the grid based on locked positions for display.
- 
-    """
     def update_locked_grid(self):
+        """
+        Update the grid based on locked positions for display.
+    
+        """
         self.grid = self.create_grid()
  
-    """
-    Draw the grid at the current moment in time.
- 
-    """
     def draw_current_grid(self):
+        """
+        Draw the grid at the current moment in time.
+    
+        """
         self.piece_pos = self.convert_shape_format(self.current_piece)
         
         self.ghost_piece.x = self.current_piece.x
@@ -489,11 +559,11 @@ class TetrisEngine(object):
             if y >= 0:
                 self.grid[y][x] = self.current_piece.color
  
-    """
-    Update the game clock
- 
-    """
     def update_clock(self):
+        """
+        Update the game clock
+    
+        """
         # helps run the same on every computer
         # add time since last tick() to fall_time
         self.fall_time += self.clock.get_rawtime()  # returns in milliseconds
@@ -507,11 +577,11 @@ class TetrisEngine(object):
                 if self.fall_speed > 0.15:   # until fall speed is 0.15
                     self.fall_speed -= 0.005
  
-    """
-    Shift the piece down by gravity effect (no player input) if it has space.
- 
-    """
     def shift_piece(self):
+        """
+        Shift the piece down by gravity effect (no player input) if it has space.
+    
+        """
         if self.fall_time / 1000 > self.fall_speed:
             self.fall_time = 0
             self.current_piece.y += 1
@@ -522,11 +592,11 @@ class TetrisEngine(object):
                 # need to generate new piece
                 self.change_piece = True
                 
-    """
-    Take user inputs while game is being played. Piece movement - left, right, up(clockwise rotation), down. Escape key to pause game
- 
-    """
     def take_user_input(self):
+        """
+        Take user inputs while game is being played. Piece movement - left, right, up(clockwise rotation), down. Escape key to pause game
+    
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.display.quit()
@@ -568,21 +638,21 @@ class TetrisEngine(object):
                     self.get_hard_position()
                     return False
     
-    """
-    Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
- 
-    Returns:
-        bool: True or False
- 
-    """
     def current_piece_locked(self):
+        """
+        Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
+    
+        Returns:
+            bool: True or False
+    
+        """
         return self.change_piece
  
-    """
-    After a piece is locked, it updates the locked positions - the positions with stationery piece colors at the bottom, and it changes the piece in motion.
- 
-    """
     def spawn(self):
+        """
+        After a piece is locked, it updates the locked positions - the positions with stationery piece colors at the bottom, and it changes the piece in motion.
+    
+        """
         for pos in self.piece_pos:
             p = (pos[0], pos[1])
             self.locked_positions[p] = self.current_piece.color       # add the key and value in the dictionary
@@ -590,30 +660,30 @@ class TetrisEngine(object):
         self.next_piece = self.get_shape()
         self.change_piece = False
  
-    """
-    Update the rest of the window except playing grid - Display score and next shape.
- 
-    Args:
-        score (int): Current score
- 
-    """
     def update_window(self, score):
+        """
+        Update the rest of the window except playing grid - Display score and next shape.
+    
+        Args:
+            score (int): Current score
+    
+        """
         self.draw_window(self.window, self.grid, score)
  
         if self.viz_next_piece:
             self.draw_next_shape(self.next_piece, self.window)
         pygame.display.update()
  
-    """
-    Pause the game play and display necessary options
- 
-    Returns:
-        bool: False return corresponds to player choosing to resume game
-              True return corresponds to player choosing to restart game
-        NULL: No return occurs when player chooses to quit game
- 
-    """
     def paused(self):
+        """
+        Pause the game play and display necessary options
+    
+        Returns:
+            bool: False return corresponds to player choosing to resume game
+                True return corresponds to player choosing to restart game
+            NULL: No return occurs when player chooses to quit game
+    
+        """
         # .music.pause()
         self.window.fill((0,0,0))
         xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
@@ -649,15 +719,15 @@ class TetrisEngine(object):
                         pygame.display.update()
                         return True
  
-    """
-    Display the game over screen with gameover message and buttons to restart game or quit game.
- 
-    Returns:
-        bool: True if player decides to restart game
-        NULL: Nothing if player decides to quit game
- 
-    """
     def game_over(self):
+        """
+        Display the game over screen with gameover message and buttons to restart game or quit game.
+    
+        Returns:
+            bool: True if player decides to restart game
+            NULL: Nothing if player decides to quit game
+    
+        """
         self.window.fill((0,0,0))
         self.draw_text_middle(self.gameover_text, self.window, self.gameover_color, 20)
         xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
@@ -686,10 +756,10 @@ class TetrisEngine(object):
                         return True
  
  
-    """
-    The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated. 
-    """
     def main_menu(self):
+        """
+        The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated. 
+        """
         self.window.fill((0,0,0))
         
         font = pygame.font.Font(self.fontpath_mario, 50, bold=True)
@@ -747,15 +817,15 @@ class TetrisEngine(object):
                         sys.exit()
             
  
-    """
-    Initializes the game window. Screen width - s_width(800) and screen height - s_height(750) are fixed.
- 
-    Args:
-        row (int): Number of rows in playing grid
-        col (int): Number of columns in playing grid
- 
-    """
     def initialize_window(self, row, col):
+        """
+        Initializes the game window. Screen width - s_width(800) and screen height - s_height(750) are fixed.
+    
+        Args:
+            row (int): Number of rows in playing grid
+            col (int): Number of columns in playing grid
+    
+        """
         self.row = row
         self.col = col
         self.play_width = self.col * self.block_size
@@ -763,118 +833,118 @@ class TetrisEngine(object):
         self.top_left_x = (self.s_width - self.play_width) // 2
         self.top_left_y = self.s_height - self.play_height - 50
  
-    """
-    Creates a custom block(tetriminoe) for the programmer.
- 
-    Args:
-        temp_block (List []): List of length 3 - Rotation configurations, color of block, identifier string
-            temp_block[0] (List []): The different 2D rotation configurations of the block as string lists
-                temp_block[0][i] (List []): List containing strings of fixed length that give the ith 2D orientation of block
-            temp_block[1] (list [r,g,b]): R G B values of block denoting its color
-            temp_block[2] (string): Identifier string of the block  
- 
-    """
     def create_block(self, temp_block):
+        """
+        Creates a custom block(tetriminoe) for the programmer.
+    
+        Args:
+            temp_block (List []): List of length 3 - Rotation configurations, color of block, identifier string
+                temp_block[0] (List []): The different 2D rotation configurations of the block as string lists
+                    temp_block[0][i] (List []): List containing strings of fixed length that give the ith 2D orientation of block
+                temp_block[1] (list [r,g,b]): R G B values of block denoting its color
+                temp_block[2] (string): Identifier string of the block  
+    
+        """
         self.shapes.append(temp_block[0])
         self.Dict[temp_block[2]] = len(self.shape_colors)
         self.shape_colors.append(tuple(temp_block[1]))
     
-    """
-    Enable or disable showing next block to player.
- 
-    Args:
-        val (bool): True or False  
- 
-    """
     def show_next_piece(self, val):
+        """
+        Enable or disable showing next block to player.
+    
+        Args:
+            val (bool): True or False  
+    
+        """
         self.viz_next_piece = val
  
-    """
-    Enable or disable showing next highscore to player.
- 
-    Args:
-        val (bool): True or False  
- 
-    """
     def show_highscore(self, val):
+        """
+        Enable or disable showing next highscore to player.
+    
+        Args:
+            val (bool): True or False  
+    
+        """
         self.viz_high_score = val
     
-    """
-    Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses.
- 
-    Args:
-        val (bool): True or False  
- 
-    """
     def increase_fall_speed(self, val):
+        """
+        Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses.
+    
+        Args:
+            val (bool): True or False  
+    
+        """
         self.increase_difficulty = val
     
-    """
-    Set the game caption shown in the game window.
- 
-    Args:
-        val (string): Game window caption  
- 
-    """
     def set_window_caption(self, val):
+        """
+        Set the game caption shown in the game window.
+    
+        Args:
+            val (string): Game window caption  
+    
+        """
         pygame.display.set_caption(val)
  
-    """
-    Set the game level - from 3 difficulty levels.
- 
-    Args:
-        val (int): Difficulty level 1 or 2 or 3  
- 
-    """
     def set_level(self, val):
+        """
+        Set the game level - from 3 difficulty levels.
+    
+        Args:
+            val (int): Difficulty level 1 or 2 or 3  
+    
+        """
         self.level = val
 
-    """
-    Set the fall speeds for the 3 difficulty levels.
- 
-    Args:
-        speed_list (list): speed of difficulty level 1,2 and 3  
- 
-    """
     def set_level_fallspeed(self, speed_list):
+        """
+        Set the fall speeds for the 3 difficulty levels.
+    
+        Args:
+            speed_list (list): speed of difficulty level 1,2 and 3  
+    
+        """
         self.level_speeds = speed_list
     
-    """
-    Enable ghost mode i.e. expected locked position of current piece is displayed.
- 
-    Args:
-        val (int): Bool value True or False
- 
-    """
     def enable_shadow(self, val):
+        """
+        Enable ghost mode i.e. expected locked position of current piece is displayed.
+    
+        Args:
+            val (int): Bool value True or False
+    
+        """
         self.show_shadow = val
 
-    """
-    Enable hard drop i.e. on pressing the 'd' key, the block falls down.
- 
-    Args:
-        val (int): Bool value True or False
- 
-    """
     def enable_hard_drop(self, val):
+        """
+        Enable hard drop i.e. on pressing the 'd' key, the block falls down.
+    
+        Args:
+            val (int): Bool value True or False
+    
+        """
         self.hard_drop= val
 
-    """
-    Customize the text displayed over buttons or over gameover and game heading text.
- 
-    Args:
-        game_heading (string): Game heading text
-        quit_text (string): Quit button text
-        resume_text (string): Resume button text
-        restart_text (string): Restart button text
-        gameover_text (string): Gameover message text
-        level1_text (string): Level 1 button text  
-        level2_text (string): Level 2 button text
-        level3_text (string): Level 3 button text
-        start_text (string): Start button text
- 
-    """
     def design_button_text(self, game_heading, quit_text, resume_text, restart_text, gameover_text, level1_text, level2_text, level3_text, start_text):
+        """
+        Customize the text displayed over buttons or over gameover and game heading text.
+    
+        Args:
+            game_heading (string): Game heading text
+            quit_text (string): Quit button text
+            resume_text (string): Resume button text
+            restart_text (string): Restart button text
+            gameover_text (string): Gameover message text
+            level1_text (string): Level 1 button text  
+            level2_text (string): Level 2 button text
+            level3_text (string): Level 3 button text
+            start_text (string): Start button text
+    
+        """
         self.game_heading = game_heading
         self.quit_text = quit_text
         self.resume_text = resume_text
@@ -885,43 +955,43 @@ class TetrisEngine(object):
         self.level3_text = level3_text
         self.start_text = start_text
  
-    """
-    Customize the text color over buttons, button clicks, gameover text and game heading text.
- 
-    Args:
-        game_heading_color (tuple (r,g,b)): R G B values denoting game heading color
-        gameover_color (tuple (r,g,b)): R G B values denoting gameover message color
-        general_button_color (tuple (r,g,b)): R G B values denoting button color prior to click
-        click_color (tuple (r,g,b)): R G B values denoting button color post clicking
- 
-    """
     def design_button_color(self, game_heading_color, gameover_color, general_button_color, click_color):
+        """
+        Customize the text color over buttons, button clicks, gameover text and game heading text.
+    
+        Args:
+            game_heading_color (tuple (r,g,b)): R G B values denoting game heading color
+            gameover_color (tuple (r,g,b)): R G B values denoting gameover message color
+            general_button_color (tuple (r,g,b)): R G B values denoting button color prior to click
+            click_color (tuple (r,g,b)): R G B values denoting button color post clicking
+    
+        """
         self.game_heading_color = game_heading_color
         self.gameover_color = gameover_color
         self.general_button_color = general_button_color
         self.click_color = click_color
  
-    """
-    Customize the play boundary color and play grid color.
- 
-    Args:
-        playbndry_color (tuple (r,g,b)): R G B values denoting play boundary color
-        grid_color (tuple (r,g,b)): R G B values denoting play grid color
- 
-    """
     def design_play(self, playbndry_color, grid_color):
+        """
+        Customize the play boundary color and play grid color.
+    
+        Args:
+            playbndry_color (tuple (r,g,b)): R G B values denoting play boundary color
+            grid_color (tuple (r,g,b)): R G B values denoting play grid color
+    
+        """
         self.playbndry_color = playbndry_color
         self.grid_color = grid_color
  
-    """
-    Alter the color for the given block.
- 
-    Args:
-        block (string): String identifier of block
-        color (tuple (r,g,b)): R G B values of block denoting its color
- 
-    """
     def design_block_color(self, block, color):
+        """
+        Alter the color for the given block.
+    
+        Args:
+            block (string): String identifier of block
+            color (tuple (r,g,b)): R G B values of block denoting its color
+    
+        """
         self.shape_colors[self.Dict[block]] = color
         
                     
