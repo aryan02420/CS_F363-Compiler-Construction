@@ -5,100 +5,100 @@ from .scanner import TetrisLexer
 
 class TetrisParser(Parser):
     '''
-program                 ::=   statements EOL                                                          { return f'{p.statements}\n'}
+program                 ::=     functionDeclarations statements
 
-statements              ::=   statement                                                               { return f'{p.statement}'}
-                        |     statement moreStatements                                                { return f'{p.statement}{p.moreStatements}'}
+statements              ::=     semistatement EOL statements                                                              
+                        |       nosemistatement statements
+                        |       emptyStatement
 
-moreStatements          ::=   EOL statement                                                           { return f'\n{p.statement}' }
-                        |     EOL moreStatements                                                      { return f'\n{p.moreStatements}' }
+semistatement           ::=     emptyStatement                                                     
+                        |       variableDeclaration                                                        
+                        |       assignmentStatement  
+                        |       functionStatement
+                        |       breakStatement
+                        |       continueStatement
 
-statement               ::=   assignmentStatement                                                     { return f'{p.assignmentStatement}' }
-                        |     variableDeclaration                                                     { return f'{p.variableDeclaration}' }
-                        |     functionStatement                                                       { return f'{p.functionStatement}' }
-                        |     functionDeclaration                                                     { return f'{p.functionDeclaration}' }
-                        |     compoundStatement                                                       { return f'{p.compoundStatement}' }
-                        |     conditionalStatement                                                    { return f'{p.conditionalStatement}' }
-                        |     loopStatement                                                           { return f'{p.loopStatement}' }
-                        |     emptyStatement                                                          { return f'{p.emptyStatement}' }
+nosemistatement         ::=     compoundStatement
+                        |       conditionalStatement
+                        |       loopStatement                                               
 
-assignmentStatement     ::=   IDENT ASSIGN expression                                                 { return f'{p.IDENT} = {p.expression}' }
+emptyStatement          ::=     /*empty*/    
 
-functionStatement       ::=   IDENT LPAREN RPAREN                                                     { return f'{p.IDENT}()' }
-                        |     IDENT LPAREN actparams RPAREN                                           { return f'{p.IDENT'({p.actparams}) }
+variableDeclaration     ::=     VAR IDENT ASSIGN expression
 
-actparams               ::=   expression                                                              { return f''{p.expression} }
-                        |     expression moreparams                                                   { return f''{p.expression}{p.moreparams} }
+assignmentStatement     ::=     IDENT ASSIGN expression
+                        |       IDENT LSQBR expression RSQBR ASSIGN expression                                                
 
-moreparams              ::=   COMMA actparams                                                         { return f'', {p.actparams} }
+functionStatement       ::=     IDENT LPAREN RPAREN                                                     
+                        |       IDENT LPAREN args RPAREN                                                                  
 
-compoundStatement       ::=   BEGIN statements END                                                    { return f''\n{p.statements}\n }
+compoundStatement       ::=     BEGIN statements END
 
-conditionalStatement    ::=   IF expression THEN statements                                           { return f'if {p.expression}:\n{p.statements}' }
-                        |     IF expression THEN statements ELSE statements                           { return f'if {p.expression}:\n{p.statements0}\nelse:\n{p.statements1}' }
+functionDeclarations    ::=     functionDeclaration functionDeclarations
+                        |       emptyStatement
 
-loopStatement           ::=   WHILE expression DO statement                                           { return f'while {p.expression}:\n\t{p.statement}' }
-                        |     DO statement WHILE expression                                           { return f'{p.statement}\nwhile {p.expression}:\n\t{p.statement}' }
-                        |     FOR IDENT ASSIGN NUM TO NUM DO statement                                { return f'for {p.IDENT} in range(p.NUM, p.NUM):\n\t{p.statement}'}
+functionDeclaration     ::=     FUNCTION IDENT LPAREN RPAREN _indent compoundStatement _outdent
+                        |       FUNCTION IDENT LPAREN params RPAREN _indent compoundStatement _outdent
 
-emptyStatement          ::=   /*empty*/                                                               { return f'' }
+condition               ::=     LPAREN expression RPAREN
 
-variableDeclaration     ::=   VAR IDENT ASSIGN expression                                             { return f'{p.IDENT} = {p.expression}' }
+conditionalStatement    ::=     IF condition _indent compoundStatement _outdent
+                        |       IF condition _indent compoundStatement _outdent ELSE _indent compoundStatement _outdent
 
-functionDeclaration     ::=   FUNCTION IDENT LPAREN RPAREN compoundStatement                          { return f'{p.IDENT}(){p.compoundStatement}' }
-                        |     FUNCTION IDENT LPAREN fargs RPAREN compoundStatement                    { return f'{p.IDENT}({p.fargs}){p.compoundStatement}' }
+loopStatement           ::=     WHILE condition _indent compoundStatement _outdent
+                        |       FOR LPAREN IDENT ASSIGN expression TO expression RPAREN _indent compoundStatement _outdent                                          
 
-fargs                   ::=   IDENT                                                                   { return f'{p.IDENT}'}
-                        |     IDENT morefargs                                                         { return f'{p.IDENT}, {p.morefargs}' }
+params                  ::=     IDENT COMMA params                                                               
+                        |       IDENT
 
-morefargs               ::=   COMMA fargs                                                             { return f', {p.fargs}' }
+args                    ::=     expression COMMA args
+                        |       expression
 
-largs                   ::=   expression                                                              { return f'{p.expression}'}
-                        |     expression morelargs                                                    { return f'{p.expression}, {p.morelargs}' }
+expression              ::=     binop                                                                   
 
-morelargs               ::=   COMMA largs                                                             { return f', {p.largs}' }
+binop                   ::=     unop                                                                   
+                        |       binop ADD unop                                                         
+                        |       binop SUB unop                                                         
+                        |       binop MUL unop                                                         
+                        |       binop DIV unop                                                         
+                        |       binop MOD unop                                                         
+                        |       binop LT unop                                                          
+                        |       binop LTEQ unop                                                        
+                        |       binop GT unop                                                          
+                        |       binop GTEQ unop                                                        
+                        |       binop EQ unop                                                          
+                        |       binop NEQ unop                                                         
+                        |       binop SAL unop                                                         
+                        |       binop SAR unop                                                         
+                        |       binop BITAND unop                                                       
+                        |       binop BITOR unop                                                       
+                        |       binop BITXOR unop                                                       
+                        |       binop AND unop                                                         
+                        |       binop OR unop      
 
-expression              ::=   IDENT                                                                   { return f'{p.IDENT}' }
-                        |     binop                                                                   { return f'{p.binop}' }
-                        |     unop                                                                    { return f'{p.unop}' }
+unop                    ::=     term
+                        |       ADD term
+                        |       SUB term
+                        |       BITNOT term
+                        |       NOT term
 
-binop                   ::=   unop                                                                    { return f'{p.unop}' }
-                        |     binop ADD unop                                                          { return f'{p.binop} + {p.unop}' }
-                        |     binop SUB unop                                                          { return f'{p.binop} - {p.unop}' }
-                        |     binop MUL unop                                                          { return f'{p.binop} * {p.unop}' }
-                        |     binop DIV unop                                                          { return f'{p.binop} / {p.unop}' }
-                        |     binop MOD unop                                                          { return f'{p.binop} % {p.unop}' }
-                        |     binop LT unop                                                           { return f'{p.binop} < {p.unop}' }
-                        |     binop LTEQ unop                                                         { return f'{p.binop} <= {p.unop}' }
-                        |     binop GT unop                                                           { return f'{p.binop} > {p.unop}' }
-                        |     binop GTEQ unop                                                         { return f'{p.binop} >= {p.unop}' }
-                        |     binop EQ unop                                                           { return f'{p.binop} == {p.unop}' }
-                        |     binop NEQ unop                                                          { return f'{p.binop} != {p.unop}' }
-                        |     binop SAL unop                                                          { return f'{p.binop} << {p.unop}' }
-                        |     binop SAR unop                                                          { return f'{p.binop} >> {p.unop}' }
-                        |     binop BITAND unop                                                       { return f'{p.binop} & {p.unop}' }
-                        |     binop BITOR unop                                                        { return f'{p.binop} | {p.unop}' }
-                        |     binop BITXOR unop                                                       { return f'{p.binop} ^ {p.unop}' }
-                        |     binop AND unop                                                          { return f'{p.binop} and {p.unop}' }
-                        |     binop OR unop                                                           { return f'{p.binop} or {p.unop}' }
+list                    ::=     LSQBR args RSQBR
 
-unop                    ::=   term                                                                    { return f'{p.term}' }
-                        |     ADD term                                                                { return f'+{p.term}' }
-                        |     SUB term                                                                { return f'-{p.term}' }
-                        |     BITNOT term                                                             { return f'~{p.term}' }
-                        |     NOT term                                                                { return f'not {p.term}' }
-
-term                    ::=   NUM                                                                     { return f'{p.NUM}' }
-                        |     BOOL                                                                    { return f'{p.BOOL}' }
-                        |     STRING                                                                  { return f'{p.STRING}' }
-                        |     LSQBR largs RSQBR                                                       { return f'[{p.largs}]' }
-                        |     LPAREN expression RPAREN                                                { return f'({p.expression})' }
+term                    ::=     NUM
+                        |       FLOAT
+                        |       BOOL
+                        |       STRING
+                        |       IDENT
+                        |       list
+                        |       functionStatement
+                        |       LPAREN expression RPAREN
+                        |       IDENT LSQBR expression RSQBR
     '''
     tokens = TetrisLexer.tokens
 
     start = 'program'
 
-    def __init__(self, tab_char, nesting_depth):
+    def __init__(self, tab_char='\t', nesting_depth=0):
         self.tab_char = tab_char
         self.nesting_depth = int(nesting_depth)
 
@@ -140,24 +140,13 @@ term                    ::=   NUM                                               
     def semistatement(self, p):
         return f'{p.functionStatement}\n'
 
-    ################changed##############
     @_('breakStatement')                                                       
     def semistatement(self, p):
         return f'{p.breakStatement}\n'
 
-    @_('BREAK')                                                       
-    def breakStatement(self, p):
-        return f'{p.BREAK}\n'
-
-
     @_('continueStatement')                                                       
     def semistatement(self, p):
         return f'{p.continueStatement}\n'
-
-    @_('CONTINUE')                                                       
-    def continueStatement(self, p):
-        return f'{p.CONTINUE}\n'
-    #####################################
 
     # no semi statement 
 
@@ -256,6 +245,16 @@ term                    ::=   NUM                                               
     @_('FOR LPAREN IDENT ASSIGN expression TO expression RPAREN indent compoundStatement outdent')                          
     def loopStatement(self, p):           
         return f'for {p.IDENT} in range({p.expression0}, {p.expression1}):\n{p.compoundStatement}'
+
+    # loop control
+
+    @_('BREAK')                                                       
+    def breakStatement(self, p):
+        return f'{p.BREAK}'
+
+    @_('CONTINUE')                                                       
+    def continueStatement(self, p):
+        return f'{p.CONTINUE}'
 
     # params and args
 
@@ -393,11 +392,9 @@ term                    ::=   NUM                                               
     def term(self, p):
         return f'{p.NUM}'
 
-    ############changed#############
     @_('FLOAT')                                                                     
     def term(self, p):
         return f'{p.FLOAT}'
-    ################################
 
     @_('BOOL')                                                                    
     def term(self, p):

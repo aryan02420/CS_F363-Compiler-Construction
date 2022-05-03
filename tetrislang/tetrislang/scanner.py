@@ -103,11 +103,8 @@ class TetrisLexer(Lexer):
     IDENT['for'] = FOR
     IDENT['to'] = TO
     IDENT['end'] = END
-
-    ##############changed##########
     IDENT['continue'] = CONTINUE
     IDENT['break'] = BREAK
-    ###############################
 
     @_(r'[a-zA-Z][a-zA-Z0-9_]*')
     def IDENT(self, t):
