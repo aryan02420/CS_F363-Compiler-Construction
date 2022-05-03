@@ -1,5 +1,5 @@
 <p align="center">
-<img align="centre" width="250" height="200" src="https://user-images.githubusercontent.com/68325029/166507968-9db4e119-2624-489a-8bf9-79327a4e063a.png">
+<img align="centre" src="https://user-images.githubusercontent.com/68325029/166511635-ae09b469-2947-4181-9a73-9f2abc2efbe1.gif">
 </p>
 
 # CS_F363-Compiler-Construction Project | BlockBusters
