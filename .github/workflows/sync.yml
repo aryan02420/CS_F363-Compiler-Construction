@@ -14,8 +14,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote add gitlab https://automation:${gitlab_token}@gitlab.com/g4826/csf363-groups/group17-blockbusters/tetris.git
-          git checkout -b ci
-          git pull --rebase gitlab ci
+          git checkout --orphan ci
           git merge main
           git push gitlab ci
         env:

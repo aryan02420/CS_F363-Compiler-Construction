@@ -4,11 +4,101 @@ from .scanner import TetrisLexer
 
 
 class TetrisParser(Parser):
+    '''
+program                 ::=     functionDeclarations statements
+
+statements              ::=     semistatement EOL statements                                                              
+                        |       nosemistatement statements
+                        |       emptyStatement
+
+semistatement           ::=     emptyStatement                                                     
+                        |       variableDeclaration                                                        
+                        |       assignmentStatement  
+                        |       functionStatement
+                        |       breakStatement
+                        |       continueStatement
+
+nosemistatement         ::=     compoundStatement
+                        |       conditionalStatement
+                        |       loopStatement                                               
+
+emptyStatement          ::=     /*empty*/    
+
+variableDeclaration     ::=     VAR IDENT ASSIGN expression
+
+assignmentStatement     ::=     IDENT ASSIGN expression
+                        |       IDENT LSQBR expression RSQBR ASSIGN expression                                                
+
+functionStatement       ::=     IDENT LPAREN RPAREN                                                     
+                        |       IDENT LPAREN args RPAREN                                                                  
+
+compoundStatement       ::=     BEGIN statements END
+
+functionDeclarations    ::=     functionDeclaration functionDeclarations
+                        |       emptyStatement
+
+functionDeclaration     ::=     FUNCTION IDENT LPAREN RPAREN _indent compoundStatement _outdent
+                        |       FUNCTION IDENT LPAREN params RPAREN _indent compoundStatement _outdent
+
+condition               ::=     LPAREN expression RPAREN
+
+conditionalStatement    ::=     IF condition _indent compoundStatement _outdent
+                        |       IF condition _indent compoundStatement _outdent ELSE _indent compoundStatement _outdent
+
+loopStatement           ::=     WHILE condition _indent compoundStatement _outdent
+                        |       FOR LPAREN IDENT ASSIGN expression TO expression RPAREN _indent compoundStatement _outdent                                          
+
+params                  ::=     IDENT COMMA params                                                               
+                        |       IDENT
+
+args                    ::=     expression COMMA args
+                        |       expression
+
+expression              ::=     binop                                                                   
+
+binop                   ::=     unop                                                                   
+                        |       binop ADD unop                                                         
+                        |       binop SUB unop                                                         
+                        |       binop MUL unop                                                         
+                        |       binop DIV unop                                                         
+                        |       binop MOD unop                                                         
+                        |       binop LT unop                                                          
+                        |       binop LTEQ unop                                                        
+                        |       binop GT unop                                                          
+                        |       binop GTEQ unop                                                        
+                        |       binop EQ unop                                                          
+                        |       binop NEQ unop                                                         
+                        |       binop SAL unop                                                         
+                        |       binop SAR unop                                                         
+                        |       binop BITAND unop                                                       
+                        |       binop BITOR unop                                                       
+                        |       binop BITXOR unop                                                       
+                        |       binop AND unop                                                         
+                        |       binop OR unop      
+
+unop                    ::=     term
+                        |       ADD term
+                        |       SUB term
+                        |       BITNOT term
+                        |       NOT term
+
+list                    ::=     LSQBR args RSQBR
+
+term                    ::=     NUM
+                        |       FLOAT
+                        |       BOOL
+                        |       STRING
+                        |       IDENT
+                        |       list
+                        |       functionStatement
+                        |       LPAREN expression RPAREN
+                        |       IDENT LSQBR expression RSQBR
+    '''
     tokens = TetrisLexer.tokens
 
     start = 'program'
 
-    def __init__(self, tab_char, nesting_depth):
+    def __init__(self, tab_char='\t', nesting_depth=0):
         self.tab_char = tab_char
         self.nesting_depth = int(nesting_depth)
 
@@ -50,24 +140,13 @@ class TetrisParser(Parser):
     def semistatement(self, p):
         return f'{p.functionStatement}\n'
 
-    ################changed##############
     @_('breakStatement')                                                       
     def semistatement(self, p):
         return f'{p.breakStatement}\n'
 
-    @_('BREAK')                                                       
-    def breakStatement(self, p):
-        return f'{p.BREAK}\n'
-
-
     @_('continueStatement')                                                       
     def semistatement(self, p):
         return f'{p.continueStatement}\n'
-
-    @_('CONTINUE')                                                       
-    def continueStatement(self, p):
-        return f'{p.CONTINUE}\n'
-    #####################################
 
     # no semi statement 
 
@@ -166,6 +245,16 @@ class TetrisParser(Parser):
     @_('FOR LPAREN IDENT ASSIGN expression TO expression RPAREN indent compoundStatement outdent')                          
     def loopStatement(self, p):           
         return f'for {p.IDENT} in range({p.expression0}, {p.expression1}):\n{p.compoundStatement}'
+
+    # loop control
+
+    @_('BREAK')                                                       
+    def breakStatement(self, p):
+        return f'{p.BREAK}'
+
+    @_('CONTINUE')                                                       
+    def continueStatement(self, p):
+        return f'{p.CONTINUE}'
 
     # params and args
 
@@ -303,11 +392,9 @@ class TetrisParser(Parser):
     def term(self, p):
         return f'{p.NUM}'
 
-    ############changed#############
     @_('FLOAT')                                                                     
     def term(self, p):
         return f'{p.FLOAT}'
-    ################################
 
     @_('BOOL')                                                                    
     def term(self, p):
@@ -352,7 +439,7 @@ class TetrisParser(Parser):
     # error
 
     def error(self, p):
-        print(f"Syntax error at Line: {p.lineno}, token {p.type} '{p.value}'")
+        raise Exception(f"Syntax error at Line: {p.lineno} Index: {p.index}, token {p.type} '{p.value}'")
 
 
 if __name__ == '__main__':
