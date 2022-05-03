@@ -144,8 +144,9 @@ The above tree shows the overall structure of the tetrislang package.
 
 # Documentation:
 
-* [BlockBuster docs](https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/)
-* [tetris-lang Programmers Guide](https://polyester-ricotta-98f.notion.site/TL-Language-Syntax-32b56c9f900b4ba9a19d224f5b5bcec0)
+All documentation regarding the game programming language can be found [here](https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/). It primarily consists of two parts:
+* Syntax documentation of the tetris language: [tetris-lang Programmers Guide](https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/)
+* Documentation of the game engine functions: [BlockBuster docs](https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/engine.html)
 <!-- * [Latest Release Note](https://github.com/cocos2d/cocos2d-x/blob/v4/docs/RELEASE_NOTES.md)
 * [Changelog](https://github.com/cocos2d/cocos2d-x/blob/v4/CHANGELOG) -->
     
