@@ -42,7 +42,7 @@ class TetrisLexer(Lexer):
     # Define a rule so we can track line numbers
     @_(r'\n+')
     def ignore_newline(self, t):
-        self.lineno += len(t.value)
+        self.lineno += t.value.count('\n')
 
     # Compute column.
     #     input is the input text string
@@ -56,7 +56,7 @@ class TetrisLexer(Lexer):
 
     # Error handling rule
     def error(self, t):
-        print('Line %d, Col %d: Bad character %r' % (self.lineno, self.find_column(self.text, t), t.value[0]))
+        raise Exception(f'Line {self.lineno}, Col {self.find_column(self.text, t)}: Bad character {t.value[0]}')
         self.index += 1
 
     # Regular expression rules for tokens
