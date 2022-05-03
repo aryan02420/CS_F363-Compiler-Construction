@@ -132,7 +132,7 @@ class TetrisEngine(object):
     show_shadow = True
     hard_drop = True
  
-    game_heading = 'GAME HEADING'
+    game_heading = 'T E T R I S'
     quit_text = 'QUIT'
     resume_text = 'RESUME'
     restart_text = 'RESTART'
@@ -769,6 +769,7 @@ class TetrisEngine(object):
     def main_menu(self):
         """
         The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated. 
+
         """
         pygame.mixer.music.load(os.path.join(directory,'theme.wav'))
         pygame.mixer.music.set_volume(0.3)
@@ -855,10 +856,10 @@ class TetrisEngine(object):
     
         Args:
             temp_block (List): List of length 3 - Rotation configurations, color of block, identifier string
-                temp_block[0] (List): The different 2D rotation configurations of the block as string lists
-                    temp_block[0][i] (List): List containing strings of fixed length that give the ith 2D orientation of block
-                temp_block[1] (List): R G B values of block denoting its color
-                temp_block[2] (string): Identifier string of the block  
+            --temp_block[0] (List): The different 2D rotation configurations of the block as string lists
+            -----temp_block[0][i] (List): List containing strings of fixed length that give the ith 2D orientation of block
+            --temp_block[1] (List): R G B values of block denoting its color
+            --temp_block[2] (string): Identifier string of the block  
     
         """
         self.shapes.append(temp_block[0])
@@ -867,7 +868,7 @@ class TetrisEngine(object):
     
     def show_next_piece(self, val):
         """
-        Enable or disable showing next block to player.
+        Enable or disable showing next block to player
     
         Args:
             val (bool): True or False  
@@ -877,7 +878,7 @@ class TetrisEngine(object):
  
     def show_highscore(self, val):
         """
-        Enable or disable showing next highscore to player.
+        Enable or disable showing next highscore to player
     
         Args:
             val (bool): True or False  
@@ -887,7 +888,7 @@ class TetrisEngine(object):
     
     def increase_fall_speed(self, val):
         """
-        Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses.
+        Enable or disable increasing fall speed as game progresses or in other words increasing difficulty as game progresses
     
         Args:
             val (bool): True or False  
@@ -897,7 +898,7 @@ class TetrisEngine(object):
     
     def set_window_caption(self, val):
         """
-        Set the game caption shown in the game window.
+        Set the game caption shown in the game window
     
         Args:
             val (string): Game window caption  
@@ -907,7 +908,7 @@ class TetrisEngine(object):
  
     def set_level(self, val):
         """
-        Set the game level - from 3 difficulty levels.
+        Set the game level - from 3 difficulty levels
     
         Args:
             val (int): Difficulty level 1 or 2 or 3  
@@ -917,7 +918,7 @@ class TetrisEngine(object):
 
     def set_level_fallspeed(self, speed_list):
         """
-        Set the fall speeds for the 3 difficulty levels.
+        Set the fall speeds for the 3 difficulty levels
     
         Args:
             speed_list (list): speed of difficulty level 1,2 and 3  
@@ -927,7 +928,7 @@ class TetrisEngine(object):
     
     def enable_shadow(self, val):
         """
-        Enable ghost mode i.e. expected locked position of current piece is displayed.
+        Enable ghost mode i.e. expected locked position of current piece is displayed
     
         Args:
             val (int): Bool value True or False
@@ -937,7 +938,7 @@ class TetrisEngine(object):
 
     def enable_hard_drop(self, val):
         """
-        Enable hard drop i.e. on pressing the 'd' key, the block falls down.
+        Enable hard drop i.e. on pressing the 'd' key, the block falls down
     
         Args:
             val (int): Bool value True or False
@@ -947,7 +948,7 @@ class TetrisEngine(object):
 
     def design_button_text(self, game_heading, quit_text, resume_text, restart_text, gameover_text, level1_text, level2_text, level3_text, start_text):
         """
-        Customize the text displayed over buttons or over gameover and game heading text.
+        Customize the text displayed over buttons or over gameover and game heading text
     
         Args:
             game_heading (string): Game heading text
@@ -973,13 +974,13 @@ class TetrisEngine(object):
  
     def design_button_color(self, game_heading_color, gameover_color, general_button_color, click_color):
         """
-        Customize the text color over buttons, button clicks, gameover text and game heading text.
+        Customize the text color over buttons, button clicks, gameover text and game heading text
     
         Args:
-            game_heading_color (tuple (r,g,b)): R G B values denoting game heading color
-            gameover_color (tuple (r,g,b)): R G B values denoting gameover message color
-            general_button_color (tuple (r,g,b)): R G B values denoting button color prior to click
-            click_color (tuple (r,g,b)): R G B values denoting button color post clicking
+            game_heading_color (tuple): R G B values denoting game heading color
+            gameover_color (tuple): R G B values denoting gameover message color
+            general_button_color (tuple): R G B values denoting button color prior to click
+            click_color (tuple): R G B values denoting button color post clicking
     
         """
         self.game_heading_color = game_heading_color
@@ -989,11 +990,11 @@ class TetrisEngine(object):
  
     def design_play(self, playbndry_color, grid_color):
         """
-        Customize the play boundary color and play grid color.
+        Customize the play boundary color and play grid color
     
         Args:
-            playbndry_color (tuple (r,g,b)): R G B values denoting play boundary color
-            grid_color (tuple (r,g,b)): R G B values denoting play grid color
+            playbndry_color (tuple): R G B values denoting play boundary color
+            grid_color (tuple): R G B values denoting play grid color
     
         """
         self.playbndry_color = playbndry_color
@@ -1005,7 +1006,7 @@ class TetrisEngine(object):
     
         Args:
             block (string): String identifier of block
-            color (tuple (r,g,b)): R G B values of block denoting its color
+            color (tuple): R G B values of block denoting its color
     
         """
         self.shape_colors[self.Dict[block]] = color
