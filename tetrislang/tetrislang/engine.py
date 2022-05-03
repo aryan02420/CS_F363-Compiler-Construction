@@ -116,6 +116,7 @@ class TetrisEngine(object):
     filepath = os.path.join(directory, 'highscore.txt')
     fontpath = os.path.join(directory, 'arcade.ttf')
     fontpath_mario = os.path.join(directory, 'russian-tetris.ttf')
+    arrow = os.path.join(directory, 'arrows.ttf')
  
     viz_next_piece = True
     viz_high_score = True
@@ -364,7 +365,18 @@ class TetrisEngine(object):
     # DRAW THE WINDOW CONTENT
     def draw_window(self, surface, grid, score=0):
         surface.fill((0, 0, 0))  # fill the surface with black
- 
+
+        font = pygame.font.Font(self.fontpath, 30)
+        font2 = pygame.font.Font(self.arrow, 20)
+        label1 = font.render("CONTROLS", 1, (255,255,255))
+        label3 = font.render("RIGHT   LEFT   ROTATE   DOWN   HARD DROP", 1, (255,255,255))
+        label2 = font2.render("e       a       c       g               ", 1, (255,255,255))
+        label4 = font.render("d",1,(255,255,255))
+        surface.blit(label1, ((self.s_width - label1.get_width())//2, 10))
+        surface.blit(label2, ((self.s_width - label2.get_width())//2, 90))
+        surface.blit(label3, ((self.s_width - label3.get_width())//2, 50))
+        surface.blit(label4, (580, 90))
+
         # current score
         font = pygame.font.Font(self.fontpath, 30)
         label = font.render('SCORE   ' + str(score) , 1, self.general_button_color)
