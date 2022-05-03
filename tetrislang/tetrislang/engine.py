@@ -10,7 +10,7 @@ directory = os.path.join(os.path.dirname(__file__), 'assets')
 # print(directory)
 pygame.init()
 pygame.font.init()
-# pygame.mixer.init(44100, -16,2,2048)
+
 crash_sound = pygame.mixer.Sound(os.path.join(directory, 'gameover.wav'))
 clear_sound = pygame.mixer.Sound(os.path.join(directory, 'clear.wav'))
 key_press = pygame.mixer.Sound(os.path.join(directory, 'key_press.wav'))
@@ -482,7 +482,6 @@ class TetrisEngine(object):
         # move down one step
         if increment > 0:
             pygame.mixer.Sound.play(clear_sound)
-            # pygame.mixer.music.stop()
             # sort the locked list according to y value in (x,y) and then reverse
             # reversed because otherwise the ones on the top will overwrite the lower ones
             for key in sorted(list(self.locked_positions), key=lambda a: a[1])[::-1]:
@@ -631,7 +630,6 @@ class TetrisEngine(object):
                 
                 elif event.key == pygame.K_ESCAPE:
                     pygame.mixer.Sound.play(key_press)
-                    # pygame.mixer.music.stop()
                     return True
                 
                 elif self.hard_drop and event.key == pygame.K_d:
@@ -684,7 +682,6 @@ class TetrisEngine(object):
             NULL: No return occurs when player chooses to quit game
     
         """
-        # .music.pause()
         self.window.fill((0,0,0))
         xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
         xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
@@ -703,8 +700,7 @@ class TetrisEngine(object):
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.mixer.Sound.play(key_press)
-                    # pygame.mixer.music.stop()
-                    # pygame.mixer.music.unpause()
+                    
                     if xresu < mouse[0] < self.s_width - xresu and 20 < mouse[1] < 70:
                         self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
                         pygame.display.update()
@@ -744,6 +740,7 @@ class TetrisEngine(object):
  
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.Sound.play(key_press)
                     
                     if xquit < mouse[0] < self.s_width - xquit and 160 < mouse[1] < 210:
                         self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
@@ -774,6 +771,7 @@ class TetrisEngine(object):
         pygame.display.update()
         
         run = True
+        level = -1
         while run:
             for event in pygame.event.get():
                 
@@ -785,7 +783,7 @@ class TetrisEngine(object):
                 mouse = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.mixer.Sound.play(key_press)
-                    # pygame.mixer.music.stop()
+                    
                     if l1 < mouse[0] < self.s_width - l1 and 100 < mouse[1] < 150:
                         self.draw_text_middle(self.level1_text, self.window, self.click_color, 100)
                         self.draw_text_middle(self.level2_text, self.window, self.general_button_color, 170)
@@ -804,10 +802,10 @@ class TetrisEngine(object):
                         self.draw_text_middle(self.level3_text, self.window, self.click_color, 240)
                         pygame.display.update()
                         level = 2
-                    elif start < mouse[0] < self.s_width - start and 310 < mouse[1] < 360:
+                    elif start < mouse[0] < self.s_width - start and 310 < mouse[1] < 360 and level != -1:
                         self.draw_text_middle(self.start_text, self.window, self.click_color, 310)
                         pygame.display.update()
-                        # level = 1
+                        
                         run = False
                         return level
                     elif xquit < mouse[0] < self.s_width - xquit and 380 < mouse[1] < 430:
@@ -1066,7 +1064,6 @@ if __name__ == '__main__':
  
             if root.check_lost():
                 pygame.mixer.Sound.play(crash_sound)
-                # pygame.mixer.music.stop()
                 run = False
  
         if restart:
