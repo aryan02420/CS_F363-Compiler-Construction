@@ -13,53 +13,72 @@ So what are you waiting for, quickly get started on your tetris game development
 
 ## Build Requirements:
 
-* Mac OS X 10.7+, Xcode 8+
-* or Ubuntu 14.04+, CMake 3.1+
-* or Windows 7+, VS 2015
-* Python 2.7.5+(NOT Python 3)
-* NDK r16+ is required to build Android games
-* Android Studio 3.0.0+ to build Android games(tested with 3.0.0)
-* JRE or JDK 1.6+ is required for web publishing
+* 
 
 ## Runtime Requirements:
 
-* iOS 8.0+ for iPhone / iPad games
-* Android 3.0.0+ for Android
-* OS X v10.9+ for Mac games
-* Windows 7+ for Win games
+* 
 
 ## Using host OS environment:
 1. Check to see if your Python installation has pip. Enter the following in your terminal:
 
-        ```
-        $ pip -h
-        ```
-If you see the help text for pip then you have pip installed, otherwise [download and install pip](https://pip.pypa.io/en/latest/installing.html)
+        pip -h
+        
+     If you see the help text for pip then you have pip installed, otherwise [download and install pip](https://pip.pypa.io/en/latest/installing.html)
 
-2. Clone the repo from GitHub and install the tetrislang package.
-```
-$ git clone https://github.com/aryan02420/CS_F363-Compiler-Construction.git
-$ cd CS_F363-Compiler-Construction/tetrislang/
-$ pip3 install -e .
-```
+2. Clone the repo from GitHub and install the tetrislang package
+
+      Mac OS / Linux
+        
+        git clone https://github.com/aryan02420/CS_F363-Compiler-Construction.git
+        cd CS_F363-Compiler-Construction/tetrislang/
+        pip install -e .
+        
+     Windows
+     
+        git clone https://github.com/aryan02420/CS_F363-Compiler-Construction.git
+        cd CS_F363-Compiler-Construction\tetrislang\
+        pip install -e .
+
 
 ## Using a virtual environment:
-1. Setup the pip package manager
-Check to see if your Python installation has pip. Enter the following in your terminal:
-```
-$ pip -h
-```
-If you see the help text for pip then you have pip installed, otherwise [download and install pip](https://pip.pypa.io/en/latest/installing.html)
+1. Check to see if your Python installation has pip. Enter the following in your terminal:
 
-2. Clone the repo from GitHub and install the tetrislang package.
-```
-$ git clone https://github.com/aryan02420/CS_F363-Compiler-Construction.git
-$ cd CS_F363-Compiler-Construction/tetrislang/
-$ pip install -e .
-```
+        pip -h
+        
+     If you see the help text for pip then you have pip installed, otherwise [download and install pip](https://pip.pypa.io/en/latest/installing.html)
 
+2. Install the virtualenv package
 
-<insert options one can use, normal tetrislang package and also venv>
+        pip install virtualenv
+        
+3. Create the virtual environment
+
+        virtualenv tetrisenv
+        
+4. Activate the virtual environment
+
+      Mac OS / Linux
+        
+        source tetrisenv/bin/activate
+        
+     Windows
+     
+        tetrisenv\Scripts\activate
+
+5. Clone the repo from GitHub and install the tetrislang package
+
+      Mac OS / Linux
+        
+        git clone https://github.com/aryan02420/CS_F363-Compiler-Construction.git
+        cd CS_F363-Compiler-Construction/tetrislang/
+        pip install -e .
+        
+     Windows
+     
+        git clone https://github.com/aryan02420/CS_F363-Compiler-Construction.git
+        cd CS_F363-Compiler-Construction\tetrislang\
+        pip install -e .
 
 ## Writing in tl and execution:
 <insert instructions on how to run the code and get output>
@@ -67,11 +86,10 @@ $ pip install -e .
 ## Demo:
 <insert screenrecording and examples of running>
 
-## Documentation:
-The official documentation is hosted [here](https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/). It is maintained by the Godot community in its own GitHub repository.
+<!-- ## Documentation:
+The official documentation is hosted [here](https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/).
 
 * [All Docs in a single place!](http://docs.cocos2d-x.org/)
-* [Online API Reference](http://docs.cocos2d-x.org/api-ref/index.html) _Note that Cocos2d-x and Cocos Creator have different API set_
 * [Programmers Guide](https://docs.cocos2d-x.org/cocos2d-x/v4/en/basic_concepts/)
 * [Latest Release Note](https://github.com/cocos2d/cocos2d-x/blob/v4/docs/RELEASE_NOTES.md)
 * [Changelog](https://github.com/cocos2d/cocos2d-x/blob/v4/CHANGELOG)
@@ -206,7 +224,7 @@ Contact us
 
    * Forum: [http://discuss.cocos2d-x.org][9]
    * Twitter: [http://www.twitter.com/cocos2dx][10]
-   * Weibo: [http://t.sina.com.cn/cocos2dx][11]
+   * Weibo: [http://t.sina.com.cn/cocos2dx][11] -->
 
 
 
