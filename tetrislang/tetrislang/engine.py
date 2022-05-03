@@ -14,10 +14,8 @@ pygame.font.init()
 crash_sound = pygame.mixer.Sound(os.path.join(directory, 'gameover.wav'))
 clear_sound = pygame.mixer.Sound(os.path.join(directory, 'clear.wav'))
 key_press = pygame.mixer.Sound(os.path.join(directory, 'key_press.wav'))
+image = pygame.image.load(os.path.join(directory, 'Blockbusters.png'))
  
-pygame.mixer.music.load(os.path.join(directory,'theme.wav'))
-pygame.mixer.music.set_volume(0.3)
-pygame.mixer.music.play(-1)
 
 __pdoc__ = {}
 __pdoc__['Piece'] = False
@@ -117,7 +115,7 @@ class TetrisEngine(object):
  
     filepath = os.path.join(directory, 'highscore.txt')
     fontpath = os.path.join(directory, 'arcade.ttf')
-    fontpath_mario = os.path.join(directory, 'mario.ttf')
+    fontpath_mario = os.path.join(directory, 'russian-tetris.ttf')
  
     viz_next_piece = True
     viz_high_score = True
@@ -133,7 +131,7 @@ class TetrisEngine(object):
     show_shadow = True
     hard_drop = True
  
-    game_heading = 'BLOCKBUSTERS'
+    game_heading = 'GAME HEADING'
     quit_text = 'QUIT'
     resume_text = 'RESUME'
     restart_text = 'RESTART'
@@ -143,8 +141,8 @@ class TetrisEngine(object):
     level2_text = 'LEVEL 2'
     level3_text = 'LEVEL 3'
     start_text = 'START'
-    game_heading_color = (255,0,255)
-    gameover_color = (0,255,255)
+    game_heading_color = (230,230,0)
+    gameover_color = (255, 200, 230)
     general_button_color = (255,255,255)
     click_color = (255,255,0)
  
@@ -427,13 +425,13 @@ class TetrisEngine(object):
         Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
     
         Returns:
-            bool: True if game is lost
-                False if game is not yet lost
+            val (bool): True if game is lost, False if game is not yet lost
     
         """
         for pos in self.locked_positions:
             x, y = pos
             if y < 1:
+                pygame.mixer.music.unload()
                 pygame.mixer.Sound.play(crash_sound)
                 return True
         return False
@@ -458,7 +456,7 @@ class TetrisEngine(object):
  
     def clear_rows(self):
         """
-        Clear rows if required. Also update score and locked positions based on that.
+        Clear rows if required. Also update score and locked positions based on that
     
         """
         
@@ -523,14 +521,14 @@ class TetrisEngine(object):
    
     def update_locked_grid(self):
         """
-        Update the grid based on locked positions for display.
+        Update the grid based on locked positions for display
     
         """
         self.grid = self.create_grid()
  
     def draw_current_grid(self):
         """
-        Draw the grid at the current moment in time.
+        Draw the grid at the current moment in time
     
         """
         self.piece_pos = self.convert_shape_format(self.current_piece)
@@ -540,7 +538,7 @@ class TetrisEngine(object):
         self.ghost_piece.shape = self.current_piece.shape
         self.ghost_piece.rotation = self.current_piece.rotation    
        
-        self.ghost_piece.color = (105,105,105)
+        self.ghost_piece.color = (40,40,40)
 
         self.get_ghost_position()
         self.ghost_pos = self.convert_shape_format(self.ghost_piece)
@@ -578,7 +576,7 @@ class TetrisEngine(object):
  
     def shift_piece(self):
         """
-        Shift the piece down by gravity effect (no player input) if it has space.
+        Shift the piece down by gravity effect (no player input) if it has space
     
         """
         if self.fall_time / 1000 > self.fall_speed:
@@ -638,10 +636,10 @@ class TetrisEngine(object):
     
     def current_piece_locked(self):
         """
-        Return if it is time to change piece or not - based on if gravity effect has stopped working or not.
+        Return if it is time to change piece or not - based on if gravity effect has stopped working or not
     
         Returns:
-            bool: True or False
+            val (bool): True or False
     
         """
         return self.change_piece
@@ -677,15 +675,15 @@ class TetrisEngine(object):
         Pause the game play and display necessary options
     
         Returns:
-            bool: False return corresponds to player choosing to resume game
-                True return corresponds to player choosing to restart game
-            NULL: No return occurs when player chooses to quit game
+            val (bool): False return corresponds to player choosing to resume game, True return corresponds to player choosing to restart game
+            val (NULL): No return occurs when player chooses to quit game
     
         """
         self.window.fill((0,0,0))
-        xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 20)
-        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
-        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+        self.window.blit(image, (150, 600))
+        xresu = self.draw_text_middle(self.resume_text, self.window, self.general_button_color, 230)
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 300)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 370)
         pygame.display.update()
  
         run = True
@@ -701,17 +699,17 @@ class TetrisEngine(object):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.mixer.Sound.play(key_press)
                     
-                    if xresu < mouse[0] < self.s_width - xresu and 20 < mouse[1] < 70:
-                        self.draw_text_middle(self.resume_text, self.window, self.click_color, 20)
+                    if xresu < mouse[0] < self.s_width - xresu and 230 < mouse[1] < 280:
+                        self.draw_text_middle(self.resume_text, self.window, self.click_color, 230)
                         pygame.display.update()
                         return False
-                    elif xquit < mouse[0] < self.s_width - xquit and 160 < mouse[1] < 210:
-                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                    elif xquit < mouse[0] < self.s_width - xquit and 370 < mouse[1] < 420:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 370)
                         pygame.display.update()
                         pygame.quit()
                         sys.exit()
-                    elif xres < mouse[0] < self.s_width - xres and 90 < mouse[1] < 140:
-                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                    elif xres < mouse[0] < self.s_width - xres and 300 < mouse[1] < 350:
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 300)
                         pygame.display.update()
                         return True
  
@@ -720,14 +718,17 @@ class TetrisEngine(object):
         Display the game over screen with gameover message and buttons to restart game or quit game.
     
         Returns:
-            bool: True if player decides to restart game
-            NULL: Nothing if player decides to quit game
+            val (bool): True if player decides to restart game
+            val (NULL): Nothing if player decides to quit game
     
         """
         self.window.fill((0,0,0))
-        self.draw_text_middle(self.gameover_text, self.window, self.gameover_color, 20)
-        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 90)
-        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 160)
+        self.window.blit(image, (150, 600))
+        font = pygame.font.Font(self.fontpath_mario, 70, bold=True)
+        label = font.render(self.gameover_text, 1, self.gameover_color)
+        self.window.blit(label, ((self.s_width - label.get_width())//2, 200))
+        xres = self.draw_text_middle(self.restart_text, self.window, self.general_button_color, 300)
+        xquit = self.draw_text_middle(self.quit_text, self.window, self.general_button_color, 370)
         pygame.display.update()
  
         rrun = True
@@ -742,13 +743,13 @@ class TetrisEngine(object):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.mixer.Sound.play(key_press)
                     
-                    if xquit < mouse[0] < self.s_width - xquit and 160 < mouse[1] < 210:
-                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 160)
+                    if xquit < mouse[0] < self.s_width - xquit and 370 < mouse[1] < 420:
+                        self.draw_text_middle(self.quit_text, self.window, self.click_color, 370)
                         pygame.display.update()
                         pygame.quit()
                         sys.exit()
-                    elif xres < mouse[0] < self.s_width - xres and 90 < mouse[1] < 140:
-                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 90)
+                    elif xres < mouse[0] < self.s_width - xres and 300 < mouse[1] < 350:
+                        self.draw_text_middle(self.restart_text, self.window, self.click_color, 300)
                         pygame.display.update()
                         return True
  
@@ -757,9 +758,14 @@ class TetrisEngine(object):
         """
         The main menu screen. It displays the game heading, levels button, start button and quit button. Based on the button clicked, the game settings get updated. 
         """
+        pygame.mixer.music.load(os.path.join(directory,'theme.wav'))
+        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play(-1)
+
         self.window.fill((0,0,0))
+        self.window.blit(image, (150, 600))
         
-        font = pygame.font.Font(self.fontpath_mario, 50, bold=True)
+        font = pygame.font.Font(self.fontpath_mario, 70, bold=True)
         label = font.render(self.game_heading, 1, self.game_heading_color)  # initialise 'Tetris' text with white
  
         self.window.blit(label, ((self.s_width - label.get_width())//2, 20))
@@ -836,10 +842,10 @@ class TetrisEngine(object):
         Creates a custom block(tetriminoe) for the programmer.
     
         Args:
-            temp_block (List []): List of length 3 - Rotation configurations, color of block, identifier string
-                temp_block[0] (List []): The different 2D rotation configurations of the block as string lists
-                    temp_block[0][i] (List []): List containing strings of fixed length that give the ith 2D orientation of block
-                temp_block[1] (list [r,g,b]): R G B values of block denoting its color
+            temp_block (List): List of length 3 - Rotation configurations, color of block, identifier string
+                temp_block[0] (List): The different 2D rotation configurations of the block as string lists
+                    temp_block[0][i] (List): List containing strings of fixed length that give the ith 2D orientation of block
+                temp_block[1] (List): R G B values of block denoting its color
                 temp_block[2] (string): Identifier string of the block  
     
         """
@@ -995,41 +1001,36 @@ class TetrisEngine(object):
                     
  
 if __name__ == '__main__':
- 
-    pygame.mixer.music.load(os.path.join(directory, 'theme.wav'))
-    pygame.mixer.music.set_volume(0.3)
-    pygame.mixer.music.play(-1)
     
     root = TetrisEngine()
     
     root.initialize_window(18, 10)
-    i = [['.....',
-        '.....',
-        '..0..',
-        '..0..',
-        '.....'],
-        ['.....',
-        '..00.',
-        '.....',
-        '.....',
-        '.....']]
-    x = [['.....',
-        '..0..',
-        '.000.',
-        '..0..',
-        '.....']]
-    temp_block = [i,[128,165,0],'i']
+    # i = [['.....',
+    #     '.....',
+    #     '..0..',
+    #     '..0..',
+    #     '.....'],
+    #     ['.....',
+    #     '..00.',
+    #     '.....',
+    #     '.....',
+    #     '.....']]
+    # x = [['.....',
+    #     '..0..',
+    #     '.000.',
+    #     '..0..',
+    #     '.....']]
+    # temp_block = [i,[128,165,0],'i']
+    # temp_block2 = [x,[255,255,0],'x']
 
-    root.create_block(temp_block)
-    root.design_block_color('i', (255,255,255))
-    root.show_next_piece(True)
-    root.show_highscore(True)
-    root.increase_fall_speed(True)
-    root.set_window_caption('Tetris by blockbusters')
-    root.set_level(1)
-    #root.design_button_text(arguments)
-    #root.design_button_color(arguments)
-    #root.design_play(arguments)
+    # root.create_block(temp_block)
+    # root.create_block(temp_block2)
+    # root.design_block_color('i', (255,255,255))
+    # root.show_next_piece(True)
+    # root.show_highscore(True)
+    # root.increase_fall_speed(True)
+    # root.set_window_caption('Tetris by blockbusters')
+    # root.set_level(1)
  
     play_again = True
     
@@ -1063,7 +1064,6 @@ if __name__ == '__main__':
             root.update_window(score)
  
             if root.check_lost():
-                pygame.mixer.Sound.play(crash_sound)
                 run = False
  
         if restart:
