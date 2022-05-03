@@ -436,43 +436,10 @@ term                    ::=     NUM
     def outdent(self, p):
         self.nesting_depth -= 1
 
-    @_('')
-    def errorToken(self, p):
-        pass
-
     # error
 
     def error(self, p):
         raise Exception(f"Syntax error at Line: {p.lineno} Index: {p.index}, token {p.type} '{p.value}'")
-
-    @_('IF errorToken expression')
-    def conditionalStatement(self, p):
-        raise Exception(f"Syntax Error at Line: {p.lineno}. expected '(' before '{p.expression}'")
-
-    @_('WHILE errorToken expression')
-    def loopStatement(self, p):
-        raise Exception(f"Syntax Error at Line: {p.lineno}. expected '(' before '{p.expression}'")
-
-    @_('FOR errorToken IDENT')
-    def loopStatement(self, p):
-        raise Exception(f"Syntax Error at Line: {p.lineno}. expected '(' before '{p.expression}'")
-    
-    @_('semistatement errorToken statements')
-    def statements(self, p):
-        raise Exception(f"Syntax Error in Line. expected ';' after '{p.semistatement.strip()}'")
-
-    @_('VAR IDENT errorToken expression')
-    def variableDeclaration(self, p):
-        raise Exception(f"Syntax Error at Line: {p.lineno}. expected ':=' before '{p.expression}'")
-
-    @_('IDENT errorToken expression')
-    def assignmentStatement(self, p):
-        raise Exception(f"Syntax Error at Line: {p.lineno}. expected ':=' before '{p.expression}'")
-
-    @_('IDENT LSQBR expression RSQBR errorToken expression')   
-    def assignmentStatement(self, p):
-        raise Exception(f"Syntax Error at Line: {p.lineno}. expected ':=' before '{p.expression}'")
-
 
 
 if __name__ == '__main__':
