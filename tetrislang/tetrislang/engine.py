@@ -437,7 +437,7 @@ class TetrisEngine(object):
         Check if game is lost or not based on the losing condition, default losing condition is that the piece is out of grid bounds
     
         Returns:
-            val (bool): True if game is lost, False if game is not yet lost
+            bool : True if game is lost, False if game is not yet lost
     
         """
         for pos in self.locked_positions:
@@ -651,7 +651,7 @@ class TetrisEngine(object):
         Return if it is time to change piece or not - based on if gravity effect has stopped working or not
     
         Returns:
-            val (bool): True or False
+            bool: True or False
     
         """
         return self.change_piece
@@ -687,8 +687,7 @@ class TetrisEngine(object):
         Pause the game play and display necessary options
     
         Returns:
-            val (bool): False return corresponds to player choosing to resume game, True return corresponds to player choosing to restart game
-            val (NULL): No return occurs when player chooses to quit game
+            bool: False return corresponds to player choosing to resume game, True return corresponds to player choosing to restart game. No return occurs when player chooses to quit game
     
         """
         self.window.fill((0,0,0))
@@ -730,8 +729,7 @@ class TetrisEngine(object):
         Display the game over screen with gameover message and buttons to restart game or quit game.
     
         Returns:
-            val (bool): True if player decides to restart game
-            val (NULL): Nothing if player decides to quit game
+            bool: True if player decides to restart game. Nothing if player decides to quit game
     
         """
         self.window.fill((0,0,0))
@@ -856,10 +854,10 @@ class TetrisEngine(object):
     
         Args:
             temp_block (List): List of length 3 - Rotation configurations, color of block, identifier string
-            --temp_block[0] (List): The different 2D rotation configurations of the block as string lists
-            -----temp_block[0][i] (List): List containing strings of fixed length that give the ith 2D orientation of block
-            --temp_block[1] (List): R G B values of block denoting its color
-            --temp_block[2] (string): Identifier string of the block  
+            temp_block[0] (List): The different 2D rotation configurations of the block as string lists
+            temp_block[0][i] (List): List containing strings of fixed length that give the ith 2D orientation of block
+            temp_block[1] (List): R G B values of block denoting its color
+            temp_block[2] (string): Identifier string of the block  
     
         """
         self.shapes.append(temp_block[0])
