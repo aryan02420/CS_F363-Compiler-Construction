@@ -212,13 +212,13 @@ Fortunately for you, there is a lot to do and we are very grateful for help.
 Then openage might be a good reason to become one! We have many issues and tasks for beginners. You
 just have to ask and we'll find something. Alternatively, lurking is also allowed. -->
        
-# Spreading the word!
+<!-- # Spreading the word!
 
 You can help us spread the word about BlockBuster! We would surely appreciate it!
 
 * Talk about us on Facebook! Our [Facebook Page]()
 * Tweet, Tweet! Our [Twitter]()
-* Read our [Blog]() and promote it on your social media.
+* Read our [Blog]() and promote it on your social media. -->
     
     
 # Contact us
