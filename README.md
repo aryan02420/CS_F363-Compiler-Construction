@@ -12,6 +12,8 @@ Games can be exported with simple steps to a number of major desktop platforms (
 So what are you waiting for, quickly get started on your tetris game development journey and we hope you have an immersive and fun experience using BlockBuster!!
 
 # Directory Structure
+
+The final package ready to be deployed is the [**tetrislang**](tetrislang) directory and contains all the required implementations of the compiler and also the engine files.
 ```
 tetrislang/
 ├── docs
@@ -38,13 +40,15 @@ tetrislang/
 7 directories, 32 files
 ```
 The above tree shows the overall structure of the tetrislang package.
-1. scanner.py contains the scanner code. It is present in "tetrislang/" inside the package. Here is the link to the file.
-2. grammar.txt contains the BNF grammar that was used to create the parser. Here is a link to the file.
-3. parser.py contains the parser code. It is present in "tetrislang/" inside the package. Here is the link to the file.
-4. compiler.py contains the final code that combines the scanner and parser. It is present in "tetrislang/" inside the package. Here is the link to the file.
-5. engine.py contains the python framework for the Tetris game. It is present in "tetrislang/" inside the package. Here is the link to the file.
-6. tetris.tl is a sample code written in "tetris-lang". It is present in "sample/" inside the package. Here is the link to the file.
-7. game.py is the executable output that is generated after compiling tetris.tl. It is present in "sample/" inside the package. Here is the link to the file.
+1. [**scanner.py**](tetrislang/tetrislang/scanner.py) contains the scanner code. It is present in "tetrislang/" inside the package.
+2. [**grammar.txt**]() contains the BNF grammar that was used to create the parser. Here is a link to the file.
+3. [**parser.py**](tetrislang/tetrislang/parser.py) contains the parser code. It is present in "tetrislang/" inside the package.
+4. [**compiler.py**](tetrislang/tetrislang/compiler.py) contains the final code that combines the scanner and parser. It is present in "tetrislang/" inside the package.
+5. [**engine.py**](tetrislang/tetrislang/engine.py) contains the python framework for the Tetris game. It is present in "tetrislang/" inside the package.
+6. [**tetris.tl**](tetrislang/sample/tetris.tl) is a sample code written in "tetris-lang". It is present in "sample/" inside the package.
+7. [**game.py**](tetrislang/sample/game.py) is the executable output that is generated after compiling tetris.tl. It is present in "sample/" inside the package.
+
+Note: The [**Assignment**](Assignment) directory served as a playground for the team to try and test out different ideas and features for the project. The final package ready for use is the [**tetrislang**](tetrislang) directory.
 
 # Installation and Environment Setup
 
