@@ -4,6 +4,96 @@ from .scanner import TetrisLexer
 
 
 class TetrisParser(Parser):
+    '''
+program                 ::=   statements EOL                                                          { return f'{p.statements}\n'}
+
+statements              ::=   statement                                                               { return f'{p.statement}'}
+                        |     statement moreStatements                                                { return f'{p.statement}{p.moreStatements}'}
+
+moreStatements          ::=   EOL statement                                                           { return f'\n{p.statement}' }
+                        |     EOL moreStatements                                                      { return f'\n{p.moreStatements}' }
+
+statement               ::=   assignmentStatement                                                     { return f'{p.assignmentStatement}' }
+                        |     variableDeclaration                                                     { return f'{p.variableDeclaration}' }
+                        |     functionStatement                                                       { return f'{p.functionStatement}' }
+                        |     functionDeclaration                                                     { return f'{p.functionDeclaration}' }
+                        |     compoundStatement                                                       { return f'{p.compoundStatement}' }
+                        |     conditionalStatement                                                    { return f'{p.conditionalStatement}' }
+                        |     loopStatement                                                           { return f'{p.loopStatement}' }
+                        |     emptyStatement                                                          { return f'{p.emptyStatement}' }
+
+assignmentStatement     ::=   IDENT ASSIGN expression                                                 { return f'{p.IDENT} = {p.expression}' }
+
+functionStatement       ::=   IDENT LPAREN RPAREN                                                     { return f'{p.IDENT}()' }
+                        |     IDENT LPAREN actparams RPAREN                                           { return f'{p.IDENT'({p.actparams}) }
+
+actparams               ::=   expression                                                              { return f''{p.expression} }
+                        |     expression moreparams                                                   { return f''{p.expression}{p.moreparams} }
+
+moreparams              ::=   COMMA actparams                                                         { return f'', {p.actparams} }
+
+compoundStatement       ::=   BEGIN statements END                                                    { return f''\n{p.statements}\n }
+
+conditionalStatement    ::=   IF expression THEN statements                                           { return f'if {p.expression}:\n{p.statements}' }
+                        |     IF expression THEN statements ELSE statements                           { return f'if {p.expression}:\n{p.statements0}\nelse:\n{p.statements1}' }
+
+loopStatement           ::=   WHILE expression DO statement                                           { return f'while {p.expression}:\n\t{p.statement}' }
+                        |     DO statement WHILE expression                                           { return f'{p.statement}\nwhile {p.expression}:\n\t{p.statement}' }
+                        |     FOR IDENT ASSIGN NUM TO NUM DO statement                                { return f'for {p.IDENT} in range(p.NUM, p.NUM):\n\t{p.statement}'}
+
+emptyStatement          ::=   /*empty*/                                                               { return f'' }
+
+variableDeclaration     ::=   VAR IDENT ASSIGN expression                                             { return f'{p.IDENT} = {p.expression}' }
+
+functionDeclaration     ::=   FUNCTION IDENT LPAREN RPAREN compoundStatement                          { return f'{p.IDENT}(){p.compoundStatement}' }
+                        |     FUNCTION IDENT LPAREN fargs RPAREN compoundStatement                    { return f'{p.IDENT}({p.fargs}){p.compoundStatement}' }
+
+fargs                   ::=   IDENT                                                                   { return f'{p.IDENT}'}
+                        |     IDENT morefargs                                                         { return f'{p.IDENT}, {p.morefargs}' }
+
+morefargs               ::=   COMMA fargs                                                             { return f', {p.fargs}' }
+
+largs                   ::=   expression                                                              { return f'{p.expression}'}
+                        |     expression morelargs                                                    { return f'{p.expression}, {p.morelargs}' }
+
+morelargs               ::=   COMMA largs                                                             { return f', {p.largs}' }
+
+expression              ::=   IDENT                                                                   { return f'{p.IDENT}' }
+                        |     binop                                                                   { return f'{p.binop}' }
+                        |     unop                                                                    { return f'{p.unop}' }
+
+binop                   ::=   unop                                                                    { return f'{p.unop}' }
+                        |     binop ADD unop                                                          { return f'{p.binop} + {p.unop}' }
+                        |     binop SUB unop                                                          { return f'{p.binop} - {p.unop}' }
+                        |     binop MUL unop                                                          { return f'{p.binop} * {p.unop}' }
+                        |     binop DIV unop                                                          { return f'{p.binop} / {p.unop}' }
+                        |     binop MOD unop                                                          { return f'{p.binop} % {p.unop}' }
+                        |     binop LT unop                                                           { return f'{p.binop} < {p.unop}' }
+                        |     binop LTEQ unop                                                         { return f'{p.binop} <= {p.unop}' }
+                        |     binop GT unop                                                           { return f'{p.binop} > {p.unop}' }
+                        |     binop GTEQ unop                                                         { return f'{p.binop} >= {p.unop}' }
+                        |     binop EQ unop                                                           { return f'{p.binop} == {p.unop}' }
+                        |     binop NEQ unop                                                          { return f'{p.binop} != {p.unop}' }
+                        |     binop SAL unop                                                          { return f'{p.binop} << {p.unop}' }
+                        |     binop SAR unop                                                          { return f'{p.binop} >> {p.unop}' }
+                        |     binop BITAND unop                                                       { return f'{p.binop} & {p.unop}' }
+                        |     binop BITOR unop                                                        { return f'{p.binop} | {p.unop}' }
+                        |     binop BITXOR unop                                                       { return f'{p.binop} ^ {p.unop}' }
+                        |     binop AND unop                                                          { return f'{p.binop} and {p.unop}' }
+                        |     binop OR unop                                                           { return f'{p.binop} or {p.unop}' }
+
+unop                    ::=   term                                                                    { return f'{p.term}' }
+                        |     ADD term                                                                { return f'+{p.term}' }
+                        |     SUB term                                                                { return f'-{p.term}' }
+                        |     BITNOT term                                                             { return f'~{p.term}' }
+                        |     NOT term                                                                { return f'not {p.term}' }
+
+term                    ::=   NUM                                                                     { return f'{p.NUM}' }
+                        |     BOOL                                                                    { return f'{p.BOOL}' }
+                        |     STRING                                                                  { return f'{p.STRING}' }
+                        |     LSQBR largs RSQBR                                                       { return f'[{p.largs}]' }
+                        |     LPAREN expression RPAREN                                                { return f'({p.expression})' }
+    '''
     tokens = TetrisLexer.tokens
 
     start = 'program'
