@@ -13,7 +13,7 @@ def TetrisCompiler(code, debug=False):
     code = re.sub(r'^(#![^\r\n]+)', r'// \1', code)
 
     header = \
-'''#!/usr/bin/env python
+'''#!/usr/bin/env python3
 
 import sys
 from tetrislang import TetrisEngine
