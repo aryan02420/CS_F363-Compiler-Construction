@@ -1,74 +1,780 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.10.0" />
-<title>tetrislang API documentation</title>
-<meta name="description" content="" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
-</head>
-<body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Package <code>tetrislang</code></h1>
-</header>
-<section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">from .scanner import TetrisLexer
-from .parser import TetrisParser
-from .compiler import TetrisCompiler
-from .engine import TetrisEngine
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>TL Language Syntax</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
 
-__pdoc__ = {}
-__pdoc__[&#39;compiler&#39;] = False
-__pdoc__[&#39;parser&#39;] = False
-__pdoc__[&#39;scanner&#39;] = False</code></pre>
-</details>
-</section>
-<section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
-<dl>
-<dt><code class="name"><a title="tetrislang.engine" href="engine.html">tetrislang.engine</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-</section>
-</article>
-<nav id="sidebar">
-<h1>Index</h1>
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="tetrislang.engine" href="engine.html">tetrislang.engine</a></code></li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
-</footer>
-</body>
-</html>
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="00018127-ac28-4bd7-9061-e023a1a3a0eb" class="page mono"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1569003819399-45a0be6c153b?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">📙</span></div><h1 class="page-title">TL Language Syntax</h1></header><div class="page-body"><p id="3c45ef13-0504-4665-b4e7-0cd7060e00ac" class="">Documentation of the tetris language (<em>.tl)</em></p><p id="102c1355-a0ad-4377-9065-6034044a13f4" class="">Copyright(c): 2022 Blockbusters</p><p id="c2c83096-ceff-430a-9954-0ef27a09b4ed" class="">Source: <a href="https://github.com/aryan02420/CS_F363-Compiler-Construction">https://github.com/aryan02420/CS_F363-Compiler-Construction</a></p><p id="56959270-e955-4031-b3cb-38524cdce94e" class="">
+</p><p id="48c72331-fa27-4a40-add1-fa1001ee190c" class="">Note: all statements in <em>.tl</em> must end with a <strong>;</strong></p><h1 id="d9f69d66-a277-49b6-93a2-1143750e8593" class="">1. Variable declaration and assignment:</h1><p id="56462dc2-341d-4414-9bb6-b0a1024b5d64" class="">The programmer can declare different types of variables using the <strong>“var” </strong>keyword without having to explicitly specify the type. Type of the variable is handled by the python back end. The data types that can be assigned to a variable are:</p><ol type="1" id="bca16562-d66f-407d-8915-d4d65d4d16a0" class="numbered-list" start="1"><li>NUMBER (positive and negative integers)</li></ol><ol type="1" id="f07f7d33-5fb7-4a5a-92a2-46647b8e6b55" class="numbered-list" start="2"><li>FLOAT</li></ol><ol type="1" id="68e444f8-8ff3-414f-94cd-4f9af1be5848" class="numbered-list" start="3"><li>STRING</li></ol><ol type="1" id="7205f221-4cfe-463f-af79-dd0df9db50b8" class="numbered-list" start="4"><li>LIST (comma separated expressions enclosed within ‘[]’)</li></ol><ol type="1" id="99b64084-7ed3-4a1f-b0f7-8d8199abef0f" class="numbered-list" start="5"><li>BOOLEAN (True or False)
+</li></ol><p id="722f7a7b-81d3-4847-9beb-e3d3cbb3b60c" class="">Examples:</p><p id="d774decd-f7e5-432a-a61d-83e16fd5ebd3" class=""><strong>Declaration</strong></p><pre id="4d3baad1-b1c8-4ac5-9999-13b6e740f7fb" class="code"><code>var name1 := True;
+var name2 := 42;
+var name3 := &quot;string&quot;;
+var name4 := [ ];</code></pre><p id="f97c7845-a098-4029-95dc-edb53a4dcc00" class=""><strong>Assignment</strong></p><pre id="33dc5234-b1f0-4211-946f-93f617adb26e" class="code"><code>name := value;</code></pre><h1 id="aa8f2e0f-bb95-4483-87f5-4b8e98c24f94" class="">2. Operations:</h1><p id="45fe3f2f-fa55-4369-a269-6c2900bd06b3" class="">The language supports a range of unary and binary operations. Unary operations require a single operand whereas binary operations require two operands. </p><h2 id="b3dc6e60-60f8-4d4a-97b3-6de2706b5968" class="">2a. Binary Operations:</h2><ol type="1" id="ce6a3bae-156e-4eb4-a41b-03a43cd0296b" class="numbered-list" start="1"><li>Addition (+)</li></ol><ol type="1" id="23748df4-a0de-4f8b-a79b-af529fb3f9fb" class="numbered-list" start="2"><li>Subtraction (-)</li></ol><ol type="1" id="a75d8b5f-08f2-4f08-9e52-8c0936cd2496" class="numbered-list" start="3"><li>Multiplication (*)</li></ol><ol type="1" id="0394d46f-d39b-4537-9794-e73daca6a805" class="numbered-list" start="4"><li>Division (/)</li></ol><ol type="1" id="9904143c-162a-49d9-8bc7-78fe452a118a" class="numbered-list" start="5"><li>Modulo (%)</li></ol><ol type="1" id="d36abf6b-d347-4736-ae82-79c751941da3" class="numbered-list" start="6"><li>Less than (&lt;)</li></ol><ol type="1" id="50ae90e3-6edf-4139-99e3-195a21113e99" class="numbered-list" start="7"><li>Less than or equal to (&lt;=)</li></ol><ol type="1" id="6e8a918f-c1d3-47ea-bdd1-f2f25136839d" class="numbered-list" start="8"><li>Greater than (&gt;)</li></ol><ol type="1" id="61174972-0639-483a-9661-a7e170c75420" class="numbered-list" start="9"><li>Greater than or equal to (&gt;=)</li></ol><ol type="1" id="c76c6121-8bcb-4920-9097-26d3c6e17fb2" class="numbered-list" start="10"><li>Equal (==)</li></ol><ol type="1" id="c45a0ffb-204b-434a-8aeb-839ac608e899" class="numbered-list" start="11"><li>Not equal (!=)</li></ol><ol type="1" id="634e620c-9a70-4b2c-ad1d-203739e1309d" class="numbered-list" start="12"><li>Arithmetic Left Shift (&lt;&lt;)</li></ol><ol type="1" id="9edf2d2b-bdee-40cf-83ab-fec49c67f0c3" class="numbered-list" start="13"><li>Arithmetic Right Shift (&gt;&gt;)</li></ol><ol type="1" id="8791ad22-c442-4484-8366-2cfd1133b97b" class="numbered-list" start="14"><li>Bit-wise AND (&amp;)</li></ol><ol type="1" id="9debaddc-ec96-4d04-b0ee-1001ea87a9e4" class="numbered-list" start="15"><li>Bit-wise OR (|)</li></ol><ol type="1" id="e3bc154a-c64d-483c-a8c2-c25afb8aedf1" class="numbered-list" start="16"><li>Bit-wise XOR (^)</li></ol><ol type="1" id="8b9f9f63-0fb3-46d9-9e80-faf22b0f6ac7" class="numbered-list" start="17"><li>Logical AND (and)</li></ol><ol type="1" id="28c45025-e111-4547-8e20-71f92d45f5aa" class="numbered-list" start="18"><li>Logical OR (or)</li></ol><h2 id="948dad3f-9e0d-4f78-89e5-8d598af7fc2d" class="">2b. Unary Operations:</h2><ol type="1" id="e8f1b150-4e24-456f-a66c-0eb1868316e9" class="numbered-list" start="1"><li>Bit-wise negation (~)</li></ol><ol type="1" id="bf725f30-e322-420e-981c-8f7170d096b0" class="numbered-list" start="2"><li>Logical Negation (not)</li></ol><h1 id="9f02c3de-4b5b-4389-95d4-c601c82e816b" class="">3. Function declaration and call:</h1><p id="b9a5361b-fa28-48d2-af1e-f6f74e2e3778" class="">A function is a block of code which only runs when it is called. You can pass data, known as parameters, into a function. A function can return data as a result.</p><p id="72907ab4-86ea-481b-abd1-29ca77087402" class="">The programmer can declare functions using the <strong>“function” </strong>keyword and specify the arguments enclosed by parentheses and separated by comma. The function body is a block of compound statements that are enclosed within the <strong>“begin” </strong>and <strong>“end” </strong>keywords. Sample function declaration and call code is shown below.</p><p id="7e6e2280-5e3f-47cb-9038-0a184c0f160f" class=""><strong>Note: </strong>Function declarations must compulsorily be a the top of the program.</p><p id="a4be0fc5-3e0e-4b1e-a803-fd65ea31e0c6" class=""><strong>Declaration</strong></p><pre id="5639c55f-473e-42be-aaa9-bd11e2eb1a91" class="code"><code>function fname(arg1, arg2) 
+begin
+	&lt;stmt 1&gt;;
+	&lt;stmt 2&gt;;
+	.
+	.
+end</code></pre><p id="e77d917e-2bcb-4ccc-8017-ddc8af31789c" class=""><strong>Call</strong></p><pre id="49713e7a-7415-4975-ae50-99490094446d" class="code"><code>fname(val1, val2);</code></pre><h3 id="b59ce07f-f9f2-4100-8a00-556308acc1ad" class="">Example of declaration</h3><pre id="bc1cd54a-8658-44ff-8dd8-efaffbc09ac2" class="code"><code>function my_function()
+begin
+  print(&quot;Hello from a function&quot;);
+end
+</code></pre><h2 id="10d62de5-7be5-4d9b-9583-405693ff9870" class="">3a. Arguments</h2><p id="85c348b7-f839-4dc5-8cc2-f73d4a3aa324" class="">Information can be passed into functions as arguments. Arguments are specified after the function name, inside the parentheses. You can add as many arguments as you want, just separate them with a comma.</p><p id="4378a839-a7f1-4f23-a396-2cf45455f49d" class="">The following example has a function with one argument (fname). When the function is called, we pass along a first name, which is used inside the function to print the full name:</p><h3 id="3177556f-42b4-402c-b7ec-c2adb499f493" class="">Example</h3><pre id="f71d2855-c0f3-4c33-a3fe-a794b6ed73ff" class="code"><code>function my_function(fname)
+begin
+  print(fname + &quot; Refsnes&quot;);
+end
+my_function(&quot;Emil&quot;);
+my_function(&quot;Tobias&quot;);
+my_function(&quot;Linus&quot;);</code></pre><h3 id="d7748e24-145e-45a6-95ea-6b4afd60449f" class="">3a.1 Parameters or Arguments?</h3><p id="c54d616b-395e-4a56-9a80-18704261bd4c" class="">The terms <em>parameter</em> and <em>argument</em> can be used for the same thing: information that are passed into a function.</p><p id="371affa7-15f1-4f50-a233-a4ead4c75c93" class="">From a function&#x27;s perspective:</p><p id="458fbebe-9a8f-42d3-b185-05908d00fee9" class="">A parameter is the variable listed inside the parentheses in the function definition. </p><p id="61583626-e4a1-476e-a6f0-f72c639dd976" class="">An argument is the value that is sent to the function when it is called.</p><h3 id="0c30088f-0331-42ee-8ac4-ea590f77aa75" class="">3a.2 Number of Arguments</h3><p id="8d3d1532-cb5d-4bf4-b98c-04e7b6df3288" class="">By default, a function must be called with the correct number of arguments. Meaning that if your function expects 2 arguments, you have to call the function with 2 arguments, not more, and not less.</p><h3 id="0c96f3a4-cb6f-4b4e-ab39-e2c43659bad6" class="">Example</h3><p id="a3212bc5-f0e5-4d97-928b-0ce3cc07b055" class="">This function expects 2 arguments, and gets 2 arguments:</p><pre id="622ccae3-7da7-4b0e-addc-6cf745dbef6c" class="code"><code>function my_function(fname, lname)
+begin
+  print(fname + &quot; &quot; + lname);
+end
+my_function(&quot;Emil&quot;);</code></pre><p id="9d0f1a73-f379-46ff-adaf-7811d6667f0f" class="">If you try to call the function with 1 or 3 arguments, you will get an error:</p><h3 id="af317a68-b0ef-498a-bfa9-039cc4a04468" class="">Example</h3><p id="671002a9-8de7-4216-82b7-7c5cca13a66e" class="">This function expects 2 arguments, but gets only 1:</p><pre id="dd970270-de38-4d9e-92ea-fdafb9fe57e8" class="code"><code>function my_function(fname, lname)
+begin
+  print(fname + &quot; &quot; + lname);
+end
+my_function(&quot;Emil&quot;);</code></pre><h1 id="72de4f55-7db2-46f1-885a-7394741841d7" class="">4. Conditional Statements:</h1><p id="9343b29b-352c-4c3c-a495-156a7aeadfa6" class="">Our language provides the flexibility of using conditional statements to the programmers in the following manner using the <strong>“if”</strong>, <strong>“else”</strong> keywords. The condition must be enclosed with parentheses ‘()’ and the code block that must be executed if a condition is satisfied must be mentioned as a block of compound statements mentioned between the<strong> “begin” </strong>and <strong>“end” </strong>keywords.</p><p id="ac84aa46-5cd0-4ab5-b1c3-4db70161817f" class=""><strong>Usage</strong></p><pre id="3f5f21eb-fe6a-49b4-bfdc-8e27e00cdd4a" class="code"><code>if (&lt;expr&gt;) 
+begin
+	&lt;stmt 1&gt;;
+	&lt;stmt 2&gt;;
+	.
+	.
+end
+
+else
+begin
+	&lt;stmt 1&gt;;
+	&lt;stmt 2&gt;;
+	.
+	.
+end</code></pre><h1 id="93d8b349-1f1c-47b2-8a02-ec9672ce42b3" class="">5. Loop Statements:</h1><p id="8a09c8fb-588f-4e80-8b8c-e5ea1b12479c" class="">The programmer can make use of loops for controlling the flow of the code. </p><p id="f00d881f-1a25-44a4-83cf-01b71717e87c" class="">Our language has two primitive loop commands:</p><ul id="69116dce-7d1f-4147-92c4-f6f4ef0e09ea" class="bulleted-list"><li style="list-style-type:disc">while loops</li></ul><ul id="888e49be-916c-4286-8432-b04b1df55f8a" class="bulleted-list"><li style="list-style-type:disc">for loops</li></ul><p id="40a9e2ec-4e4d-4cd4-8c19-6477b6a3fbdb" class="">The loop body must again be mentioned as a block of compound statements mentioned between the<strong> “begin” </strong>and <strong>“end” </strong>keywords.</p><p id="0412aa8d-ae0f-4f16-a308-70e2d7e44bc8" class=""><strong>Usage</strong></p><pre id="4ef796cc-6ff2-4c2a-b719-5d5681ddce69" class="code"><code>while(&lt;expr&gt;) 
+begin
+	&lt;stmt 1&gt;;
+	&lt;stmt 2&gt;;
+	.
+	.
+end
+
+for (i := 0 to 10)
+begin
+	&lt;stmt 1&gt;;
+	&lt;stmt 2&gt;;
+	.
+	.
+end</code></pre><h2 id="c8884ae5-0570-43b6-9ac1-b74116835073" class="">5a. While Loops</h2><h3 id="3a8bcf57-6438-4514-8337-315f913fc4a7" class="">Example</h3><p id="89f0d453-f1fb-4dd8-b06c-0cc177ed668b" class="">Print i as long as i is less than 6:</p><pre id="641c22d0-37cd-4b32-b0c4-212235336c84" class="code"><code>i := 1;
+while (i &lt; 6)
+begin
+  print(i);
+  i := i + 1;
+end</code></pre><p id="39684ec5-5c41-4e7f-990b-f0f56331abab" class=""><strong>Note:</strong> remember to increment i, or else the loop will continue forever.</p><p id="21d9d391-5972-46b8-a5e3-d67ba7359d63" class="">The while loop requires relevant variables to be ready, in this example we need to define an indexing variable, i, which we set to 1.</p><h3 id="295b80e9-37cd-4243-b524-2ead973893f2" class="">5a.1 The break Statement in a while loop</h3><p id="bebe51e8-f046-4b20-a1f3-cf5e980e180f" class="">With the break statement we can stop the loop even if the while condition is true:</p><h3 id="743a70ea-7120-4d3c-ab30-4fb0373dbc8a" class="">Example</h3><p id="4c8ead37-47ac-45cc-bb41-f60c223b9d99" class="">Exit the loop when i is 3:</p><pre id="f5218e1b-1c43-490d-9103-99b4dae93abc" class="code"><code>i := 1;
+while (i &lt; 6)
+begin
+  print(i);
+  if (i == 3)
+	begin
+    break;
+	end
+  i := i + 1;
+end</code></pre><h3 id="7f443ba8-91ba-489e-ba1c-ff7f7c86df89" class="">5a.2 The continue Statement in a while loop</h3><p id="88285706-fe35-42fc-9fba-d569a8ff22bd" class="">With the continue statement we can stop the current iteration, and continue with the next:</p><h3 id="2f43f14e-4fca-492e-9540-9dd1edbda596" class="">Example</h3><p id="fa84ab0b-e0dd-4d60-97e4-53f808a489d5" class="">Continue to the next iteration if i is 3:</p><pre id="c57be594-9ed5-4834-b187-f84bcf055d43" class="code"><code>i := 0;
+while (i &lt; 6)
+begin
+  i := i + 1;
+  if (i == 3)
+	begin
+    continue;
+	end
+  print(i);
+end</code></pre><h2 id="d65135bc-d960-40f0-930f-4d7c971e86c0" class="">5b. For Loops</h2><p id="d85f4fd8-9754-482c-ad7c-aff4bd12ebb7" class="">A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).</p><p id="3f4f45fb-9686-412c-b006-6401a3f9c410" class="">This is less like the for keyword in other programming languages, and works more like an iterator method as found in other object-orientated programming languages.</p><p id="cca9ddd6-820d-4061-b6a3-a8fe81a33aa1" class="">With the for loop we can execute a set of statements, once for each item in a list, tuple, set etc.</p><h3 id="95a23d76-397f-4eca-b16d-34cf0e0b07b7" class="">Example</h3><p id="52c0eca5-325a-4f13-82d7-9d116cf93ffa" class="">Print each fruit in a fruit list:</p><pre id="4e7fe14f-6463-41aa-9dd3-384f70e19b4c" class="code"><code>fruits := [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+for (var x := 0 to len(fruits))
+begin
+  print(fruits[x]);
+end</code></pre><p id="970893fd-bb78-4878-9706-2e48a9be2e40" class="">The for loop does not require an indexing variable to set beforehand.</p><h3 id="08a2ed01-fa02-4bc6-b95f-86ce75ab524f" class="">5b.1 The break Statement in for loops</h3><p id="d0798918-acd9-4f39-b4ca-ba5ea18d945a" class="">With the break statement we can stop the loop before it has looped through all the items:</p><h3 id="179120a0-34a0-47ff-9fdd-d8729c82fb24" class="">Example</h3><p id="e51846c6-1560-46a9-8844-6170f24f4175" class="">Exit the loop when <code>x</code> is &quot;banana&quot;:</p><pre id="7b398bef-327b-48aa-a9be-6019b59f6300" class="code"><code>fruits := [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+for (var x := 0 to len(fruits))
+begin
+  print(x);
+  if (fruits[x] == &quot;banana&quot;)
+	begin
+    break;
+	end
+end</code></pre><h3 id="38ddb5de-ac2a-4d9a-9718-199e50f05bcc" class="">5b.2 The continue Statement in for loops</h3><p id="b1b918b3-d19c-4739-b9da-5b7168c02611" class="">With the continue statement we can stop the current iteration of the loop, and continue with the next:</p><h3 id="66563ca8-3232-44d1-bdef-d733dde6dd53" class="">Example</h3><p id="bc74d7ef-5daa-4e8e-bbd8-2120c8f55c61" class="">Do not print banana:</p><pre id="b9f8ac0d-efd6-4a26-8564-4f994fb35b37" class="code"><code>fruits := [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+for (var x := 0 to len(fruits))
+begin
+  if (x == &quot;banana&quot;)
+	begin
+    continue;
+	end
+  print(x);</code></pre><h3 id="fe7f89c6-930a-412a-8151-9d39812aeafb" class="">5c. Nested Loops</h3><p id="012bc818-eb1c-453a-b8d9-931928a49b30" class="">A nested loop is a loop inside a loop.</p><p id="5a8af4c2-c98f-46da-b917-5da8ea61b202" class="">The &quot;inner loop&quot; will be executed one time for each iteration of the &quot;outer loop&quot;:</p><h3 id="23da92d4-3322-4d81-82e6-b75e46318b65" class="">Example</h3><p id="912c7b58-59e4-4ec3-a2e4-5879520e4e94" class="">Print each adjective for every fruit:</p><pre id="8fb90aaa-c964-4036-ac78-a7064ed10c37" class="code"><code>adj := [&quot;red&quot;, &quot;big&quot;, &quot;tasty&quot;];
+fruits := [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+
+for (var x := 0 to len(adj))
+begin
+  for (var y := 0 to len(fruits))
+	begin
+    print(adj[x], fruits[y]);
+	end
+end</code></pre><h1 id="fcdda4da-fc47-405d-9ea7-33ecb6fc1c64" class="">6. Built-in engine functions</h1><p id="569d651a-c0e5-4b1b-9df8-ce2114496dd7" class="">For a hassle free programming experience, we have given the user certain built-in functions that can help make the process of making a tetris game very smooth. These functions are imported from the Tetris Engine. All documentation regarding the same can be found <a href="https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/engine.html">here</a>.
+
+Engine documentation: <a href="https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/engine.html">https://aryan02420.github.io/CS_F363-Compiler-Construction/tetrislang/docs/engine.html</a></p><p id="50abbef4-81f4-4994-a224-b30304e5b78f" class="">
+</p></div></article></body></html>
