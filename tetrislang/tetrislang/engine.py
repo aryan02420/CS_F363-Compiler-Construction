@@ -83,6 +83,7 @@ class TetrisEngine(object):
     __pdoc__['TetrisEngine.shapes'] = False
     __pdoc__['TetrisEngine.shape_colors'] = False
     __pdoc__['TetrisEngine.Dict'] = False
+    __pdoc__['TetrisEngine.arrow'] = False
 
     ## CLASS FUNCTIONS
     __pdoc__['TetrisEngine.create_grid'] = False
