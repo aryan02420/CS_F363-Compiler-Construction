@@ -41,7 +41,7 @@ tetrislang/
 ```
 The above tree shows the overall structure of the tetrislang package.
 1. [**scanner.py**](tetrislang/tetrislang/scanner.py) contains the scanner code. It is present in "tetrislang/" inside the package.
-2. [**grammar.txt**]() contains the BNF grammar that was used to create the parser. Here is a link to the file.
+2. [**grammar.txt**](Assignment/misc/new_grammar.txt) contains the BNF grammar that was used to create the parser. Here is a link to the file.
 3. [**parser.py**](tetrislang/tetrislang/parser.py) contains the parser code. It is present in "tetrislang/" inside the package.
 4. [**compiler.py**](tetrislang/tetrislang/compiler.py) contains the final code that combines the scanner and parser. It is present in "tetrislang/" inside the package.
 5. [**engine.py**](tetrislang/tetrislang/engine.py) contains the python framework for the Tetris game. It is present in "tetrislang/" inside the package.
