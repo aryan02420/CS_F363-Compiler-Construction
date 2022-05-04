@@ -1,4 +1,4 @@
-initialize_window(18, 10);
+initialize_window(18, 10)
 var temp_block := [
     [['.....',
     '..0..',
@@ -7,17 +7,17 @@ var temp_block := [
     '.....']],[255,255,255], 'x'];
 
 create_block(temp_block);
-show_next_piece(True);
+show_next_piece(True)
 show_highscore(True);
 increase_fall_speed(True);
-var speed_list := [0.55, 0.35, 0.15];
+var speed_list := [0.55, 0.35, 0.15]
 set_level_fallspeed(speed_list);
 set_window_caption("Tetris by BlockBusters");
-enable_hard_drop(True);
+enable_hard_drop(True)
 enable_shadow(True);
 
 var play_again := True;
-var level := 0;
+var level := 0
 
 
 while (play_again)
@@ -25,7 +25,7 @@ begin
     level := main_menu();
     set_level(level);
 
-    var run := True;
+    var run := True
     var restart := False;
     var score := 0;
 
@@ -35,7 +35,7 @@ begin
     while (run)
     begin
         update_locked_grid();
-        update_clock();
+        update_clock()
         shift_piece();
         
         if (take_user_input())
@@ -43,7 +43,7 @@ begin
             restart := paused();
             if (restart)
             begin
-                break;
+                break
             end
         end
         
@@ -60,7 +60,7 @@ begin
 
         if (check_lost())
         begin
-            run := False;
+            run := False
         end
     end
     if(restart)

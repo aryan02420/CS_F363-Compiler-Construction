@@ -13,7 +13,7 @@ def TetrisCompiler(code, debug=False):
     code = re.sub(r'^(#![^\r\n]+)', r'// \1', code)
 
     header = \
-'''#!/usr/bin/env python
+'''#!/usr/bin/env python3
 
 import sys
 from tetrislang import TetrisEngine
@@ -29,7 +29,11 @@ if __name__ == '__main__':
     Game()
 '''
 
-    generated = parser.parse(lexer.tokenize(code))
+    flag, generated = parser.parse(lexer.tokenize(code))
+
+    if flag == True:
+        raise Exception("Above Syntax Errors were encountered while parsing the input!")
+    
     output = '\n'.join([header, generated, footer])
 
     if (debug):
